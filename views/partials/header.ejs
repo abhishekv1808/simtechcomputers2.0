@@ -1,0 +1,107 @@
+<header class="sticky top-0 z-50 w-full">
+
+    <div class="bg-gray-900 text-gray-300 text-xs py-2 hidden md:block">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center cursor-pointer hover:text-white">
+                    <span>English</span>
+                    <i class="ri-arrow-down-s-line ml-1"></i>
+                </div>
+                <div class="flex items-center cursor-pointer hover:text-white">
+                    <span>INR</span>
+                    <i class="ri-arrow-down-s-line ml-1"></i>
+                </div>
+                <span class="text-gray-400">Free Shipping On All Orders Over $100</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hover:text-white flex items-center"><i class="ri-flashlight-fill mr-1 text-yellow-400"></i> Flash Sale</a>
+                <a href="#" class="hover:text-white">Track Order</a>
+                <a href="/about-us" class="hover:text-white">About</a>
+                <a href="/contact-us" class="hover:text-white">Contact</a>
+                <a href="#" class="hover:text-white">Blog</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="bg-[#0071dc] py-1">
+        <div class="container mx-auto px-4 flex justify-between items-center max-w-7xl mx-auto">
+            
+            <!-- Mobile Menu Triggers (Hidden on Desktop) -->
+            <div class="md:hidden flex items-center">
+                <button class="text-white text-2xl mr-4"><i class="ri-menu-line"></i></button>
+                <a href="/" class="text-white text-xl font-bold flex items-center gap-2">
+                <i class="ri-shopping-bag-3-fill"></i>
+                <span>Simtech</span>
+                </a>
+            </div>
+
+            <!-- Logo (Left Desktop) -->
+            <div class="hidden md:block mr-8">
+                <a href="/" class="text-white text-2xl font-bold flex flex-col items-center leading-none group">
+                    <div class="bg-white text-[#0071dc] p-2 rounded-lg mb-1 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="ri-shopping-bag-3-fill text-3xl"></i>
+                    </div>
+                    <span class="text-sm tracking-wide">SIMTECH</span>
+                </a>
+            </div>
+
+            <!-- Search Bar (Center Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md overflow-hidden mr-8 mx-auto">
+                <div class="px-4 py-2 border-r border-gray-200 flex items-center cursor-pointer min-w-[140px] justify-between text-gray-600 bg-gray-50">
+                    <span>All Categories</span>
+                    <i class="ri-arrow-down-s-line"></i>
+                </div>
+                <input type="text" placeholder="Search For Products..." class="flex-1 px-4 py-2 outline-gray-200 text-gray-700">
+                <button class="bg-blue-600 text-white px-6 hover:bg-blue-700 transition-colors">
+                    <i class="ri-search-line text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-6 text-white">
+                <div class="hidden md:block text-right text-sm">
+                    <div class="text-blue-200 text-xs">Helpline</div>
+                    <div class="font-semibold">+01 123 456 789</div>
+                </div>
+                <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
+                    <i class="ri-heart-line"></i>
+                </div>
+                <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
+                    <i class="ri-shopping-cart-2-line"></i>
+                    <span class="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">03</span>
+                </div>
+                <div class="text-2xl cursor-pointer hover:text-blue-100">
+                    <i class="ri-user-line"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Search (Visible on Mobile) -->
+        <div class="md:hidden container mx-auto px-4 mt-4">
+            <div class="flex bg-white rounded-md overflow-hidden">
+                <input type="text" placeholder="Search..." class="flex-1 px-4 py-2 outline-none text-gray-700">
+                <button class="bg-blue-700 text-white px-4">
+                    <i class="ri-search-line"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="bg-white border-b border-gray-100 shadow-sm hidden md:block">
+        <div class="container mx-auto px-4 max-w-7xl mx-auto">
+            <ul class="flex items-center justify-center space-x-10 py-4 overflow-x-auto text-gray-700 font-medium text-sm scrollbar-hide">
+                <li class="whitespace-nowrap"><a href="/desktops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-computer-line text-lg text-blue-500"></i> Desktop</a></li>
+                <li class="whitespace-nowrap"><a href="/laptops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-macbook-line text-lg text-indigo-500"></i> Laptop</a></li>
+                <li class="whitespace-nowrap"><a href="/monitors" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-tv-2-line text-lg text-purple-500"></i> Monitor</a></li>
+                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-apps-line text-lg text-green-500"></i> Software</a></li>
+                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-line text-lg text-orange-500"></i> Gadget</a></li>
+                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-fill text-lg text-red-500"></i> Gaming</a></li>
+                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-headphone-line text-lg text-teal-500"></i> Accessories</a></li>
+            </ul>
+        </div>
+    </div>
+
+</header>
+<!-- Top Bar -->

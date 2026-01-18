@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <%- include('../partials/header') %>
+
+    <main class="flex-grow pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Breadcrumb -->
+            <nav class="flex mb-8 text-sm text-gray-500">
+                <a href="/" class="hover:text-[#0071dc]">Home</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-900 font-medium">Desktops</span>
+            </nav>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Sidebar Filters -->
+                <aside class="lg:w-1/4 flex-shrink-0">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-bold text-gray-900">Filters</h2>
+                            <button class="text-sm text-[#0071dc] hover:underline">Clear All</button>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="mb-6 border-b border-gray-100 pb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">Price</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Under ₹25,000</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">₹25,000 - ₹50,000</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">₹50,000 - ₹80,000</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Above ₹80,000</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Brand -->
+                        <div class="mb-6 border-b border-gray-100 pb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">Brand</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentBrand === 'Apple' ? 'checked' : '' %>>
+                                    <span class="text-sm text-gray-600">Apple</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentBrand === 'Dell' ? 'checked' : '' %>>
+                                    <span class="text-sm text-gray-600">Dell</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentBrand === 'HP' ? 'checked' : '' %>>
+                                    <span class="text-sm text-gray-600">HP</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentBrand === 'Lenovo' ? 'checked' : '' %>>
+                                    <span class="text-sm text-gray-600">Lenovo</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Form Factor -->
+                        <div class="mb-6 border-b border-gray-100 pb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">Form Factor</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">All-in-One (AIO)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Tower Desktop</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Mini PC</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Processor -->
+                        <div class="mb-6 border-b border-gray-100 pb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">Processor</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Intel Core i5</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Intel Core i7</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">Apple M1/M2</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">AMD Ryzen</span>
+                                </label>
+                            </div>
+                        </div>
+
+                         <!-- RAM -->
+                         <div class="mb-6 border-b border-gray-100 pb-6">
+                            <h3 class="font-semibold text-gray-900 mb-3">RAM</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">8GB</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">16GB</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100">
+                                    <span class="text-sm text-gray-600">32GB+</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+                <!-- Product Grid -->
+                <div class="lg:w-3/4">
+                    
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-900"><%= currentBrand !== 'All' ? 'Used ' + currentBrand + ' Desktops' : 'All Desktops' %> <span class="text-gray-500 text-lg font-normal ml-2">(<%= products.length %> items)</span></h1>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600">Sort by:</span>
+                            <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#0071dc]">
+                                <option>Featured</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Newest Arrivals</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <% products.forEach(product => { %>
+                        <a href="/product/<%= product.id %>" class="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
+                                     <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
+                                </div>
+                                <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
+                                    -<%= product.discount %>%
+                                </div>
+                            </div>
+                            <div class="h-48 flex items-center justify-center mb-4 relative">
+                                <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
+                                <div class="flex items-center gap-1 border border-gray-200 px-1.5 py-0.5 rounded textxs font-bold text-gray-700 bg-gray-50">
+                                    <%= product.rating %> <i class="ri-star-fill text-yellow-400 text-[10px]"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-baseline gap-2 flex-wrap">
+                                <span class="text-xl font-bold text-gray-900">₹<%= product.price.toLocaleString('en-IN') %></span>
+                                <span class="text-gray-400 text-xs line-through">₹<%= product.mrp.toLocaleString('en-IN') %></span>
+                            </div>
+                             <button class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md z-20">
+                                <i class="ri-shopping-cart-2-line"></i>
+                            </button>
+                        </a>
+                        <% }); %>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <nav class="flex gap-2">
+                             <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center bg-[#0071dc] text-white font-bold">1</a>
+                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">2</a>
+                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">3</a>
+                            <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
+                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </a>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            <!-- You May Also Like Section -->
+            <div class="mt-20">
+                <div class="flex justify-between items-end mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">You May Also Like</h2>
+                    <a href="#" class="text-[#0071dc] font-semibold hover:underline flex items-center gap-1 text-sm">
+                        View All <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <% products.slice(0, 4).reverse().forEach(product => { %>
+                    <div class="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
+                                    <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
+                            </div>
+                            <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
+                                -<%= product.discount %>%
+                            </div>
+                        </div>
+                        <div class="h-48 flex items-center justify-center mb-4 relative">
+                            <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
+                            <div class="flex items-center gap-1 border border-gray-200 px-1.5 py-0.5 rounded textxs font-bold text-gray-700 bg-gray-50">
+                                <%= product.rating %> <i class="ri-star-fill text-yellow-400 text-[10px]"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-2 flex-wrap">
+                            <span class="text-xl font-bold text-gray-900">₹<%= product.price.toLocaleString('en-IN') %></span>
+                            <span class="text-gray-400 text-xs line-through">₹<%= product.mrp.toLocaleString('en-IN') %></span>
+                        </div>
+                            <button class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md">
+                            <i class="ri-shopping-cart-2-line"></i>
+                        </button>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
