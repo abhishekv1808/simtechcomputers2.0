@@ -3,12 +3,29 @@
 @theme {
     --font-heading: 'Outfit', sans-serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --color-admin-bg: #0b0c15;
+    --color-admin-card: #15161e;
+    --color-admin-text: #9ca3af;
+    --color-accent-purple: #7e3af2;
 }
 
 @layer base {
+    :root {
+        /* Light Theme Defaults (Forced) */
+        --admin-bg: #f3f4f6;
+        --admin-card: #ffffff;
+        --admin-text-main: #111827;
+        --admin-text-muted: #6b7280;
+        --admin-border: #e5e7eb;
+        --admin-hover: #f9fafb;
+    }
+
     body {
         font-family: var(--font-sans);
+        background-color: var(--admin-bg);
+        color: var(--admin-text-main);
     }
+
 
     h1,
     h2,

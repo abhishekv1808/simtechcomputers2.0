@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-purple-500 selection:text-white transition-colors duration-300">
+
+    <%- include('./includes/navigation') %>
+
+    <main class="flex-grow h-screen overflow-y-auto w-full relative">
+         <!-- Header -->
+        <header class="bg-[var(--admin-bg)]/95 backdrop-blur-sm h-16 flex items-center justify-between px-8 sticky top-0 z-20 transition-colors duration-300">
+            <h2 class="text-xl font-bold text-[var(--admin-text-main)]">Edit Monitor</h2>
+            <a href="/admin/products" class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] flex items-center gap-2 text-sm font-bold transition-colors">
+                <i class="ri-arrow-left-line"></i> Back to Inventory
+            </a>
+        </header>
+
+        <div class="p-8 max-w-5xl mx-auto">
+            
+            <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] shadow-lg p-8">
+                <!-- Enctype multipart/form-data for image upload -->
+                <form action="/admin/edit-product" method="POST" enctype="multipart/form-data" class="space-y-8" id="editMonitorForm">
+                    
+                    <% if (errorMessage) { %>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <span class="block sm:inline"><%= errorMessage %></span>
+                        </div>
+                    <% } %>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Row 1: Brand & Model Name -->
+                        <!-- Brand -->
+                        <div>
+                            <label for="brand" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Brand</label>
+                             <select name="brand" id="brand" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                                <option value="" disabled selected>Select Brand</option>
+                                <option value="Dell" <%= oldInput.brand === 'Dell' ? 'selected' : '' %>>Dell</option>
+                                <option value="LG" <%= oldInput.brand === 'LG' ? 'selected' : '' %>>LG</option>
+                                <option value="Samsung" <%= oldInput.brand === 'Samsung' ? 'selected' : '' %>>Samsung</option>
+                                <option value="BenQ" <%= oldInput.brand === 'BenQ' ? 'selected' : '' %>>BenQ</option>
+                                <option value="Acer" <%= oldInput.brand === 'Acer' ? 'selected' : '' %>>Acer</option>
+                                <option value="HP" <%= oldInput.brand === 'HP' ? 'selected' : '' %>>HP</option>
+                            </select>
+                        </div>
+
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Monitor Name</label>
+                            <input type="text" name="name" id="name" value="<%= oldInput.name %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors placeholder-gray-400" placeholder="e.g. Dell UltraSharp 24 inch" required>
+                        </div>
+
+
+                        <!-- Row 2: MRP & Selling Price -->
+                         <!-- MRP -->
+                        <div>
+                            <label for="mrp" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">MRP (₹)</label>
+                            <input type="number" name="mrp" id="mrp" value="<%= oldInput.mrp %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                        </div>
+
+                         <!-- Price -->
+                         <div>
+                            <label for="price" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Selling Price (₹)</label>
+                            <input type="number" name="price" id="price" value="<%= oldInput.price %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                        </div>
+
+
+                        <!-- Row 3: Discount & Quantity -->
+                        <!-- Discount -->
+                        <div>
+                            <label for="discount" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Discount (%)</label>
+                            <input type="number" name="discount" id="discount" value="<%= oldInput.discount %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                        </div>
+
+                         <!-- Quantity -->
+                         <div>
+                            <label for="quantity" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Stock Quantity</label>
+                            <input type="number" name="quantity" id="quantity" value="<%= oldInput.quantity %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                        </div>
+
+                        <!-- Hidden Fields -->
+                        <input type="hidden" name="category" value="monitor">
+                        <input type="hidden" name="productId" value="<%= product._id %>">
+
+                        <div class="col-span-full border-t border-[var(--admin-border)] my-2"></div>
+                        <h3 class="col-span-full text-lg font-bold text-[var(--admin-text-main)]">Specifications</h3>
+
+                        <!-- Screen Size -->
+                        <div>
+                            <label for="screenSize" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Screen Size</label>
+                             <select name="screenSize" id="screenSize" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                                <option value="21.5 inch" <%= oldInput.screenSize === '21.5 inch' ? 'selected' : '' %>>21.5 inch</option>
+                                <option value="24 inch" <%= oldInput.screenSize === '24 inch' ? 'selected' : '' %>>24 inch</option>
+                                <option value="27 inch" <%= oldInput.screenSize === '27 inch' ? 'selected' : '' %>>27 inch</option>
+                                <option value="32 inch" <%= oldInput.screenSize === '32 inch' ? 'selected' : '' %>>32 inch</option>
+                            </select>
+                        </div>
+
+                         <!-- Panel Type -->
+                         <div>
+                            <label for="panelType" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Panel Type</label>
+                            <select name="panelType" id="panelType" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                                <option value="IPS" <%= oldInput.panelType === 'IPS' ? 'selected' : '' %>>IPS</option>
+                                <option value="TN" <%= oldInput.panelType === 'TN' ? 'selected' : '' %>>TN</option>
+                                <option value="VA" <%= oldInput.panelType === 'VA' ? 'selected' : '' %>>VA</option>
+                                <option value="OLED" <%= oldInput.panelType === 'OLED' ? 'selected' : '' %>>OLED</option>
+                            </select>
+                        </div>
+
+                        <!-- Refresh Rate -->
+                        <div>
+                             <label for="refreshRate" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Refresh Rate</label>
+                            <select name="refreshRate" id="refreshRate" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                                <option value="60Hz" <%= oldInput.refreshRate === '60Hz' ? 'selected' : '' %>>60Hz</option>
+                                <option value="75Hz" <%= oldInput.refreshRate === '75Hz' ? 'selected' : '' %>>75Hz</option>
+                                <option value="144Hz" <%= oldInput.refreshRate === '144Hz' ? 'selected' : '' %>>144Hz</option>
+                                <option value="165Hz" <%= oldInput.refreshRate === '165Hz' ? 'selected' : '' %>>165Hz</option>
+                                <option value="240Hz" <%= oldInput.refreshRate === '240Hz' ? 'selected' : '' %>>240Hz</option>
+                            </select>
+                        </div>
+
+                         <!-- Resolution (Display) -->
+                         <div>
+                             <label for="display" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Resolution</label>
+                            <select name="display" id="display" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                                <option value="Full HD (1920x1080)" <%= oldInput.display === 'Full HD (1920x1080)' ? 'selected' : '' %>>Full HD (1920x1080)</option>
+                                <option value="2K QHD (2560x1440)" <%= oldInput.display === '2K QHD (2560x1440)' ? 'selected' : '' %>>2K QHD (2560x1440)</option>
+                                <option value="4K UHD (3840x2160)" <%= oldInput.display === '4K UHD (3840x2160)' ? 'selected' : '' %>>4K UHD (3840x2160)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-span-full border-t border-[var(--admin-border)] my-4"></div>
+                        <h3 class="col-span-full text-lg font-bold text-[var(--admin-text-main)]">Product Images</h3>
+
+                        <!-- Existing Image -->
+                         <% if (oldInput.image) { %>
+                            <div class="col-span-full mb-4">
+                                <label class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Current Image</label>
+                                <div class="w-32 h-32 rounded-lg overflow-hidden border border-[var(--admin-border)]">
+                                    <img src="<%= oldInput.image %>" alt="Current Product Image" class="w-full h-full object-cover">
+                                </div>
+                                <input type="hidden" name="oldImage" value="<%= oldInput.image %>">
+                            </div>
+                        <% } %>
+
+                        <!-- Drag & Drop Zone -->
+                        <div class="col-span-full">
+                            <label class="block text-sm font-bold text-[var(--admin-text-muted)] mb-4">Upload New Images (Optional)</label>
+                            
+                            <div id="drop-zone" class="w-full h-64 border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                <input type="file" name="image" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*" multiple>
+                                
+                                <div class="text-center transition-transform group-hover:scale-105 z-10 pointer-events-none">
+                                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <i class="ri-upload-cloud-2-line text-3xl"></i>
+                                    </div>
+                                    <p class="text-[var(--admin-text-main)] font-bold text-lg">Click to update or drag and drop</p>
+                                    <p class="text-[var(--admin-text-muted)] text-sm mt-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                                </div>
+                            </div>
+
+                            <!-- Preview Area -->
+                            <div id="preview-area" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 empty:hidden">
+                                <!-- Thumbnails will be injected here via JS -->
+                            </div>
+                        </div>
+
+                         <!-- Description -->
+                         <div class="col-span-full">
+                            <label for="description" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Description</label>
+                            <textarea name="description" id="description" rows="5" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors"><%= oldInput.description %></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="pt-6 border-t border-[var(--admin-border)] flex justify-end gap-4">
+                        <a href="/admin/products" class="px-6 py-3 rounded-lg border border-[var(--admin-border)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] hover:bg-[var(--admin-hover)] font-bold transition-all">Cancel</a>
+                        <button type="submit" class="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-900/50 transition-all">
+                            Update Monitor
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewArea = document.getElementById('preview-area');
+
+        // Drag & Drop visual effects
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+            }, false);
+        });
+
+        // Handle File Selection
+        const handleFiles = (files) => {
+            previewArea.innerHTML = ''; 
+            
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'relative group rounded-lg overflow-hidden border border-[var(--admin-border)] aspect-square';
+                    
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                             <span class="text-xs font-medium">${(file.size / 1024).toFixed(1)} KB</span>
+                        </div>
+                         <button type="button" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600" onclick="this.parentElement.remove()">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    `;
+                    previewArea.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        };
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files; 
+            handleFiles(files);
+        });
+    </script>
+</body>
+</html>

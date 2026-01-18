@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <%- include('../partials/head') %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-purple-500 selection:text-white transition-colors duration-300">
+
+    <%- include('./includes/navigation') %>
+
+    <main class="flex-grow h-screen overflow-y-auto w-full relative">
+        
+        <!-- Header / Top Bar -->
+        <header class="flex items-center justify-between px-8 py-6 sticky top-0 z-20 bg-[var(--admin-bg)]/95 backdrop-blur-sm transition-colors duration-300">
+            
+            <!-- Search -->
+            <div class="relative w-96">
+                <i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-[var(--admin-text-muted)]"></i>
+                <input type="text" placeholder="Search something..." class="w-full bg-[var(--admin-card)] border border-[var(--admin-border)] text-sm text-[var(--admin-text-main)] rounded-xl pl-12 pr-20 py-3 focus:outline-none focus:border-purple-500 transition-colors">
+                <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--admin-hover)] hover:bg-gray-200 text-[var(--admin-text-muted)] text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">Search</button>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                 <div class="flex items-center gap-2 bg-[var(--admin-card)] border border-[var(--admin-border)] rounded-full px-2 py-1">
+                    <button class="w-8 h-8 rounded-full hover:bg-[var(--admin-hover)] flex items-center justify-center text-[var(--admin-text-muted)] transition-colors"><i class="ri-notification-3-line"></i></button>
+                    <button class="w-8 h-8 rounded-full hover:bg-[var(--admin-hover)] flex items-center justify-center text-[var(--admin-text-muted)] transition-colors"><i class="ri-chat-3-line"></i></button>
+                    <button class="w-8 h-8 rounded-full hover:bg-[var(--admin-hover)] flex items-center justify-center text-[var(--admin-text-muted)] transition-colors"><i class="ri-settings-4-line"></i></button>
+                 </div>
+            </div>
+        </header>
+
+        <div class="px-8 pb-8">
+            
+            <!-- Dashboard Title Row -->
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+                <div>
+                     <h1 class="text-3xl font-bold text-[var(--admin-text-main)] mb-2">Dashboard</h1>
+                     <p class="text-[var(--admin-text-muted)] text-sm">Here is today's report and performances</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                     <button class="bg-[var(--admin-card)] border border-[var(--admin-border)] text-[var(--admin-text-muted)] px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[var(--admin-hover)] transition-colors">
+                        <i class="ri-calendar-line"></i> Jun 1 - Jun 30
+                     </button>
+                     
+                     <a href="/admin/add-laptop" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-purple-900/50 transition-all">
+                        <i class="ri-macbook-line"></i> Add Laptop
+                     </a>
+                     <a href="/admin/add-monitor" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all">
+                        <i class="ri-tv-line"></i> Add Monitor
+                     </a>
+                     <a href="/admin/add-desktop" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-green-900/50 transition-all">
+                        <i class="ri-computer-line"></i> Add Desktop
+                     </a>
+                </div>
+            </div>
+
+            <!-- Stats Cards Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                
+                <!-- Card 1: Total Inventory -->
+                <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] relative group overflow-hidden shadow-sm">
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <h3 class="text-[var(--admin-text-muted)] text-sm font-medium">Total Inventory</h3>
+                        <button class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-more-fill"></i></button>
+                    </div>
+                    <div class="text-3xl font-bold text-[var(--admin-text-main)] mb-2 relative z-10"><%= totalProducts %> <span class="text-sm font-normal text-[var(--admin-text-muted)]">Items</span></div>
+                    <div class="flex items-center gap-2 text-xs text-green-500 relative z-10">
+                        <i class="ri-arrow-right-up-line"></i>
+                        <span>+12% from last month</span>
+                    </div>
+                     <!-- Glow Effect (Dark Mode Only usually, but subtle in light) -->
+                     <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all"></div>
+                </div>
+
+                <!-- Card 2: Out of Stock -->
+                <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] relative group overflow-hidden shadow-sm">
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <h3 class="text-[var(--admin-text-muted)] text-sm font-medium">Out of Stock</h3>
+                        <button class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-more-fill"></i></button>
+                    </div>
+                    <div class="text-3xl font-bold text-[var(--admin-text-main)] mb-2 relative z-10"><%= outputOfStock %> <span class="text-sm font-normal text-[var(--admin-text-muted)]">Items</span></div>
+                    <div class="flex items-center gap-2 text-xs text-red-500 relative z-10">
+                        <i class="ri-arrow-right-down-line"></i>
+                        <span>Needs Attention</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Categories -->
+                <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] relative group overflow-hidden shadow-sm">
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <h3 class="text-[var(--admin-text-muted)] text-sm font-medium">Active Categories</h3>
+                        <button class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-more-fill"></i></button>
+                    </div>
+                    <div class="text-3xl font-bold text-[var(--admin-text-main)] mb-2 relative z-10">4 <span class="text-sm font-normal text-[var(--admin-text-muted)]">Types</span></div>
+                    <div class="flex items-center gap-2 text-xs text-[var(--admin-text-muted)] relative z-10">
+                        <span>Laptop, Desktop, Monitor...</span>
+                    </div>
+                </div>
+
+                 <!-- Card 4: Total Value -->
+                 <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] relative group overflow-hidden shadow-sm">
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <h3 class="text-[var(--admin-text-muted)] text-sm font-medium">Inventory Value</h3>
+                        <button class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-more-fill"></i></button>
+                    </div>
+                    <div class="text-3xl font-bold text-[var(--admin-text-main)] mb-2 relative z-10">₹8.4L</div>
+                    <div class="flex items-center gap-2 text-xs text-green-500 relative z-10">
+                        <i class="ri-arrow-right-up-line"></i>
+                        <span>+5% from last quarter</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                
+                <!-- Bar Chart: Inventory Distribution -->
+                <div class="lg:col-span-2 bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-[var(--admin-text-main)]">Stock Performance</h3>
+                        <button class="bg-[var(--admin-hover)] text-[var(--admin-text-muted)] border border-[var(--admin-border)] px-3 py-1 rounded text-xs flex items-center gap-2">
+                            Weekly <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                    </div>
+                    <div class="h-64">
+                         <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Donut Chart: Category Split -->
+                <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] shadow-sm">
+                     <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-[var(--admin-text-main)]">Category Split</h3>
+                        <button class="text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-calendar-line"></i></button>
+                    </div>
+                    <div class="relative h-48 mb-4">
+                        <canvas id="donutChart"></canvas>
+                        <!-- Center Text for Donut -->
+                         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                            <span class="text-2xl font-bold text-[var(--admin-text-main)]"><%= totalProducts %></span>
+                            <span class="text-xs text-[var(--admin-text-muted)]">Total Items</span>
+                         </div>
+                    </div>
+                    <button class="w-full py-3 rounded-xl border border-[var(--admin-border)] text-[var(--admin-text-muted)] text-sm font-medium hover:bg-[var(--admin-hover)] transition-colors">
+                        View Full Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Items Table -->
+            <div class="bg-[var(--admin-card)] rounded-2xl p-6 border border-[var(--admin-border)] shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                     <h3 class="text-lg font-bold text-[var(--admin-text-main)]">Recent Inventory</h3>
+                     <button class="bg-[var(--admin-hover)] text-[var(--admin-text-muted)] border border-[var(--admin-border)] px-3 py-1 rounded text-xs flex items-center gap-2">
+                        All Items <i class="ri-arrow-down-s-line"></i>
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-[var(--admin-text-muted)] text-xs uppercase border-b border-[var(--admin-border)]">
+                                <th class="pb-4 font-medium pl-4">Product ID</th>
+                                <th class="pb-4 font-medium">Product Name</th>
+                                <th class="pb-4 font-medium">Category</th>
+                                <th class="pb-4 font-medium">Price</th>
+                                <th class="pb-4 font-medium">Status</th>
+                                <th class="pb-4 font-medium">Stock</th>
+                                <th class="pb-4 font-medium text-right pr-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-[var(--admin-border)] hover:bg-[var(--admin-hover)] transition-colors group">
+                                <td class="py-4 pl-4 text-[var(--admin-text-muted)]">#LAP-001</td>
+                                <td class="py-4 text-[var(--admin-text-main)] font-medium flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs">M1</div>
+                                    MacBook Air M1
+                                </td>
+                                <td class="py-4 text-[var(--admin-text-muted)]">Laptop</td>
+                                <td class="py-4 text-[var(--admin-text-muted)]">₹45,000</td>
+                                <td class="py-4"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Active</div></td>
+                                <td class="py-4 text-[var(--admin-text-main)]">45%</td>
+                                <td class="py-4 text-right pr-4 text-[var(--admin-text-muted)] group-hover:text-[var(--admin-text-main)] cursor-pointer"><i class="ri-more-fill"></i></td>
+                            </tr>
+                             <tr class="border-b border-[var(--admin-border)] hover:bg-[var(--admin-hover)] transition-colors group">
+                                <td class="py-4 pl-4 text-[var(--admin-text-muted)]">#MON-204</td>
+                                <td class="py-4 text-[var(--admin-text-main)] font-medium flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs">LG</div>
+                                    LG UltraGear 27"
+                                </td>
+                                <td class="py-4 text-[var(--admin-text-muted)]">Monitor</td>
+                                <td class="py-4 text-[var(--admin-text-muted)]">₹23,000</td>
+                                <td class="py-4"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-purple-500"></div> New</div></td>
+                                <td class="py-4 text-[var(--admin-text-main)]">88%</td>
+                                <td class="py-4 text-right pr-4 text-[var(--admin-text-muted)] group-hover:text-[var(--admin-text-main)] cursor-pointer"><i class="ri-more-fill"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- Charts ---
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const gridColor = 'rgba(0, 0, 0, 0.05)';
+        const textColor = '#6b7280';
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        data: [45, 30, 60, 85, 40, 35, 50],
+                        backgroundColor: 'rgba(200, 200, 200, 0.5)',
+                        borderRadius: 4,
+                        barThickness: 30,
+                    },
+                    {
+                        label: 'Views',
+                        data: [30, 45, 40, 60, 75, 50, 65],
+                        backgroundColor: '#7e22ce',
+                        borderRadius: 4,
+                        barThickness: 30,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: textColor }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        const ctxDonut = document.getElementById('donutChart').getContext('2d');
+        new Chart(ctxDonut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Laptops', 'Desktops', 'Monitors'],
+                datasets: [{
+                    data: [<%= categoryCounts.laptop %>, <%= categoryCounts.desktop %>, <%= categoryCounts.monitor %>],
+                    backgroundColor: ['#7e22ce', '#3b82f6', '#10b981'],
+                    borderWidth: 0,
+                    cutout: '80%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>
