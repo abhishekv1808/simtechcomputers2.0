@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body class="bg-[var(--admin-bg)] text-[var(--admin-text-main)] font-sans antialiased selection:bg-purple-500 selection:text-white">
+
+    <div class="flex h-screen overflow-hidden">
+        <%- include('includes/navigation') %>
+
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden transition-all duration-300">
+            <%- include('includes/header') %>
+
+            <main class="flex-1 overflow-y-auto overflow-x-hidden p-6 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                
+                <div class="max-w-7xl mx-auto space-y-6">
+                    
+                    <!-- Header -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h1 class="text-2xl font-bold text-[var(--admin-text-main)] font-heading">Customer Enquiries</h1>
+                            <p class="text-sm text-[var(--admin-text-muted)] mt-1">View and manage customer enquiries.</p>
+                        </div>
+                    </div>
+
+                    <!-- Enquiries Table -->
+                    <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-[var(--admin-bg)] border-b border-[var(--admin-border)] text-xs uppercase text-[var(--admin-text-muted)] tracking-wider">
+                                        <th class="px-6 py-4 font-semibold">Customer & Date</th>
+                                        <th class="px-6 py-4 font-semibold">Contact Details</th>
+                                        <th class="px-6 py-4 font-semibold">Requirements</th>
+                                        <th class="px-6 py-4 font-semibold">Message</th>
+                                        <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-[var(--admin-border)]">
+                                    <% if (enquiries.length > 0) { %>
+                                        <% enquiries.forEach(enquiry => { %>
+                                            <tr class="hover:bg-[var(--admin-hover)] transition-colors group">
+                                                <!-- Date & Customer -->
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <div class="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                                                            <%= enquiry.name.charAt(0).toUpperCase() %>
+                                                        </div>
+                                                        <div class="ml-4">
+                                                            <div class="text-sm font-bold text-[var(--admin-text-main)]"><%= enquiry.name %></div>
+                                                            <div class="text-xs text-[var(--admin-text-muted)] flex items-center gap-1">
+                                                                <i class="ri-calendar-line"></i>
+                                                                <%= new Date(enquiry.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                                                <span class="mx-1 opacity-50">|</span>
+                                                                <i class="ri-time-line"></i>
+                                                                <%= new Date(enquiry.date).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <!-- Contact Info -->
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex flex-col gap-1">
+                                                        <a href="tel:<%= enquiry.phone %>" class="text-sm text-[var(--admin-text-main)] hover:text-blue-600 flex items-center gap-2 transition-colors">
+                                                            <div class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
+                                                                <i class="ri-phone-fill"></i>
+                                                            </div>
+                                                            <%= enquiry.phone %>
+                                                        </a>
+                                                        <% if (enquiry.email) { %>
+                                                            <a href="mailto:<%= enquiry.email %>" class="text-sm text-[var(--admin-text-muted)] hover:text-blue-600 flex items-center gap-2 transition-colors">
+                                                                <div class="w-6 h-6 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs">
+                                                                    <i class="ri-mail-line"></i>
+                                                                </div>
+                                                                <%= enquiry.email %>
+                                                            </a>
+                                                        <% } %>
+                                                    </div>
+                                                </td>
+
+                                                <!-- Requirements -->
+                                                <td class="px-6 py-4">
+                                                    <div class="flex flex-col gap-2 max-w-xs">
+                                                        <!-- Brand & Model -->
+                                                        <% if (enquiry.brand || enquiry.model) { %>
+                                                            <div class="flex items-center gap-2 flex-wrap">
+                                                                <% if (enquiry.brand) { %>
+                                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200">
+                                                                        <%= enquiry.brand %>
+                                                                    </span>
+                                                                <% } %>
+                                                                <% if (enquiry.model) { %>
+                                                                    <span class="text-sm font-semibold text-[var(--admin-text-main)]">
+                                                                        <%= enquiry.model %>
+                                                                    </span>
+                                                                <% } %>
+                                                            </div>
+                                                        <% } %>
+
+                                                        <!-- Specs Badges -->
+                                                        <div class="flex flex-wrap gap-1.5">
+                                                            <% if (enquiry.processor) { %>
+                                                                <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200" title="Processor">
+                                                                    <i class="ri-cpu-line"></i> <%= enquiry.processor %>
+                                                                </span>
+                                                            <% } %>
+                                                            <% if (enquiry.ram) { %>
+                                                                <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200" title="RAM">
+                                                                    <i class="ri-database-2-line"></i> <%= enquiry.ram %>
+                                                                </span>
+                                                            <% } %>
+                                                            <% if (enquiry.storage) { %>
+                                                                <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200" title="Storage">
+                                                                    <i class="ri-hard-drive-line"></i> <%= enquiry.storage %>
+                                                                </span>
+                                                            <% } %>
+                                                        </div>
+
+                                                        <!-- Purpose -->
+                                                        <% if (enquiry.purpose) { %>
+                                                            <div class="mt-1">
+                                                                <span class="inline-flex items-center gap-1 text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                                                    <i class="ri-focus-3-line"></i> <%= enquiry.purpose %>
+                                                                </span>
+                                                            </div>
+                                                        <% } %>
+                                                    </div>
+                                                </td>
+
+                                                <!-- Message -->
+                                                <td class="px-6 py-4">
+                                                    <% if (enquiry.message) { %>
+                                                        <div class="relative group/msg cursor-help">
+                                                            <p class="text-sm text-[var(--admin-text-muted)] line-clamp-2 max-w-xs italic">
+                                                                "<%= enquiry.message %>"
+                                                            </p>
+                                                            <!-- Tooltip for full message -->
+                                                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover/msg:opacity-100 group-hover/msg:visible transition-all z-50 pointer-events-none">
+                                                                <%= enquiry.message %>
+                                                                <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                                            </div>
+                                                        </div>
+                                                    <% } else { %>
+                                                        <span class="text-xs text-gray-400">-</span>
+                                                    <% } %>
+                                                </td>
+
+                                                <!-- Actions -->
+                                                <td class="px-6 py-4 text-right">
+                                                    <form action="/admin/resolve-enquiry" method="POST" onsubmit="return confirm('Are you sure you want to mark this enquiry as resolved? It will be removed.');">
+                                                        <input type="hidden" name="enquiryId" value="<%= enquiry._id %>">
+                                                        <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-600 hover:bg-green-100 hover:text-green-700 rounded-lg text-xs font-medium transition-colors border border-green-200">
+                                                            <i class="ri-check-double-line"></i> Resolve
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="5" class="px-6 py-16 text-center text-[var(--admin-text-muted)]">
+                                                <div class="flex flex-col items-center justify-center">
+                                                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                                        <i class="ri-inbox-line text-3xl text-gray-400"></i>
+                                                    </div>
+                                                    <h3 class="text-lg font-medium text-[var(--admin-text-main)]">No Enquiries Yet</h3>
+                                                    <p class="text-sm mt-1">Customer enquiries will appear here once submitted.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+</body>
+</html>

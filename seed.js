@@ -216,11 +216,31 @@ const seedProducts = [
     }
 ];
 
+const bcrypt = require('bcryptjs');
+const Admin = require('./models/admin');
+
 const seedDB = async () => {
     try {
         await Product.deleteMany({});
         await Product.insertMany(seedProducts);
-        console.log("DB Seeded Successfully");
+        console.log("Products Seeded Successfully");
+
+        const admin = await Admin.findOne({ email: 'admin@simtech.com' });
+        const hashedPassword = await bcrypt.hash('Simtech@2025!Secure', 12);
+        
+        if (!admin) {
+            const newAdmin = new Admin({
+                email: 'admin@simtech.com',
+                password: hashedPassword
+            });
+            await newAdmin.save();
+            console.log("Default Admin Created");
+        } else {
+            admin.password = hashedPassword;
+            await admin.save();
+            console.log("Admin Password Updated");
+        }
+
     } catch (err) {
         console.log(err);
     } finally {

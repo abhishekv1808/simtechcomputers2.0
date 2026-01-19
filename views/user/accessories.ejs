@@ -14,12 +14,12 @@
             <nav class="flex mb-8 text-sm text-gray-500">
                 <a href="/" class="hover:text-[#0071dc]">Home</a>
                 <span class="mx-2">/</span>
-                <span class="text-gray-900 font-medium">Desktops</span>
+                <span class="text-gray-900 font-medium">Accessories</span>
             </nav>
 
             <!-- Hero Section -->
             <div class="mb-8 rounded-2xl overflow-hidden relative h-[300px] group">
-                <img src="/images/hero-desktops.png" alt="Desktops Hero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <img src="/images/hero-accessories.png" alt="Accessories Hero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
@@ -30,7 +30,7 @@
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-lg font-bold text-gray-900">Filters</h2>
                             <h2 class="text-lg font-bold text-gray-900">Filters</h2>
-                            <a href="/desktops" class="text-sm text-[#0071dc] hover:underline">Clear All</a>
+                            <a href="/accessories" class="text-sm text-[#0071dc] hover:underline">Clear All</a>
                         </div>
 
                         <!-- Price Range -->
@@ -39,20 +39,20 @@
                             <div class="space-y-2">
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="Under ₹25,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Under ₹25,000') : currentFilters.price === 'Under ₹25,000') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Under ₹25,000</span>
+                                    <input type="checkbox" name="price" value="Under ₹1,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Under ₹1,000') : currentFilters.price === 'Under ₹1,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">Under ₹1,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="₹25,000 - ₹50,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹25,000 - ₹50,000') : currentFilters.price === '₹25,000 - ₹50,000') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">₹25,000 - ₹50,000</span>
+                                    <input type="checkbox" name="price" value="₹1,000 - ₹5,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹1,000 - ₹5,000') : currentFilters.price === '₹1,000 - ₹5,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">₹1,000 - ₹5,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="₹50,000 - ₹80,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹50,000 - ₹80,000') : currentFilters.price === '₹50,000 - ₹80,000') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">₹50,000 - ₹80,000</span>
+                                    <input type="checkbox" name="price" value="₹5,000 - ₹10,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹5,000 - ₹10,000') : currentFilters.price === '₹5,000 - ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">₹5,000 - ₹10,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="Above ₹80,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Above ₹80,000') : currentFilters.price === 'Above ₹80,000') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Above ₹80,000</span>
+                                    <input type="checkbox" name="price" value="Above ₹10,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Above ₹10,000') : currentFilters.price === 'Above ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">Above ₹10,000</span>
                                 </label>
                             </div>
                         </div>
@@ -63,8 +63,8 @@
                             <div class="space-y-2">
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="Apple" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Apple') : currentFilters.brand === 'Apple') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Apple</span>
+                                    <input type="checkbox" name="brand" value="Logitech" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Logitech') : currentFilters.brand === 'Logitech') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">Logitech</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" name="brand" value="Dell" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Dell') : currentFilters.brand === 'Dell') ? 'checked' : '' %> onchange="applyFilters()">
@@ -75,72 +75,8 @@
                                     <span class="text-sm text-gray-600">HP</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="Lenovo" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Lenovo') : currentFilters.brand === 'Lenovo') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Lenovo</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Form Factor -->
-                        <div class="mb-6 border-b border-gray-100 pb-6">
-                            <h3 class="font-semibold text-gray-900 mb-3">Form Factor</h3>
-                            <div class="space-y-2">
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="formFactor" value="All-in-One (AIO)" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.formFactor && (Array.isArray(currentFilters.formFactor) ? currentFilters.formFactor.includes('All-in-One (AIO)') : currentFilters.formFactor === 'All-in-One (AIO)') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">All-in-One (AIO)</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="formFactor" value="Tower Desktop" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.formFactor && (Array.isArray(currentFilters.formFactor) ? currentFilters.formFactor.includes('Tower Desktop') : currentFilters.formFactor === 'Tower Desktop') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Tower Desktop</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="formFactor" value="Mini PC" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.formFactor && (Array.isArray(currentFilters.formFactor) ? currentFilters.formFactor.includes('Mini PC') : currentFilters.formFactor === 'Mini PC') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Mini PC</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Processor -->
-                        <div class="mb-6 border-b border-gray-100 pb-6">
-                            <h3 class="font-semibold text-gray-900 mb-3">Processor</h3>
-                            <div class="space-y-2">
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="processor" value="Intel Core i5" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.processor && (Array.isArray(currentFilters.processor) ? currentFilters.processor.includes('Intel Core i5') : currentFilters.processor === 'Intel Core i5') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Intel Core i5</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="processor" value="Intel Core i7" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.processor && (Array.isArray(currentFilters.processor) ? currentFilters.processor.includes('Intel Core i7') : currentFilters.processor === 'Intel Core i7') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Intel Core i7</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="processor" value="Apple M1/M2" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.processor && (Array.isArray(currentFilters.processor) ? currentFilters.processor.includes('Apple M1/M2') : currentFilters.processor === 'Apple M1/M2') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">Apple M1/M2</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="processor" value="AMD Ryzen" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.processor && (Array.isArray(currentFilters.processor) ? currentFilters.processor.includes('AMD Ryzen') : currentFilters.processor === 'AMD Ryzen') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">AMD Ryzen</span>
-                                </label>
-                            </div>
-                        </div>
-
-                         <!-- RAM -->
-                         <div class="mb-6 border-b border-gray-100 pb-6">
-                            <h3 class="font-semibold text-gray-900 mb-3">RAM</h3>
-                            <div class="space-y-2">
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="ram" value="8GB" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.ram && (Array.isArray(currentFilters.ram) ? currentFilters.ram.includes('8GB') : currentFilters.ram === '8GB') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">8GB</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="ram" value="16GB" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.ram && (Array.isArray(currentFilters.ram) ? currentFilters.ram.includes('16GB') : currentFilters.ram === '16GB') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">16GB</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="ram" value="32GB+" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.ram && (Array.isArray(currentFilters.ram) ? currentFilters.ram.includes('32GB+') : currentFilters.ram === '32GB+') ? 'checked' : '' %> onchange="applyFilters()">
-                                    <span class="text-sm text-gray-600">32GB+</span>
+                                    <input type="checkbox" name="brand" value="Razer" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Razer') : currentFilters.brand === 'Razer') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <span class="text-sm text-gray-600">Razer</span>
                                 </label>
                             </div>
                         </div>
@@ -153,7 +89,7 @@
                     
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-6">
-                        <h1 class="text-2xl font-bold text-gray-900"><%= currentBrand !== 'All' ? 'Used ' + currentBrand + ' Desktops' : 'All Desktops' %> <span class="text-gray-500 text-lg font-normal ml-2">(<%= products.length %> items)</span></h1>
+                        <h1 class="text-2xl font-bold text-gray-900"><%= currentBrand !== 'All' ? currentBrand + ' Accessories' : 'All Accessories' %> <span class="text-gray-500 text-lg font-normal ml-2">(<%= products.length %> items)</span></h1>
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-gray-600">Sort by:</span>
                             <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#0071dc]">
@@ -165,7 +101,6 @@
                         </div>
                     </div>
 
-                    <!-- Grid -->
                     <!-- Grid -->
                     <% if (products.length > 0) { %>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -217,7 +152,7 @@
                     </div>
                     <% } else { %>
                         <div class="w-full text-center py-12 text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-300">
-                            <p class="text-lg">There are no desktops at the moment.</p>
+                            <p class="text-lg">There are no accessories at the moment.</p>
                         </div>
                     <% } %>
 

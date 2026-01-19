@@ -19,7 +19,11 @@ const productSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: true
+        // required: true // Make optional for now to allow migration or fallback
+    },
+    images: {
+        type: [String],
+        default: []
     },
     category: {
         type: String,

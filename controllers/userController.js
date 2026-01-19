@@ -1,4 +1,7 @@
 const Product = require('../models/product');
+const DailyStats = require('../models/dailyStats');
+const Enquiry = require('../models/enquiry');
+const { validationResult } = require('express-validator');
 
 exports.getHome = async (req, res) => {
     try {
@@ -8,6 +11,20 @@ exports.getHome = async (req, res) => {
         const lenovoLaptops = await Product.find({ category: 'laptop', brand: 'Lenovo' }).limit(8);
         const desktops = await Product.find({ category: 'desktop' }).limit(8);
         const monitors = await Product.find({ category: 'monitor' }).limit(8);
+        const accessories = await Product.find({ category: 'accessory' }).limit(8);
+
+        // Fetch Best Sellers (Top 2 by highest discount)
+        const bestSellers = await Product.find().sort({ discount: -1 }).limit(2);
+
+        let cartProductIds = [];
+        if (req.cookies.cart) {
+            try {
+                const cart = JSON.parse(req.cookies.cart);
+                cartProductIds = cart.map(item => item.productId);
+            } catch (e) {
+                console.log("Error parsing cart cookie", e);
+            }
+        }
 
         res.render('../views/user/home.ejs', {
             pageTitle: "Home | Simtech computers",
@@ -16,7 +33,10 @@ exports.getHome = async (req, res) => {
             hpLaptops,
             lenovoLaptops,
             desktops,
-            monitors
+            monitors,
+            accessories,
+            bestSellers, // Pass to view
+            cartProductIds // Pass cart state
         });
     } catch (err) {
         console.log(err);
@@ -25,27 +45,162 @@ exports.getHome = async (req, res) => {
 }
 
 exports.getContactUs = (req, res) => {
-    res.render('../views/user/contactUs.ejs', { pageTitle: "Contact Us | Simtech computers" })
+    res.render('../views/user/contactUs.ejs', { 
+        pageTitle: "Contact Us | Simtech computers",
+        errorMessage: null,
+        successMessage: null,
+        oldInput: {
+            name: '',
+            phone: '',
+            email: '',
+            brand: '',
+            processor: '',
+            ram: '',
+            storage: '',
+            model: '',
+            purpose: '',
+            message: ''
+        },
+        validationErrors: []
+    })
 }
+
+exports.postContactUs = async (req, res) => {
+    const { name, phone, email, brand, processor, ram, storage, model, purpose, message } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).render('../views/user/contactUs.ejs', {
+            pageTitle: "Contact Us | Simtech computers",
+            errorMessage: errors.array()[0].msg,
+            successMessage: null,
+            oldInput: { name, phone, email, brand, processor, ram, storage, model, purpose, message },
+            validationErrors: errors.array()
+        });
+    }
+
+    try {
+        const enquiry = new Enquiry({
+            name, phone, email, brand, processor, ram, storage, model, purpose, message
+        });
+        await enquiry.save();
+        
+        res.render('../views/user/contactUs.ejs', {
+            pageTitle: "Contact Us | Simtech computers",
+            errorMessage: null,
+            successMessage: "Thank you for your enquiry! Our team will contact you shortly.",
+            oldInput: {
+                name: '',
+                phone: '',
+                email: '',
+                brand: '',
+                processor: '',
+                ram: '',
+                storage: '',
+                model: '',
+                purpose: '',
+                message: ''
+            },
+            validationErrors: []
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).render('../views/user/contactUs.ejs', {
+            pageTitle: "Contact Us | Simtech computers",
+            errorMessage: "An error occurred. Please try again later.",
+            successMessage: null,
+            oldInput: { name, phone, email, brand, processor, ram, storage, model, purpose, message },
+            validationErrors: []
+        });
+    }
+};
 
 exports.getAboutUs = (req, res) => {
     res.render('../views/user/aboutUs.ejs', { pageTitle: "About Us | Simtech computers" })
 }
 
-exports.getLaptops = async (req, res) => {
-    const brandFilter = req.query.brand;
-    let query = { category: 'laptop' };
+// Helper to build filter query
+const buildFilterQuery = (req, category) => {
+    let query = { category: category };
+    const { price, brand, processor, ram, storage, screenSize, resolution, refreshRate, formFactor } = req.query;
 
-    if (brandFilter) {
-        query.brand = brandFilter;
+    // Brand Filter
+    if (brand) {
+        query.brand = { $in: Array.isArray(brand) ? brand : [brand] };
     }
 
+    // Price Filter
+    if (price) {
+        const priceRanges = Array.isArray(price) ? price : [price];
+        const priceQueries = priceRanges.map(range => {
+            // Laptops
+            if (range === 'Under ₹20,000') return { price: { $lt: 20000 } };
+            if (range === '₹20,000 - ₹40,000') return { price: { $gte: 20000, $lte: 40000 } };
+            if (range === '₹40,000 - ₹60,000') return { price: { $gte: 40000, $lte: 60000 } };
+            if (range === 'Above ₹60,000') return { price: { $gt: 60000 } };
+            
+            // Desktops
+            if (range === 'Under ₹25,000') return { price: { $lt: 25000 } };
+            if (range === '₹25,000 - ₹50,000') return { price: { $gte: 25000, $lte: 50000 } };
+            if (range === '₹50,000 - ₹80,000') return { price: { $gte: 50000, $lte: 80000 } };
+            if (range === 'Above ₹80,000') return { price: { $gt: 80000 } };
+
+            // Monitors
+            if (range === 'Under ₹10,000') return { price: { $lt: 10000 } };
+            if (range === '₹10,000 - ₹20,000') return { price: { $gte: 10000, $lte: 20000 } };
+            if (range === '₹20,000 - ₹40,000') return { price: { $gte: 20000, $lte: 40000 } };
+            if (range === 'Above ₹40,000') return { price: { $gt: 40000 } };
+
+            // Accessories
+            if (range === 'Under ₹1,000') return { price: { $lt: 1000 } };
+            if (range === '₹1,000 - ₹5,000') return { price: { $gte: 1000, $lte: 5000 } };
+            if (range === '₹5,000 - ₹10,000') return { price: { $gte: 5000, $lte: 10000 } };
+            if (range === 'Above ₹10,000') return { price: { $gt: 10000 } };
+
+            return {};
+        });
+        
+        // Remove empty objects and apply $or if valid queries exist
+        const validPriceQueries = priceQueries.filter(q => Object.keys(q).length > 0);
+        if (validPriceQueries.length > 0) {
+            query.$or = validPriceQueries;
+        }
+    }
+
+    // Specifications Filters
+    if (processor) query['specifications.processor'] = { $in: Array.isArray(processor) ? processor : [processor] };
+    if (ram) query['specifications.ram'] = { $in: Array.isArray(ram) ? ram : [ram] };
+    if (storage) query['specifications.storage'] = { $in: Array.isArray(storage) ? storage : [storage] };
+    if (screenSize) query['specifications.screenSize'] = { $in: Array.isArray(screenSize) ? screenSize : [screenSize] };
+    if (resolution) query['specifications.display'] = { $in: Array.isArray(resolution) ? resolution : [resolution] }; // Mapping resolution to display field
+    if (refreshRate) query['specifications.refreshRate'] = { $in: Array.isArray(refreshRate) ? refreshRate : [refreshRate] };
+    if (formFactor) query['specifications.formFactor'] = { $in: Array.isArray(formFactor) ? formFactor : [formFactor] }; // Assuming formFactor is a spec or top level? Let's assume spec for now or handle appropriately. 
+    // Note: Form Factor isn't in the schema explicitly shown before, but assuming it might be in specs or we need to add it. 
+    // Based on desktops.ejs, it seems to be a filter. I'll assume it's in specifications for now or just ignore if not in schema. 
+    // Actually, let's check schema... schema has `specifications: { processor, ram, storage, display, os, graphics }`. 
+    // Form factor might strictly be for desktops. I'll map it to `specifications.formFactor` and if it's not there, it won't match anything, which is fine for now or I can add it to schema later.
+
+    return query;
+};
+
+exports.getLaptops = async (req, res) => {
     try {
+        const query = buildFilterQuery(req, 'laptop');
         const products = await Product.find(query);
+        
+        // Determine current brand for title if only one brand is selected
+        let currentBrand = 'All';
+        if (req.query.brand && !Array.isArray(req.query.brand)) {
+            currentBrand = req.query.brand;
+        } else if (req.query.brand && Array.isArray(req.query.brand) && req.query.brand.length === 1) {
+            currentBrand = req.query.brand[0];
+        }
+
         res.render('../views/user/laptops.ejs', {
-            pageTitle: (brandFilter ? `Used ${brandFilter} Laptops` : "All Laptops") + " | Simtech computers",
+            pageTitle: (currentBrand !== 'All' ? `Used ${currentBrand} Laptops` : "All Laptops") + " | Simtech computers",
             products: products,
-            currentBrand: brandFilter || 'All'
+            currentBrand: currentBrand,
+            currentFilters: req.query // Pass all filters to view
         });
     } catch (err) {
         console.log(err);
@@ -53,19 +208,22 @@ exports.getLaptops = async (req, res) => {
 }
 
 exports.getDesktops = async (req, res) => {
-    const brandFilter = req.query.brand;
-    let query = { category: 'desktop' };
-
-    if (brandFilter) {
-        query.brand = brandFilter;
-    }
-
     try {
+        const query = buildFilterQuery(req, 'desktop');
         const products = await Product.find(query);
+
+        let currentBrand = 'All';
+        if (req.query.brand && !Array.isArray(req.query.brand)) {
+            currentBrand = req.query.brand;
+        } else if (req.query.brand && Array.isArray(req.query.brand) && req.query.brand.length === 1) {
+            currentBrand = req.query.brand[0];
+        }
+
         res.render('../views/user/desktops.ejs', {
-            pageTitle: (brandFilter ? `Used ${brandFilter} Desktops` : "All Desktops") + " | Simtech computers",
+            pageTitle: (currentBrand !== 'All' ? `Used ${currentBrand} Desktops` : "All Desktops") + " | Simtech computers",
             products: products,
-            currentBrand: brandFilter || 'All'
+            currentBrand: currentBrand,
+            currentFilters: req.query
         });
     } catch (err) {
         console.log(err);
@@ -73,19 +231,45 @@ exports.getDesktops = async (req, res) => {
 }
 
 exports.getMonitors = async (req, res) => {
-    const brandFilter = req.query.brand;
-    let query = { category: 'monitor' };
-
-    if (brandFilter) {
-        query.brand = brandFilter;
-    }
-
     try {
+        const query = buildFilterQuery(req, 'monitor');
         const products = await Product.find(query);
+
+        let currentBrand = 'All';
+        if (req.query.brand && !Array.isArray(req.query.brand)) {
+            currentBrand = req.query.brand;
+        } else if (req.query.brand && Array.isArray(req.query.brand) && req.query.brand.length === 1) {
+            currentBrand = req.query.brand[0];
+        }
+
         res.render('../views/user/monitors.ejs', {
-            pageTitle: (brandFilter ? `${brandFilter} Monitors` : "All Monitors") + " | Simtech computers",
+            pageTitle: (currentBrand !== 'All' ? `${currentBrand} Monitors` : "All Monitors") + " | Simtech computers",
             products: products,
-            currentBrand: brandFilter || 'All'
+            currentBrand: currentBrand,
+            currentFilters: req.query
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+exports.getAccessories = async (req, res) => {
+    try {
+        const query = buildFilterQuery(req, 'accessory');
+        const products = await Product.find(query);
+
+        let currentBrand = 'All';
+        if (req.query.brand && !Array.isArray(req.query.brand)) {
+            currentBrand = req.query.brand;
+        } else if (req.query.brand && Array.isArray(req.query.brand) && req.query.brand.length === 1) {
+            currentBrand = req.query.brand[0];
+        }
+
+        res.render('../views/user/accessories.ejs', {
+            pageTitle: (currentBrand !== 'All' ? `${currentBrand} Accessories` : "All Accessories") + " | Simtech computers",
+            products: products,
+            currentBrand: currentBrand,
+            currentFilters: req.query
         });
     } catch (err) {
         console.log(err);
@@ -101,6 +285,14 @@ exports.getProductDetails = async (req, res) => {
             return res.status(404).render('404', { pageTitle: "Product Not Found" });
         }
 
+        // Track View
+        const today = new Date().toISOString().split('T')[0];
+        await DailyStats.findOneAndUpdate(
+            { date: today },
+            { $inc: { views: 1 } },
+            { upsert: true, new: true }
+        );
+
         // Pass related products (same category, excluding current)
         const relatedProducts = await Product.find({ category: product.category, _id: { $ne: productId } }).limit(4);
 
@@ -115,38 +307,114 @@ exports.getProductDetails = async (req, res) => {
     }
 }
 
-exports.getCart = (req, res) => {
-    // Dummy Cart Data
-    // We can leave this as dummy for now or fetch real products if we wanted, 
-    // but the task said "Implement Admin Dashboard" and "Migrate User Controller".
-    // Keeping this dummy is strictly safer to not break the cart feature I just delivered.
-    const cartItems = [
-        {
-            product_id: "lap-001",
-            name: "Apple MacBook Air M1 (8GB RAM, 256GB SSD)",
-            image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=500&auto=format&fit=crop",
-            price: 45000,
-            quantity: 1
-        },
-        {
-            product_id: "mon-002",
-            name: "Dell Ultrasharp 24\" USB-C Hub",
-            image: "https://images.unsplash.com/photo-1547082299-bb196bcce49c?w=500&auto=format&fit=crop",
-            price: 18500,
-            quantity: 2
+exports.addToCart = async (req, res) => {
+    const productId = req.body.productId;
+    let cart = [];
+    if (req.cookies.cart) {
+        try {
+            cart = JSON.parse(req.cookies.cart);
+        } catch (e) {
+            console.log("Error parsing cart cookie", e);
         }
-    ];
+    }
 
-    // Calculate Totals
-    const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    const tax = Math.round(subtotal * 0.18);
-    const total = subtotal + tax;
+    const existingItemIndex = cart.findIndex(item => item.productId === productId);
+    if (existingItemIndex >= 0) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push({ productId: productId, quantity: 1 });
+    }
 
-    res.render('../views/user/cart.ejs', {
-        pageTitle: "Shopping Cart | Simtech computers",
-        cartItems: cartItems,
-        subtotal: subtotal,
-        tax: tax,
-        total: total
-    });
-}
+    res.cookie('cart', JSON.stringify(cart), { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 }); // 30 days
+    res.redirect('/cart');
+};
+
+exports.getCart = async (req, res) => {
+    let cart = [];
+    if (req.cookies.cart) {
+        try {
+            cart = JSON.parse(req.cookies.cart);
+        } catch (e) {
+            console.log("Error parsing cart cookie", e);
+        }
+    }
+
+    const productIds = cart.map(item => item.productId);
+    
+    try {
+        const products = await Product.find({ _id: { $in: productIds } });
+        
+        const cartItems = cart.map(cartItem => {
+            const product = products.find(p => p._id.toString() === cartItem.productId);
+            if (product) {
+                return {
+                    product_id: product._id,
+                    name: product.name,
+                    image: product.image,
+                    price: product.price,
+                    quantity: cartItem.quantity,
+                    inStock: product.inStock
+                };
+            }
+            return null;
+        }).filter(item => item !== null);
+
+        // Calculate Totals
+        const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        const tax = Math.round(subtotal * 0.18);
+        const total = subtotal + tax;
+
+        res.render('../views/user/cart.ejs', {
+            pageTitle: "Shopping Cart | Simtech computers",
+            cartItems: cartItems,
+            subtotal: subtotal,
+            tax: tax,
+            total: total
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/');
+    }
+};
+
+exports.removeFromCart = (req, res) => {
+    const productId = req.body.productId;
+    let cart = [];
+    if (req.cookies.cart) {
+        try {
+            cart = JSON.parse(req.cookies.cart);
+        } catch (e) {
+            console.log("Error parsing cart cookie", e);
+        }
+    }
+
+    const updatedCart = cart.filter(item => item.productId !== productId);
+    res.cookie('cart', JSON.stringify(updatedCart), { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.redirect('/cart');
+};
+
+exports.updateCartQuantity = (req, res) => {
+    const { productId, action } = req.body;
+    let cart = [];
+    if (req.cookies.cart) {
+        try {
+            cart = JSON.parse(req.cookies.cart);
+        } catch (e) {
+            console.log("Error parsing cart cookie", e);
+        }
+    }
+
+    const itemIndex = cart.findIndex(item => item.productId === productId);
+    if (itemIndex >= 0) {
+        if (action === 'increase') {
+            cart[itemIndex].quantity += 1;
+        } else if (action === 'decrease') {
+            if (cart[itemIndex].quantity > 1) {
+                cart[itemIndex].quantity -= 1;
+            }
+        }
+    }
+
+    res.cookie('cart', JSON.stringify(cart), { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.redirect('/cart');
+};

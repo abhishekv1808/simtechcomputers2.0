@@ -67,10 +67,12 @@
                 <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
                     <i class="ri-heart-line"></i>
                 </div>
-                <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
-                    <i class="ri-shopping-cart-2-line"></i>
-                    <span class="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">03</span>
-                </div>
+                    <a href="/cart" class="text-2xl cursor-pointer hover:text-blue-100 relative">
+                        <i class="ri-shopping-cart-2-line"></i>
+                        <% if (cartCount > 0) { %>
+                            <span class="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"><%= cartCount %></span>
+                        <% } %>
+                    </a>
                 <div class="text-2xl cursor-pointer hover:text-blue-100">
                     <i class="ri-user-line"></i>
                 </div>
@@ -98,7 +100,7 @@
                 <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-apps-line text-lg text-green-500"></i> Software</a></li>
                 <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-line text-lg text-orange-500"></i> Gadget</a></li>
                 <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-fill text-lg text-red-500"></i> Gaming</a></li>
-                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-headphone-line text-lg text-teal-500"></i> Accessories</a></li>
+                <li class="whitespace-nowrap"><a href="/accessories" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-headphone-line text-lg text-teal-500"></i> Accessories</a></li>
             </ul>
         </div>
     </div>

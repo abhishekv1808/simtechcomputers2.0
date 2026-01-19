@@ -1,75 +1,241 @@
-<nav class="bg-[var(--admin-card)] border-r border-[var(--admin-border)] w-64 min-h-screen text-[var(--admin-text-muted)] flex flex-col flex-shrink-0 relative z-30 transition-colors duration-300">
-    <!-- Logo Area -->
-    <div class="h-24 flex items-center px-8">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center text-white font-bold text-lg rotate-12 shadow-lg shadow-purple-900/50">
-                <i class="ri-command-fill"></i>
-            </div>
-            <span class="text-[var(--admin-text-main)] text-xl font-bold tracking-tight font-heading">Simtech</span>
-        </div>
-        <button class="ml-auto text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"><i class="ri-menu-fold-line"></i></button>
+<nav
+  id="sidebar"
+  class="bg-[var(--admin-card)] border-r border-[var(--admin-border)] w-64 min-h-screen text-[var(--admin-text-muted)] flex flex-col flex-shrink-0 relative z-30 transition-all duration-300 ease-in-out overflow-hidden"
+>
+  <!-- Logo Area -->
+  <div class="h-24 flex items-center px-6 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center text-white font-bold text-lg rotate-12 shadow-lg shadow-purple-900/50 flex-shrink-0"
+      >
+        <i class="ri-command-fill"></i>
+      </div>
+      <span
+        class="sidebar-text text-[var(--admin-text-main)] text-xl font-bold tracking-tight font-heading whitespace-nowrap transition-all duration-300 overflow-hidden"
+        >Simtech</span
+      >
     </div>
+    <button
+      id="sidebarToggle"
+      class="ml-auto text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] transition-transform duration-300"
+    >
+      <i class="ri-menu-fold-line text-xl"></i>
+    </button>
+  </div>
 
-    <!-- Main Menu -->
-    <div class="flex-grow px-4 py-4 space-y-8 overflow-y-auto scrollbar-hide">
-        
-        <!-- Section 1 -->
-        <div>
-            <p class="px-4 text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-widest mb-4">Main Menu</p>
-            <div class="space-y-1">
-                <a href="/admin/dashboard" class="flex items-center px-4 py-3 rounded-xl transition-all group <%= path === '/admin/dashboard' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>">
-                    <i class="ri-dashboard-3-line mr-3 text-lg <%= path === '/admin/dashboard' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"></i>
-                    <span class="font-medium text-sm">Dashboard</span>
-                </a>
-                <a href="/admin/products" class="flex items-center px-4 py-3 rounded-xl transition-all group <%= path === '/admin/products' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>">
-                    <i class="ri-store-2-line mr-3 text-lg <%= path === '/admin/products' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"></i>
-                    <span class="font-medium text-sm">Inventory</span>
-                </a>
-                <a href="/admin/add-laptop" class="flex items-center px-4 py-3 rounded-xl transition-all group <%= path === '/admin/add-laptop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>">
-                    <i class="ri-macbook-line mr-3 text-lg <%= path === '/admin/add-laptop' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"></i>
-                    <span class="font-medium text-sm">Add Laptop</span>
-                </a>
-                <a href="/admin/add-monitor" class="flex items-center px-4 py-3 rounded-xl transition-all group <%= path === '/admin/add-monitor' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>">
-                    <i class="ri-tv-line mr-3 text-lg <%= path === '/admin/add-monitor' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"></i>
-                    <span class="font-medium text-sm">Add Monitor</span>
-                </a>
-                <a href="/admin/add-desktop" class="flex items-center px-4 py-3 rounded-xl transition-all group <%= path === '/admin/add-desktop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>">
-                    <i class="ri-computer-line mr-3 text-lg <%= path === '/admin/add-desktop' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"></i>
-                    <span class="font-medium text-sm">Add Desktop</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Section 2 -->
-        <div>
-            <p class="px-4 text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-widest mb-4">Management</p>
-            <div class="space-y-1">
-                 <a href="#" class="flex items-center px-4 py-3 rounded-xl hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-all group">
-                    <i class="ri-user-settings-line mr-3 text-lg text-[var(--admin-text-muted)] group-hover:text-purple-400"></i>
-                    <span class="font-medium text-sm">Users</span>
-                </a>
-                <a href="#" class="flex items-center px-4 py-3 rounded-xl hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-all group">
-                    <i class="ri-file-list-3-line mr-3 text-lg text-[var(--admin-text-muted)] group-hover:text-purple-400"></i>
-                    <span class="font-medium text-sm">Reports</span>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- User Profile Bottom -->
-    <div class="p-6 border-t border-[var(--admin-border)]">
-        <a href="/" class="flex items-center gap-3 hover:bg-[var(--admin-hover)] p-2 rounded-xl transition-colors">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 p-[2px]">
-                <div class="w-full h-full rounded-full bg-[var(--admin-bg)] border-2 border-transparent overflow-hidden">
-                     <img src="https://ui-avatars.com/api/?name=Admin+User" alt="Admin" class="w-full h-full object-cover">
-                </div>
-            </div>
-            <div class="flex-grow">
-                <h4 class="text-[var(--admin-text-main)] text-sm font-bold">Admin User</h4>
-                <p class="text-xs text-[var(--admin-text-muted)]">View Store</p>
-            </div>
-            <i class="ri-logout-box-r-line text-[var(--admin-text-muted)]"></i>
+  <!-- Main Menu -->
+  <div class="flex-grow px-4 py-4 space-y-8 overflow-y-auto scrollbar-hide">
+    <!-- Section 1 -->
+    <div>
+      <p
+        class="sidebar-text px-4 text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-widest mb-4 whitespace-nowrap transition-all duration-300 overflow-hidden"
+      >
+        Main Menu
+      </p>
+      <div class="space-y-1">
+        <a
+          href="/admin/dashboard"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/dashboard' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-dashboard-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/dashboard' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Dashboard</span
+          >
         </a>
+        <a
+          href="/admin/products"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/products' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-store-2-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/products' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Inventory</span
+          >
+        </a>
+        <a
+          href="/admin/add-laptop"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-laptop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-macbook-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-laptop' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Add Laptop</span
+          >
+        </a>
+        <a
+          href="/admin/add-monitor"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-monitor' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-tv-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-monitor' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Add Monitor</span
+          >
+        </a>
+        <a
+          href="/admin/add-desktop"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-desktop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-computer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-desktop' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Add Desktop</span
+          >
+        </a>
+        <a
+          href="/admin/add-accessories"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-accessories' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-keyboard-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-accessories' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Add Accessories</span
+          >
+        </a>
+      </div>
     </div>
+
+    <!-- Section 2 -->
+    <div>
+      <p
+        class="sidebar-text px-4 text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-widest mb-4 whitespace-nowrap transition-all duration-300 overflow-hidden"
+      >
+        Management
+      </p>
+      <div class="space-y-1">
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 rounded-xl hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-all group whitespace-nowrap"
+        >
+          <i
+            class="ri-user-settings-line mr-3 text-lg flex-shrink-0 text-[var(--admin-text-muted)] group-hover:text-purple-400"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Users</span
+          >
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 rounded-xl hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-all group whitespace-nowrap"
+        >
+          <i
+            class="ri-file-list-3-line mr-3 text-lg flex-shrink-0 text-[var(--admin-text-muted)] group-hover:text-purple-400"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Reports</span
+          >
+        </a>
+        <a
+          href="/admin/enquiries"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/enquiries' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-question-answer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/enquiries' ? 'text-purple-500' : 'text-[var(--admin-text-muted)] group-hover:text-purple-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Enquiries</span
+          >
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Profile Bottom -->
+  <div class="p-6 border-t border-[var(--admin-border)]">
+    <a
+      href="/"
+      class="flex items-center gap-3 hover:bg-[var(--admin-hover)] p-2 rounded-xl transition-colors whitespace-nowrap"
+    >
+      <div
+        class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 p-[2px] flex-shrink-0"
+      >
+        <div
+          class="w-full h-full rounded-full bg-[var(--admin-bg)] border-2 border-transparent overflow-hidden"
+        >
+          <img
+            src="https://ui-avatars.com/api/?name=Admin+User"
+            alt="Admin"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+      <div
+        class="sidebar-text flex-grow transition-all duration-300 overflow-hidden"
+      >
+        <h4 class="text-[var(--admin-text-main)] text-sm font-bold">
+          Admin User
+        </h4>
+        <p class="text-xs text-[var(--admin-text-muted)]">View Store</p>
+      </div>
+      <i
+        class="ri-logout-box-r-line text-[var(--admin-text-muted)] flex-shrink-0"
+      ></i>
+    </a>
+  </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarTexts = document.querySelectorAll(".sidebar-text");
+    const toggleIcon = sidebarToggle.querySelector("i");
+
+    // Check local storage for sidebar state
+    const isCollapsed = localStorage.getItem("sidebarCollapsed") === "true";
+    if (isCollapsed) {
+      applyCollapsedState(true);
+    }
+
+    sidebarToggle.addEventListener("click", () => {
+      const isNowCollapsed = sidebar.classList.contains("w-64");
+      applyCollapsedState(isNowCollapsed);
+      localStorage.setItem("sidebarCollapsed", isNowCollapsed);
+    });
+
+    function applyCollapsedState(collapsed) {
+      if (collapsed) {
+        // Collapse
+        sidebar.classList.remove("w-64");
+        sidebar.classList.add("w-20");
+
+        sidebarTexts.forEach((text) => {
+          text.classList.add("opacity-0", "w-0");
+          text.classList.remove("w-auto"); // Ensure w-auto is removed if present
+        });
+
+        toggleIcon.classList.remove("ri-menu-fold-line");
+        toggleIcon.classList.add("ri-menu-unfold-line");
+
+        // Adjust padding/margin if needed for specific elements
+      } else {
+        // Expand
+        sidebar.classList.add("w-64");
+        sidebar.classList.remove("w-20");
+
+        sidebarTexts.forEach((text) => {
+          text.classList.remove("opacity-0", "w-0");
+        });
+
+        toggleIcon.classList.add("ri-menu-fold-line");
+        toggleIcon.classList.remove("ri-menu-unfold-line");
+      }
+    }
+  });
+</script>

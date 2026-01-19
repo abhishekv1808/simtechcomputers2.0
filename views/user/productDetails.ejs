@@ -40,19 +40,18 @@
 
                         <!-- Thumbnails -->
                         <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                            <button class="w-20 h-20 rounded-lg border-2 border-[#0071dc] bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden">
-                                <img src="<%= product.image %>" class="object-contain w-full h-full">
-                            </button>
-                            <!-- Placeholder Thumbnails (Simulating multiples) -->
-                            <button class="w-20 h-20 rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden opacity-70 hover:opacity-100 transition-all">
-                                <img src="<%= product.image %>" class="object-contain w-full h-full">
-                            </button>
-                            <button class="w-20 h-20 rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden opacity-70 hover:opacity-100 transition-all">
-                                <img src="<%= product.image %>" class="object-contain w-full h-full">
-                            </button>
-                            <button class="w-20 h-20 rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden opacity-70 hover:opacity-100 transition-all">
-                                <img src="<%= product.image %>" class="object-contain w-full h-full">
-                            </button>
+                            <% if (product.images && product.images.length > 0) { %>
+                                <% product.images.forEach((img, index) => { %>
+                                    <button onclick="changeImage('<%= img %>')" class="w-20 h-20 rounded-lg border-2 <%= index === 0 ? 'border-[#0071dc]' : 'border-gray-200 hover:border-gray-300' %> bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden transition-all thumbnail-btn">
+                                        <img src="<%= img %>" class="object-contain w-full h-full">
+                                    </button>
+                                <% }); %>
+                            <% } else { %>
+                                <!-- Fallback if no images array (backward compatibility) -->
+                                <button class="w-20 h-20 rounded-lg border-2 border-[#0071dc] bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden">
+                                    <img src="<%= product.image %>" class="object-contain w-full h-full">
+                                </button>
+                            <% } %>
                         </div>
                         
                         <!-- Trust Bar -->
@@ -73,12 +72,25 @@
                              </div>
                         </div>
 
+                        <!-- Description -->
+                        <div class="mt-6">
+                            <h3 class="font-bold text-gray-900 mb-2">Description</h3>
+                            <div class="relative">
+                                <p id="productDescription" class="text-gray-600 text-sm leading-relaxed line-clamp-3 transition-all duration-300">
+                                    <%= product.description %>
+                                </p>
+                                <button id="viewMoreBtn" onclick="toggleDescription()" class="text-[#0071dc] text-sm font-bold mt-1 hover:underline focus:outline-none hidden">
+                                    View More
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Right Column: Product Details -->
                     <div class="lg:w-1/2">
-                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight"><%= product.name %> - Refurbished</h1>
-                        <p class="text-gray-500 text-sm mb-4">Simtech Computers Warranty. Good Condition. / 512GB NVME</p>
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight"><%= product.name %></h1>
+
 
                         <!-- Ratings -->
                         <div class="flex items-center gap-2 mb-6">
@@ -114,75 +126,88 @@
 
                         <!-- Action Buttons -->
                         <div class="flex gap-4 mb-10">
-                            <button class="flex-1 border-2 border-black text-black font-bold py-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                                <i class="ri-shopping-cart-2-line"></i> Add to Cart
-                            </button>
-                            <button class="flex-1 bg-black text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
-                                Buy Now
-                            </button>
-                        </div>
-
-                        <!-- Selection Options -->
-                        <div class="space-y-6 mb-10">
-                            <!-- Condition -->
-                            <div>
-                                <h3 class="font-bold text-gray-900 mb-2">Condition</h3>
-                                <div class="flex gap-3">
-                                    <button class="px-6 py-2 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 transition-colors">Fair</button>
-                                    <button class="px-6 py-2 rounded-lg border-2 border-[#00aaff] text-[#00aaff] font-bold bg-blue-50 relative">
-                                        Good
-                                        <div class="absolute -top-2 -right-2 bg-[#00aaff] text-white rounded-full w-5 h-5 flex items-center justify-center border-2 border-white"><i class="ri-check-line text-xs"></i></div>
+                            <% if (product.inStock) { %>
+                                <form action="/cart" method="POST" class="flex-1">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button type="submit" class="w-full border-2 border-black text-black font-bold py-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                        <i class="ri-shopping-cart-2-line"></i> Add to Cart
                                     </button>
-                                    <button class="px-6 py-2 rounded-lg border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">Superb</button>
-                                </div>
-                            </div>
-
-                            <!-- Storage -->
-                            <div>
-                                <h3 class="font-bold text-gray-900 mb-2">Storage</h3>
-                                <div class="flex gap-3">
-                                    <button class="px-6 py-2 rounded-lg border-2 border-[#00aaff] text-[#00aaff] font-bold bg-blue-50">512GB NVME</button>
-                                    <button class="px-6 py-2 rounded-lg border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">1TB NVME</button>
-                                </div>
-                            </div>
-
-                             <!-- Operating System -->
-                             <div>
-                                <h3 class="font-bold text-gray-900 mb-2">Operating System</h3>
-                                <div class="flex gap-3">
-                                    <button class="px-6 py-2 rounded-lg border-2 border-[#00aaff] text-[#00aaff] font-bold bg-blue-50">Windows 11 Pro</button>
-                                </div>
-                            </div>
+                                </form>
+                                <button class="flex-1 bg-black text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
+                                    Buy Now
+                                </button>
+                            <% } else { %>
+                                <button disabled class="flex-1 border-2 border-gray-200 text-gray-400 font-bold py-3 rounded-lg cursor-not-allowed flex items-center justify-center gap-2">
+                                    <i class="ri-shopping-cart-2-line"></i> Out of Stock
+                                </button>
+                                <button disabled class="flex-1 bg-gray-200 text-gray-400 font-bold py-3 rounded-lg cursor-not-allowed">
+                                    Buy Now
+                                </button>
+                            <% } %>
                         </div>
+
+                        <!-- Selection Options (Hidden for now as variants are not implemented) -->
+                        <!-- 
+                        <div class="space-y-6 mb-10">
+                            ...
+                        </div> 
+                        -->
 
                         <!-- Technical Specs -->
                         <div>
                             <h3 class="font-bold text-gray-900 mb-4 text-lg">Technical Specifications</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Processor</span>
-                                    <span class="font-bold text-gray-900 text-sm">Intel Core i5 / i7 / M1</span>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">RAM</span>
-                                    <span class="font-bold text-gray-900 text-sm">8GB / 16GB</span>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Storage</span>
-                                    <span class="font-bold text-gray-900 text-sm">256GB / 512GB SSD</span>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Display</span>
-                                    <span class="font-bold text-gray-900 text-sm">13.3" / 14" / 15.6" FHD</span>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Operating System</span>
-                                    <span class="font-bold text-gray-900 text-sm">Windows 10 / 11 Pro</span>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Graphics</span>
-                                    <span class="font-bold text-gray-900 text-sm">Intel Iris Xe / Integrated</span>
-                                </div>
+                                <% if (product.category === 'laptop' || product.category === 'desktop') { %>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Processor</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.processor || 'N/A' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">RAM</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.ram || 'N/A' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Storage</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.storage || 'N/A' %></span>
+                                    </div>
+                                    <% if (product.specifications.display) { %>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Display</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.display %></span>
+                                    </div>
+                                    <% } %>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Operating System</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.os || 'N/A' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Graphics</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.graphics || 'Integrated' %></span>
+                                    </div>
+                                <% } else if (product.category === 'monitor') { %>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Screen Size</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.screenSize || 'N/A' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Panel Type</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.panelType || 'N/A' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Refresh Rate</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.refreshRate || '60Hz' %></span>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Resolution</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.specifications.display || 'N/A' %></span>
+                                    </div>
+                                <% } else { %>
+                                    <!-- Fallback for other categories -->
+                                    <div class="bg-gray-50 p-4 rounded-lg col-span-2">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide block mb-1">Description</span>
+                                        <span class="font-bold text-gray-900 text-sm"><%= product.description %></span>
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
 
@@ -220,9 +245,18 @@
                             <span class="text-xl font-bold text-gray-900">₹<%= relProduct.price.toLocaleString('en-IN') %></span>
                             <span class="text-gray-400 text-xs line-through">₹<%= relProduct.mrp.toLocaleString('en-IN') %></span>
                         </div>
-                         <button class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md z-20">
-                            <i class="ri-shopping-cart-2-line"></i>
-                        </button>
+                        <% if (relProduct.inStock) { %>
+                            <form action="/cart" method="POST">
+                                <input type="hidden" name="productId" value="<%= relProduct.id %>">
+                                <button type="submit" class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md z-20">
+                                    <i class="ri-shopping-cart-2-line"></i>
+                                </button>
+                            </form>
+                        <% } else { %>
+                            <button disabled class="absolute bottom-4 right-4 bg-gray-200 text-gray-400 w-8 h-8 rounded-full flex items-center justify-center cursor-not-allowed z-20">
+                                <i class="ri-shopping-cart-2-line"></i>
+                            </button>
+                        <% } %>
                     </a>
                     <% }); %>
                 </div>
@@ -234,5 +268,51 @@
 
     <%- include('../partials/footer') %>
 
+    <script>
+        function changeImage(src) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.style.opacity = '0';
+            setTimeout(() => {
+                mainImage.src = src;
+                mainImage.style.opacity = '1';
+            }, 200);
+
+            // Update active state of thumbnails
+            const buttons = document.querySelectorAll('.thumbnail-btn');
+            buttons.forEach(btn => {
+                if (btn.querySelector('img').src.includes(src)) {
+                    btn.classList.add('border-[#0071dc]');
+                    btn.classList.remove('border-gray-200', 'hover:border-gray-300');
+                } else {
+                    btn.classList.remove('border-[#0071dc]');
+                    btn.classList.add('border-gray-200', 'hover:border-gray-300');
+                }
+            });
+        }
+        function toggleDescription() {
+            const desc = document.getElementById('productDescription');
+            const btn = document.getElementById('viewMoreBtn');
+            
+            if (desc.classList.contains('line-clamp-3')) {
+                desc.classList.remove('line-clamp-3');
+                btn.textContent = 'View Less';
+            } else {
+                desc.classList.add('line-clamp-3');
+                btn.textContent = 'View More';
+            }
+        }
+
+        // Check if description needs truncation
+        document.addEventListener('DOMContentLoaded', () => {
+            const desc = document.getElementById('productDescription');
+            const btn = document.getElementById('viewMoreBtn');
+            
+            // Check if content overflows (scrollHeight > clientHeight)
+            // Note: line-clamp-3 must be active for this check to work on clamped height
+            if (desc.scrollHeight > desc.clientHeight) {
+                btn.classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

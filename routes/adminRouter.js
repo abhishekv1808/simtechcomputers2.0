@@ -6,47 +6,57 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Ensure uploads directory exists
-const uploadDir = path.join(__dirname, '../public/uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
+// Cloudinary Config
+const cloudinary = require('../utils/cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Multer Config
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads');
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'simtech_products',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
     },
-    filename: (req, file, cb) => {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-    }
 });
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/webp') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-};
 
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ storage: storage });
+
+const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
+// /admin/login => GET
+router.get('/login', adminController.getLogin);
+
+// /admin/login => POST
+router.post('/login', adminController.postLogin);
+
+// /admin/logout => POST
+router.post('/logout', adminController.postLogout);
+
 // /admin/dashboard => GET
-router.get('/dashboard', adminController.getDashboard);
+router.get('/dashboard', isAuth, adminController.getDashboard);
 
 // /admin/products => GET
-router.get('/products', adminController.getProducts);
+router.get('/products', isAuth, adminController.getProducts);
+
+// /admin/enquiries => GET
+router.get('/enquiries', isAuth, adminController.getEnquiries);
+
+// /admin/resolve-enquiry => POST
+router.post('/resolve-enquiry', isAuth, adminController.postResolveEnquiry);
 
 // --- Laptop ---
-router.get('/add-laptop', adminController.getAddLaptop);
-router.post('/add-laptop', upload.single('image'), [
+router.get('/add-laptop', isAuth, adminController.getAddLaptop);
+router.post('/add-laptop', isAuth, upload.array('images', 5), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
-    body('discount', 'Invalid discount').isFloat(),
-    // body('image') - Remove validation for URL string since it's a file now
+    body('price').custom((value, { req }) => {
+        if (parseFloat(value) >= parseFloat(req.body.mrp)) {
+            throw new Error('Selling Price must be less than MRP');
+        }
+        return true;
+    }),
     body('brand', 'Brand is required').notEmpty(),
     body('processor', 'Processor is required').notEmpty(),
     body('ram', 'RAM is required').notEmpty(),
@@ -54,13 +64,17 @@ router.post('/add-laptop', upload.single('image'), [
 ], adminController.postAddLaptop);
 
 // --- Monitor ---
-router.get('/add-monitor', adminController.getAddMonitor);
-router.post('/add-monitor', upload.single('image'), [
+router.get('/add-monitor', isAuth, adminController.getAddMonitor);
+router.post('/add-monitor', isAuth, upload.array('images', 5), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
-    body('discount', 'Invalid discount').isFloat(),
-    // body('image') - Remove validation
+    body('price').custom((value, { req }) => {
+        if (parseFloat(value) >= parseFloat(req.body.mrp)) {
+            throw new Error('Selling Price must be less than MRP');
+        }
+        return true;
+    }),
     body('brand', 'Brand is required').notEmpty(),
     body('screenSize', 'Screen Size is required').notEmpty(),
     body('panelType', 'Panel Type is required').notEmpty(),
@@ -68,13 +82,17 @@ router.post('/add-monitor', upload.single('image'), [
 ], adminController.postAddMonitor);
 
 // --- Desktop ---
-router.get('/add-desktop', adminController.getAddDesktop);
-router.post('/add-desktop', upload.single('image'), [
+router.get('/add-desktop', isAuth, adminController.getAddDesktop);
+router.post('/add-desktop', isAuth, upload.array('images', 5), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
-    body('discount', 'Invalid discount').isFloat(),
-    // body('image') - Remove validation
+    body('price').custom((value, { req }) => {
+        if (parseFloat(value) >= parseFloat(req.body.mrp)) {
+            throw new Error('Selling Price must be less than MRP');
+        }
+        return true;
+    }),
     body('brand', 'Brand is required').notEmpty(),
     body('processor', 'Processor is required').notEmpty(),
     body('ram', 'RAM is required').notEmpty(),
@@ -82,18 +100,42 @@ router.post('/add-desktop', upload.single('image'), [
     body('graphics', 'Graphics info is required').notEmpty()
 ], adminController.postAddDesktop);
 
+// --- Accessories ---
+router.get('/add-accessories', isAuth, adminController.getAddAccessories);
+router.post('/add-accessories', isAuth, upload.array('images', 5), [
+    body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
+    body('price', 'Invalid price').isFloat(),
+    body('mrp', 'Invalid MRP').isFloat(),
+    body('price').custom((value, { req }) => {
+        if (parseFloat(value) >= parseFloat(req.body.mrp)) {
+            throw new Error('Selling Price must be less than MRP');
+        }
+        return true;
+    }),
+    body('brand', 'Brand is required').notEmpty()
+], adminController.postAddAccessories);
+
 // Old generic route (keeping for backward compatibility or future cleanup)
 // /admin/add-product => GET
 // router.get('/add-product', adminController.getAddProduct);
 // router.post('/add-product', adminController.postAddProduct);
 
 // /admin/edit-product/:productId => GET
-router.get('/edit-product/:productId', adminController.getEditProduct);
+router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
 
 // /admin/edit-product => POST
-router.post('/edit-product', upload.single('image'), adminController.postEditProduct);
+router.post('/edit-product', isAuth, upload.array('images', 5), adminController.postEditProduct);
+
+// /admin/update-stock => POST
+router.post('/update-stock', isAuth, adminController.postUpdateStock);
+
+// /admin/toggle-status => POST
+router.post('/toggle-status', isAuth, adminController.postToggleStatus);
 
 // /admin/delete-product => POST
-router.post('/delete-product', adminController.postDeleteProduct);
+router.post('/delete-product', isAuth, adminController.postDeleteProduct);
+
+// /admin/delete-image => POST
+router.post('/delete-image', isAuth, adminController.postDeleteImage);
 
 module.exports = router;

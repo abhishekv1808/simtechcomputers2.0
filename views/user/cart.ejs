@@ -38,9 +38,12 @@
                                         <div>
                                             <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.product_id %>"><%= item.name %></a></h3>
                                             <p class="text-xs text-gray-500 mb-2">Condition: Good | Warranty: 6 Months</p>
-                                            <button class="text-red-500 text-xs font-semibold hover:underline flex items-center gap-1">
-                                                <i class="ri-delete-bin-line"></i> Remove
-                                            </button>
+                                            <form action="/cart/delete" method="POST">
+                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                <button type="submit" class="text-red-500 text-xs font-semibold hover:underline flex items-center gap-1">
+                                                    <i class="ri-delete-bin-line"></i> Remove
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
 
@@ -54,9 +57,17 @@
                                     <div class="w-full md:col-span-2 md:text-center flex justify-between md:justify-center">
                                         <span class="md:hidden text-gray-500 text-sm">Quantity:</span>
                                         <div class="flex items-center border border-gray-200 rounded-lg bg-white">
-                                            <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-l-lg">-</button>
+                                            <form action="/cart/update" method="POST" class="m-0 flex">
+                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                <input type="hidden" name="action" value="decrease">
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-l-lg">-</button>
+                                            </form>
                                             <input type="text" value="<%= item.quantity %>" class="w-10 text-center text-sm font-semibold border-x border-gray-200 focus:outline-none py-1" readonly>
-                                            <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-r-lg">+</button>
+                                            <form action="/cart/update" method="POST" class="m-0 flex">
+                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                <input type="hidden" name="action" value="increase">
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-r-lg">+</button>
+                                            </form>
                                         </div>
                                     </div>
 
