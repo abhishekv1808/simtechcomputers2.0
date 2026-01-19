@@ -81,17 +81,29 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-                                <input type="text" id="name" name="name" value="<%= oldInput.name %>" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'name') ? 'border-red-500' : '' %>" placeholder="John Doe">
+                                <input type="text" id="name" name="name" value="<%= oldInput.name %>" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'name') ? 'border-red-500 ring-2 ring-red-100' : '' %>" placeholder="John Doe">
+                                <% const nameError = validationErrors.find(e => e.path === 'name'); %>
+                                <% if (nameError) { %>
+                                    <p class="text-red-500 text-xs mt-1 font-medium"><i class="ri-error-warning-fill align-middle mr-1"></i><%= nameError.msg %></p>
+                                <% } %>
                             </div>
                              <div>
                                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" value="<%= oldInput.phone %>" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'phone') ? 'border-red-500' : '' %>" placeholder="+91 9876543210">
+                                <input type="tel" id="phone" name="phone" value="<%= oldInput.phone %>" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'phone') ? 'border-red-500 ring-2 ring-red-100' : '' %>" placeholder="+91 9876543210">
+                                <% const phoneError = validationErrors.find(e => e.path === 'phone'); %>
+                                <% if (phoneError) { %>
+                                    <p class="text-red-500 text-xs mt-1 font-medium"><i class="ri-error-warning-fill align-middle mr-1"></i><%= phoneError.msg %></p>
+                                <% } %>
                             </div>
                         </div>
 
                          <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" id="email" name="email" value="<%= oldInput.email %>" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'email') ? 'border-red-500' : '' %>" placeholder="john@example.com">
+                            <input type="email" id="email" name="email" value="<%= oldInput.email %>" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'email') ? 'border-red-500 ring-2 ring-red-100' : '' %>" placeholder="john@example.com">
+                            <% const emailError = validationErrors.find(e => e.path === 'email'); %>
+                            <% if (emailError) { %>
+                                <p class="text-red-500 text-xs mt-1 font-medium"><i class="ri-error-warning-fill align-middle mr-1"></i><%= emailError.msg %></p>
+                            <% } %>
                         </div>
 
                         <hr class="border-gray-100 my-6">
@@ -178,7 +190,11 @@
                          <!-- Message -->
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Additional Requirements</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400" placeholder="Any specific details, model years, or budget range..."><%= oldInput.message %></textarea>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-100 focus:border-[#0071dc] outline-none transition-all placeholder-gray-400 <%= validationErrors.find(e => e.path === 'message') ? 'border-red-500 ring-2 ring-red-100' : '' %>" placeholder="Any specific details, model years, or budget range..."><%= oldInput.message %></textarea>
+                            <% const messageError = validationErrors.find(e => e.path === 'message'); %>
+                            <% if (messageError) { %>
+                                <p class="text-red-500 text-xs mt-1 font-medium"><i class="ri-error-warning-fill align-middle mr-1"></i><%= messageError.msg %></p>
+                            <% } %>
                         </div>
 
                         <button type="submit" class="w-full bg-[#0071dc] hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2">

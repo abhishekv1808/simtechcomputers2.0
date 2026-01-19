@@ -47,16 +47,22 @@
             </div>
 
             <!-- Search Bar (Center Desktop) -->
-            <div class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md overflow-hidden mr-8 mx-auto">
-                <div class="px-4 py-2 border-r border-gray-200 flex items-center cursor-pointer min-w-[140px] justify-between text-gray-600 bg-gray-50">
-                    <span>All Categories</span>
-                    <i class="ri-arrow-down-s-line"></i>
+            <form action="/search" method="GET" class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md overflow-hidden mr-8 mx-auto">
+                <div class="relative min-w-[140px] border-r border-gray-200 bg-gray-50 h-full">
+                    <select name="category" class="w-full h-full appearance-none px-4 py-2 bg-transparent outline-none cursor-pointer text-gray-600 text-sm">
+                        <option value="">All Categories</option>
+                        <option value="desktop">Desktops</option>
+                        <option value="laptop">Laptops</option>
+                        <option value="monitor">Monitors</option>
+                        <option value="accessory">Accessories</option>
+                    </select>
+                    <i class="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"></i>
                 </div>
-                <input type="text" placeholder="Search For Products..." class="flex-1 px-4 py-2 outline-gray-200 text-gray-700">
-                <button class="bg-blue-600 text-white px-6 hover:bg-blue-700 transition-colors">
+                <input type="text" name="q" placeholder="Search For Products..." class="flex-1 px-4 py-2 outline-gray-200 text-gray-700">
+                <button type="submit" class="bg-blue-600 text-white px-6 hover:bg-blue-700 transition-colors">
                     <i class="ri-search-line text-xl"></i>
                 </button>
-            </div>
+            </form>
 
             <!-- Right Actions -->
             <div class="flex items-center space-x-6 text-white">
@@ -81,12 +87,12 @@
         
         <!-- Mobile Search (Visible on Mobile) -->
         <div class="md:hidden container mx-auto px-4 mt-4">
-            <div class="flex bg-white rounded-md overflow-hidden">
-                <input type="text" placeholder="Search..." class="flex-1 px-4 py-2 outline-none text-gray-700">
-                <button class="bg-blue-700 text-white px-4">
+            <form action="/search" method="GET" class="flex bg-white rounded-md overflow-hidden">
+                <input type="text" name="q" placeholder="Search..." class="flex-1 px-4 py-2 outline-none text-gray-700">
+                <button type="submit" class="bg-blue-700 text-white px-4">
                     <i class="ri-search-line"></i>
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 

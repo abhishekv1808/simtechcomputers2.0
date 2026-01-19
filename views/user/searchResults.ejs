@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <%- include('../partials/header') %>
+
+    <main class="flex-grow pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Breadcrumb -->
+            <nav class="flex mb-8 text-sm text-gray-500">
+                <a href="/" class="hover:text-[#0071dc]">Home</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-900 font-medium">Search Results</span>
+            </nav>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Product Grid (Full Width) -->
+                <div class="w-full flex flex-col min-h-[400px]">
+                    
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-900">
+                            <% if (searchQuery) { %>
+                                Search results for "<%= searchQuery %>"
+                            <% } else { %>
+                                All Products
+                            <% } %>
+                            <span class="text-gray-500 text-lg font-normal ml-2">(<%= products.length %> items)</span>
+                        </h1>
+                    </div>
+
+                    <!-- Grid -->
+                    <% if (products.length > 0) { %>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <% products.forEach(product => { %>
+                        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group">
+                            <a href="/product/<%= product.id %>" class="block">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
+                                         <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <% if (product.discount > 0) { %>
+                                        <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
+                                            -<%= product.discount %>%
+                                        </div>
+                                        <% } %>
+                                        <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.id %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
+                                            <i class="ri-share-forward-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="h-48 flex items-center justify-center mb-4 relative">
+                                    <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
+                                    <div class="flex items-center gap-1 border border-gray-200 px-1.5 py-0.5 rounded textxs font-bold text-gray-700 bg-gray-50">
+                                        <%= product.rating || '4.5' %> <i class="ri-star-fill text-yellow-400 text-[10px]"></i>
+                                    </div>
+                                </div>
+                                <div class="flex items-baseline gap-2 flex-wrap">
+                                    <span class="text-xl font-bold text-gray-900">₹<%= product.price.toLocaleString('en-IN') %></span>
+                                    <% if (product.mrp > product.price) { %>
+                                    <span class="text-gray-400 text-xs line-through">₹<%= product.mrp.toLocaleString('en-IN') %></span>
+                                    <% } %>
+                                </div>
+                            </a>
+                            <% if (product.inStock) { %>
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button type="submit" class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md z-20">
+                                        <i class="ri-shopping-cart-2-line"></i>
+                                    </button>
+                                </form>
+                            <% } else { %>
+                                <button disabled class="absolute bottom-4 right-4 bg-gray-200 text-gray-400 w-8 h-8 rounded-full flex items-center justify-center cursor-not-allowed z-20">
+                                    <i class="ri-shopping-cart-2-line"></i>
+                                </button>
+                            <% } %>
+                        </div>
+                        <% }); %>
+                    </div>
+                    <% } else { %>
+                        <div class="w-full text-center py-20 text-gray-500 bg-white rounded-xl border border-dashed border-gray-300">
+                            <div class="text-6xl text-gray-200 mb-4"><i class="ri-search-2-line"></i></div>
+                            <h2 class="text-xl font-bold text-gray-900 mb-2">No results found</h2>
+                            <p class="text-gray-500">We couldn't find any products matching "<%= searchQuery %>".</p>
+                            <a href="/" class="inline-block mt-4 text-[#0071dc] font-semibold hover:underline">Return Home</a>
+                        </div>
+                    <% } %>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script>
+        async function shareProduct(name, url) {
+            const fullUrl = window.location.origin + url;
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: name,
+                        text: `Check out this ${name} on Simtech Computers!`,
+                        url: fullUrl
+                    });
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                // Fallback to clipboard
+                try {
+                    await navigator.clipboard.writeText(fullUrl);
+                    alert('Link copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
