@@ -18,9 +18,81 @@
             </nav>
 
             <!-- Hero Section -->
-            <div class="mb-8 rounded-2xl overflow-hidden relative h-[300px] group">
-                <img src="/images/hero-laptops.png" alt="Laptops Hero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            </div>
+            <% 
+            const brandConfig = {
+                'Apple': {
+                    gradient: 'linear-gradient(135deg, #1E0B36 0%, #102B7B 45%, #04D0D9 100%)',
+                    title: 'MacBook Pro & Air',
+                    subtitle: 'Performance Refined.',
+                    desc: 'Power through your workflow with M-series chips. Simtech Assured quality.',
+                    image: '/images/Indian-women-with-apple-laptop.png',
+                    badge: 'Premium Collection',
+                    textGradient: 'from-blue-400 to-purple-400'
+                },
+                'Dell': {
+                    gradient: 'linear-gradient(135deg, #021B35 0%, #004E8F 50%, #007DB8 100%)',
+                    title: 'Dell Latitude & XPS',
+                    subtitle: 'Built for Business.',
+                    desc: 'Enterprise-grade durability meets premium design. The perfect choice for professionals.',
+                    image: '/images/Indian-women-with-Dell-laptop.png',
+                    badge: 'Business Ready',
+                    textGradient: 'from-cyan-300 to-blue-200'
+                },
+                'HP': {
+                    gradient: 'linear-gradient(135deg, #002D3A 0%, #006D85 50%, #00A6C7 100%)',
+                    title: 'HP EliteBook & Spectre',
+                    subtitle: 'Elegance Meets Power.',
+                    desc: 'Stunning craftsmanship with robust security features for the modern workplace.',
+                    image: '/images/Indian-women-with-hp-laptop.png',
+                    badge: 'Elite Performance',
+                    textGradient: 'from-teal-300 to-emerald-200'
+                },
+                'Lenovo': {
+                    gradient: 'linear-gradient(135deg, #2D0F0F 0%, #881212 50%, #E22B2B 100%)',
+                    title: 'Lenovo ThinkPad',
+                    subtitle: 'Legendary Reliability.',
+                    desc: 'Tested against 12 military-grade requirements. The ultimate tool for productivity.',
+                    image: '/images/lenovo-hero-image.png',
+                    badge: 'Pro Series',
+                    textGradient: 'from-red-400 to-orange-300'
+                }
+            };
+
+            const config = (typeof currentBrand !== 'undefined' && brandConfig[currentBrand]) ? brandConfig[currentBrand] : null;
+            %>
+
+            <% if (config) { %>
+                <div class="mb-8 relative rounded-2xl overflow-hidden shadow-2xl min-h-[250px] md:min-h-[280px] grid grid-cols-1 md:grid-cols-2 items-center" style="background: <%= config.gradient %>;">
+                    <!-- Subtle Noise Overlay for Texture -->
+                    <div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg')"></div>
+
+                     <!-- Text Content (Left Column) -->
+                    <div class="p-8 md:pl-12 text-left relative z-20">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] font-bold tracking-widest uppercase mb-3 shadow-lg">
+                            <%= config.badge %>
+                        </span>
+                        <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-3 tracking-tight">
+                            <%= config.title %>
+                        </h1>
+                        <p class="text-xl md:text-2xl font-light text-gray-300 mb-4">
+                            <span class="bg-gradient-to-r <%= config.textGradient %> bg-clip-text text-transparent font-medium"><%= config.subtitle %></span>
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
+                            <%= config.desc %>
+                        </p>
+                    </div>
+
+                     <!-- Image (Right Column) -->
+                    <div class="h-full w-full flex items-end justify-center md:justify-end relative z-10 pr-0 md:pr-12 pb-0">
+                        <img src="<%= config.image %>" alt="<%= config.title %>" class="object-contain h-64 w-auto drop-shadow-2xl translate-y-2">
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="mb-8 rounded-2xl overflow-hidden relative h-[300px] group">
+                    <img src="/images/hero-laptops.png" alt="Laptops Hero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                     <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                </div>
+            <% } %>
 
             <div class="flex flex-col lg:flex-row gap-8">
                 

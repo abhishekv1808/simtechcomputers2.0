@@ -128,6 +128,18 @@
             >Customer Enquiries</span
           >
         </a>
+        <a
+          href="/admin/send-notification"
+          class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/send-notification' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
+        >
+          <i
+            class="ri-notification-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/send-notification' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+          ></i>
+          <span
+            class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
+            >Push Notifications</span
+          >
+        </a>
       </div>
     </div>
   </div>

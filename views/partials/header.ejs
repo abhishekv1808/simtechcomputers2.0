@@ -135,9 +135,19 @@
                             <span class="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"><%= cartCount %></span>
                         <% } %>
                     </a>
-                <div class="text-2xl cursor-pointer hover:text-blue-100">
-                    <i class="ri-user-line"></i>
-                </div>
+                <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+                     <a href="/profile" class="text-2xl cursor-pointer hover:text-blue-100 relative mr-2" title="My Profile">
+                        <i class="ri-user-settings-line"></i>
+                    </a>
+                    <a href="/logout" class="text-2xl cursor-pointer hover:text-blue-100 relative inline-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Logout">
+                        <i class="ri-logout-box-r-line"></i>
+                    </a>
+                    <form id="logout-form" action="/logout" method="POST" style="display: none;"></form>
+                <% } else { %>
+                    <a href="/login" class="text-2xl cursor-pointer hover:text-blue-100" title="Login">
+                        <i class="ri-user-line"></i>
+                    </a>
+                <% } %>
             </div>
         </div>
         
@@ -169,3 +179,51 @@
 
 </header>
 <!-- Top Bar -->
+
+<script>
+    const publicVapidKey = 'BL2aAaQlcGIfaoihbDnjHr_bFyqlEF3Iy3zWQTymea1UET2Jm4r9tgCgkTBnXdSLBzz4kFOyLWCn1jPhFRzScCM';
+
+    if ('serviceWorker' in navigator) {
+        registerServiceWorker().catch(err => console.error(err));
+    }
+
+    async function registerServiceWorker() {
+        console.log('Registering Service Worker...');
+        const register = await navigator.serviceWorker.register('/sw.js', {
+            scope: '/'
+        });
+        console.log('Service Worker Registered...');
+
+        console.log('Registering Push...');
+        const subscription = await register.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+        });
+        console.log('Push Registered...');
+
+        console.log('Sending Push...');
+        await fetch('/subscribe', {
+            method: 'POST',
+            body: JSON.stringify(subscription),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+        console.log('Push Sent...');
+    }
+
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/');
+
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+    }
+</script>

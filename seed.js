@@ -227,7 +227,7 @@ const seedDB = async () => {
 
         const admin = await Admin.findOne({ email: 'admin@simtech.com' });
         const hashedPassword = await bcrypt.hash('Simtech@2025!Secure', 12);
-        
+
         if (!admin) {
             const newAdmin = new Admin({
                 email: 'admin@simtech.com',

@@ -2,6 +2,8 @@ const { validationResult } = require('express-validator');
 const Product = require('../models/product');
 const DailyStats = require('../models/dailyStats');
 const Enquiry = require('../models/enquiry');
+const Subscription = require('../models/Subscription');
+const webpush = require('web-push');
 
 exports.getDashboard = async (req, res) => {
     try {
@@ -133,6 +135,10 @@ exports.postAddLaptop = async (req, res) => {
         });
         await product.save();
         console.log('Created Laptop');
+
+        // Push Notification logic removed as per request to avoid spamming users when adding multiple products.
+        // Admins can now manually send notifications via the "Send Notification" page.
+
         res.redirect('/admin/products?success=true');
     } catch (err) {
         console.log(err);
@@ -440,7 +446,7 @@ exports.postUpdateStock = async (req, res) => {
             return res.redirect('/admin/products');
         }
         product.quantity = quantity;
-        
+
         // Only force Out of Stock if quantity is 0.
         // If quantity > 0, we leave inStock as is (respecting manual toggle).
         if (quantity <= 0) {
@@ -466,7 +472,7 @@ exports.postToggleStatus = async (req, res) => {
         // Logic:
         // If turning ON (inStock = true): Only allow if quantity > 0.
         // If turning OFF (inStock = false): Always allow.
-        
+
         const newStatus = inStock === 'true';
 
         if (newStatus && product.quantity <= 0) {
@@ -501,17 +507,75 @@ exports.postDeleteImage = async (req, res) => {
         }
 
         await product.save();
-        
+
         // Return success response (since we'll likely use fetch)
         // Or redirect back if using form submission. 
         // Given the UI, a redirect back to the edit page is safest for now.
         // We need to know which edit page to redirect to.
         // We can check the category or just redirect to /admin/edit-product/ID?edit=true
-        
+
         res.redirect(`/admin/edit-product/${productId}?edit=true`);
 
     } catch (err) {
         console.log(err);
         res.redirect('/admin/products');
+    }
+};
+
+exports.getSendNotification = (req, res) => {
+    res.render('admin/send-notification', {
+        pageTitle: 'Send Notification',
+        path: '/admin/send-notification',
+        errorMessage: null,
+        successMessage: req.query.success ? 'Notification Sent Successfully!' : null
+    });
+};
+
+exports.postSendNotification = async (req, res) => {
+    const { title, body, url } = req.body;
+    const image = req.file;
+
+    try {
+        const subscriptions = await Subscription.find();
+        if (!subscriptions || subscriptions.length === 0) {
+            return res.render('admin/send-notification', {
+                pageTitle: 'Send Notification',
+                path: '/admin/send-notification',
+                errorMessage: 'No subscribers found.',
+                successMessage: null
+            });
+        }
+
+        const iconPath = image ? image.path : '/images/logo.png'; // Use Cloudinary URL or default
+
+        const notificationPayload = JSON.stringify({
+            title: title,
+            body: body,
+            icon: iconPath,
+            url: url || '/'
+        });
+
+        console.log(`Sending manual notifications to ${subscriptions.length} users with icon: ${iconPath}`);
+
+        const promises = subscriptions.map(sub =>
+            webpush.sendNotification(sub, notificationPayload).catch(err => {
+                console.error('Error sending notification, deleting subscription:', err);
+                if (err.statusCode === 410 || err.statusCode === 404) {
+                    return Subscription.deleteOne({ _id: sub._id });
+                }
+            })
+        );
+        await Promise.all(promises);
+        console.log('Manual Notifications sent.');
+        res.redirect('/admin/send-notification?success=true');
+
+    } catch (err) {
+        console.log(err);
+        res.render('admin/send-notification', {
+            pageTitle: 'Send Notification',
+            path: '/admin/send-notification',
+            errorMessage: 'Failed to send notifications. Check server logs.',
+            successMessage: null
+        });
     }
 };

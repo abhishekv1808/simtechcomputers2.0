@@ -9,33 +9,200 @@
      <section>
 
             <div class="max-w-6xl mx-auto px-4 py-8 space-y-8">
-        
-        <!-- Main Banner -->
-        <div class="bg-[#f0f6ff] rounded-2xl p-8 md:p-12 md:flex items-center justify-between relative overflow-hidden">
-            <!-- Text Content -->
-            <div class="md:w-1/2 z-10 relative">
-                <span class="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">New Arrival</span>
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 leading-tight">Premium Laptops</h1>
-                <h2 class="text-xl md:text-2xl text-gray-600 mb-6 font-medium">Performance & Portability</h2>
-                <p class="text-gray-500 mb-8 max-w-md">Experience unmatched speed and efficiency with our latest collection of high-performance laptops. Perfect for work, gaming, and creativity.</p>
-                <button class="bg-[#0071dc] hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg hover:shadow-xl">
-                    Order Now
-                </button>
+        <!-- Home Page Carousel -->
+        <!-- Using inline styles for height to bypass potential Tailwind JIT issues -->
+        <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-12 group" id="heroCarousel" style="height: 380px; min-height: 380px;">
+            
+            <% 
+            const slides = [
+                {
+                    brand: 'Apple',
+                    gradient: 'linear-gradient(135deg, #1E0B36 0%, #102B7B 45%, #04D0D9 100%)',
+                    badge: 'Premium Collection',
+                    title: 'MacBook Pro & Air',
+                    subtitle: 'Performance Refined.',
+                    subtitleGradient: 'from-blue-400 to-purple-400',
+                    desc: 'Power through your workflow with M-series chips. Simtech Assured quality.',
+                    image: '/images/Indian-women-with-apple-laptop.png',
+                    link: '/laptops?brand=Apple'
+                },
+                {
+                    brand: 'Dell',
+                    gradient: 'linear-gradient(135deg, #021B35 0%, #004E8F 50%, #007DB8 100%)',
+                    badge: 'Business Ready',
+                    title: 'Dell Latitude & XPS',
+                    subtitle: 'Built for Business.',
+                    subtitleGradient: 'from-cyan-300 to-blue-200',
+                    desc: 'Enterprise-grade durability meets premium design. The perfect choice for professionals.',
+                    image: '/images/Indian-women-with-Dell-laptop.png',
+                    link: '/laptops?brand=Dell'
+                },
+                {
+                    brand: 'HP',
+                    gradient: 'linear-gradient(135deg, #002D3A 0%, #006D85 50%, #00A6C7 100%)',
+                    badge: 'Elite Performance',
+                    title: 'HP EliteBook',
+                    subtitle: 'Elegance Meets Power.',
+                    subtitleGradient: 'from-teal-300 to-emerald-200',
+                    desc: 'Stunning craftsmanship with robust security features for the modern workplace.',
+                    image: '/images/Indian-women-with-hp-laptop.png',
+                    link: '/laptops?brand=HP'
+                },
+                {
+                    brand: 'Lenovo',
+                    gradient: 'linear-gradient(135deg, #2D0F0F 0%, #881212 50%, #E22B2B 100%)',
+                    badge: 'Pro Series',
+                    title: 'Lenovo ThinkPad',
+                    subtitle: 'Legendary Reliability.',
+                    subtitleGradient: 'from-red-400 to-orange-300',
+                    desc: 'Tested against 12 military-grade requirements. The ultimate tool for productivity.',
+                    image: '/images/Indian-women-with-lenovo-laptop.png',
+                    link: '/laptops?brand=Lenovo'
+                }
+            ];
+            %>
+
+            <div class="carousel-inner relative w-full h-full ">
+                <% slides.forEach((slide, index) => { %>
+                    <div class="px-6 carousel-item absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out <%= index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' %>" data-index="<%= index %>" style="background: <%= slide.gradient %>;">
+                        <!-- Noise Overlay -->
+                        <div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg')"></div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 h-full items-center relative z-20">
+                            <!-- Text Content -->
+                            <div class="p-8 md:pl-16 flex flex-col justify-center items-start text-left h-full">
+                                <span class="inline-block px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] font-bold tracking-widest uppercase mb-3 shadow-lg animate-fade-in-up">
+                                    <%= slide.badge %>
+                                </span>
+                                <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-2 tracking-tight animate-fade-in-up delay-100">
+                                    <%= slide.title %>
+                                </h1>
+                                <p class="text-xl md:text-2xl font-light text-gray-300 mb-4 animate-fade-in-up delay-200">
+                                    <span class="bg-gradient-to-r <%= slide.subtitleGradient %> bg-clip-text text-transparent font-medium"><%= slide.subtitle %></span>
+                                </p>
+                                <p class="text-gray-300 text-sm md:text-base max-w-lg leading-relaxed mb-6 animate-fade-in-up delay-300 hidden md:block">
+                                    <%= slide.desc %>
+                                </p>
+                                <a href="<%= slide.link %>" class="px-6 py-2.5 rounded-full bg-white text-gray-900 text-sm font-bold hover:bg-gray-100 hover:scale-105 transition-all shadow-xl animate-fade-in-up delay-400">
+                                    Shop Now
+                                </a>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="h-full w-full flex items-end justify-center relative pr-4 md:pr-20 pb-0">
+                                <img src="<%= slide.image %>" alt="<%= slide.title %>" class="object-contain h-[100%] w-auto drop-shadow-2xl animate-slide-up" style="max-height: 360px;">
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
             </div>
             
-            <!-- Image (Right) -->
-            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center relative z-10">
-                 <!-- Sticker -->
-                 <div class="absolute top-0 right-0 md:-top-4 md:-right-4 bg-[#0071dc] text-white rounded-full h-24 w-24 flex flex-col items-center justify-center font-bold shadow-lg z-20 animate-bounce-slow">
-                    <span class="text-xl">70%</span>
-                    <span class="text-sm">OFF</span>
-                </div>
-                <img src="/images/hero-section-image.png" alt="Premium Laptop" class="object-contain h-64 md:h-96 drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+            <!-- Controls -->
+             <button class="absolute top-1/2 left-4 transform -translate-y-1/2 z-30 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 md:p-3 rounded-full transition-all focus:outline-none opacity-0 group-hover:opacity-100 duration-300" id="prevBtn">
+                <i class="ri-arrow-left-s-line text-xl md:text-2xl"></i>
+            </button>
+            <button class="absolute top-1/2 right-4 transform -translate-y-1/2 z-30 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 md:p-3 rounded-full transition-all focus:outline-none opacity-0 group-hover:opacity-100 duration-300" id="nextBtn">
+                <i class="ri-arrow-right-s-line text-xl md:text-2xl"></i>
+            </button>
+
+            <!-- Indicators -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
+                <% slides.forEach((_, index) => { %>
+                    <button class="w-2.5 h-2.5 rounded-full transition-all duration-300 focus:outline-none indicator <%= index === 0 ? 'bg-white w-8' : 'bg-white/40 hover:bg-white/60' %>" data-index="<%= index %>"></button>
+                <% }); %>
             </div>
-            
-            <!-- Decorative circle -->
-            <div class="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-100 rounded-full opacity-50 z-0"></div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const carousel = document.getElementById('heroCarousel');
+                const items = carousel.querySelectorAll('.carousel-item');
+                const indicators = carousel.querySelectorAll('.indicator');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                let currentIndex = 0;
+                let interval;
+
+                function showSlide(index) {
+                    items.forEach(item => {
+                        item.classList.remove('opacity-100', 'z-10');
+                        item.classList.add('opacity-0', 'z-0');
+                    });
+                    indicators.forEach(ind => {
+                        ind.classList.remove('bg-white', 'w-8');
+                        ind.classList.add('bg-white/40');
+                    });
+
+                    items[index].classList.remove('opacity-0', 'z-0');
+                    items[index].classList.add('opacity-100', 'z-10');
+                    indicators[index].classList.remove('bg-white/40');
+                    indicators[index].classList.add('bg-white', 'w-8');
+                    
+                    currentIndex = index;
+                }
+
+                function nextSlide() {
+                    let nextIndex = (currentIndex + 1) % items.length;
+                    showSlide(nextIndex);
+                }
+
+                function prevSlide() {
+                    let prevIndex = (currentIndex - 1 + items.length) % items.length;
+                    showSlide(prevIndex);
+                }
+
+                function startAutoPlay() {
+                    interval = setInterval(nextSlide, 5000); // 5 seconds
+                }
+
+                function stopAutoPlay() {
+                    clearInterval(interval);
+                }
+
+                // Event Listeners
+                nextBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    nextSlide();
+                    startAutoPlay();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    prevSlide();
+                    startAutoPlay();
+                });
+
+                indicators.forEach(ind => {
+                    ind.addEventListener('click', (e) => {
+                        stopAutoPlay();
+                        const index = parseInt(e.target.dataset.index);
+                        showSlide(index);
+                        startAutoPlay();
+                    });
+                });
+
+                // Start
+                startAutoPlay();
+            });
+        </script>
+        
+        <style>
+            @keyframes fade-in-up {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+            .delay-100 { animation-delay: 0.1s; }
+            .delay-200 { animation-delay: 0.2s; }
+            .delay-300 { animation-delay: 0.3s; }
+            .delay-400 { animation-delay: 0.4s; }
+            
+            @keyframes slide-up {
+                0% { opacity: 0; transform: translateY(40px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-slide-up { animation: slide-up 1s ease-out forwards; }
+        </style>
 
         <!-- Sub Banners Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -69,6 +236,9 @@
             </div>
 
         </div>
+
+    </div>
+     </section>
 
     <!-- Why Choose Us Section -->
     <section class="bg-white py-4 border-t border-gray-100 rounded-2xl mb-8">
@@ -122,7 +292,7 @@
         <!-- Daily Best Deals Section -->
         <section class="py-12">
             <div class="max-w-6xl mx-auto px-4">
-                 <div class="flex justify-between items-end mb-8">
+                 <div class="flex justify-between items-end ">
                     <h2 class="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
                         <span class="bg-red-600 text-white rounded-full p-1.5 flex items-center justify-center animate-pulse">
                             <i class="ri-flashlight-fill text-2xl"></i>
@@ -198,8 +368,8 @@
             </div>
         </section>
 
-        <!-- Explore Categories Section -->
-        <section class="py-12">
+     <!-- Explore Categories Section -->
+    <section class="py-12">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex justify-between items-end mb-8">
                     <div>
@@ -282,10 +452,10 @@
                     </div>
                 </div>
             </div>
-        </section>
+    </section>
 
-        <!-- Brands We Deal With Section -->
-        <section class="py-8 bg-white border-t border-gray-100 rounded-2xl">
+    <!-- Brands We Deal With Section -->
+    <section class="py-8 bg-white border-t border-gray-100 rounded-2xl">
             <div class="max-w-6xl mx-auto px-4 ">
                 <div class="text-center mb-10">
                     <h2 class="text-3xl font-bold text-gray-900 mb-2">Brands We Deal With</h2>
@@ -324,9 +494,7 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-     </section>
+    </section>
 
     <!-- Brand Section: Apple -->
     <section class="bg-white py-12 border-b border-gray-100 scroll-section">
@@ -1114,7 +1282,7 @@
     </section>
 
         <!-- FAQ Section -->
-    <section class="py-16 bg-white border-t border-gray-100">
+    <section class="py-16 bg-slate-50 border-t border-gray-100">
         <div class="max-w-4xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-gray-900 mb-2">Frequently Asked Questions</h2>
             <p class="text-center text-gray-500 mb-10">Have questions? We're here to help.</p>
@@ -1122,65 +1290,75 @@
             <div class="space-y-4">
                 
                 <!-- FAQ Item 1 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden faq-item cursor-pointer">
-                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
-                        <span class="font-bold text-gray-900 text-left">Are these laptops renewed or used?</span>
-                        <i class="ri-add-line text-xl text-gray-500 transform transition-transform duration-300"></i>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden faq-item cursor-pointer group transition-all duration-300 hover:shadow-md">
+                    <button class="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-lg group-hover:text-[#0071dc] transition-colors">Are these laptops renewed or used?</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0071dc] group-hover:bg-[#0071dc] group-hover:text-white transition-all transform duration-300 icon-container">
+                             <i class="ri-add-line text-xl"></i>
+                        </div>
                     </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <div class="p-4 bg-white text-gray-600 text-sm border-t border-gray-100">
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content opacity-0">
+                        <div class="px-6 pb-4 pt-0 text-gray-600 leading-relaxed">
                             Our laptops are premium renewed business machines. They are processed through a rigorous 25-point quality text, cleaned, sanitized, and restored to like-new functional condition. They may have minor cosmetic signs of use but are 100% functional.
                         </div>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden faq-item cursor-pointer">
-                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
-                        <span class="font-bold text-gray-900 text-left">What warranty do you offer?</span>
-                        <i class="ri-add-line text-xl text-gray-500 transform transition-transform duration-300"></i>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden faq-item cursor-pointer group transition-all duration-300 hover:shadow-md">
+                    <button class="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-lg group-hover:text-[#0071dc] transition-colors">What warranty do you offer?</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0071dc] group-hover:bg-[#0071dc] group-hover:text-white transition-all transform duration-300 icon-container">
+                             <i class="ri-add-line text-xl"></i>
+                        </div>
                     </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <div class="p-4 bg-white text-gray-600 text-sm border-t border-gray-100">
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content opacity-0">
+                        <div class="px-6 pb-4 pt-0 text-gray-600 leading-relaxed">
                             We offer a comprehensive 6-month warranty on the motherboard and a 1-month testing warranty on the battery and adapter. We provide full hardware support during the warranty period.
                         </div>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden faq-item cursor-pointer">
-                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
-                        <span class="font-bold text-gray-900 text-left">Can I return the product if I don't like it?</span>
-                        <i class="ri-add-line text-xl text-gray-500 transform transition-transform duration-300"></i>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden faq-item cursor-pointer group transition-all duration-300 hover:shadow-md">
+                    <button class="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-lg group-hover:text-[#0071dc] transition-colors">Can I return the product if I don't like it?</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0071dc] group-hover:bg-[#0071dc] group-hover:text-white transition-all transform duration-300 icon-container">
+                             <i class="ri-add-line text-xl"></i>
+                        </div>
                     </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <div class="p-4 bg-white text-gray-600 text-sm border-t border-gray-100">
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content opacity-0">
+                        <div class="px-6 pb-4 pt-0 text-gray-600 leading-relaxed">
                             Yes, we have a 7-day hassle-free return policy. If you find any functional defect or if the product does not match the description, you can initiate a return or replacement within 7 days of delivery.
                         </div>
                     </div>
                 </div>
 
                  <!-- FAQ Item 4 -->
-                 <div class="border border-gray-200 rounded-lg overflow-hidden faq-item cursor-pointer">
-                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
-                        <span class="font-bold text-gray-900 text-left">Do you ship all over India?</span>
-                        <i class="ri-add-line text-xl text-gray-500 transform transition-transform duration-300"></i>
+                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden faq-item cursor-pointer group transition-all duration-300 hover:shadow-md">
+                    <button class="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-lg group-hover:text-[#0071dc] transition-colors">Do you ship all over India?</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0071dc] group-hover:bg-[#0071dc] group-hover:text-white transition-all transform duration-300 icon-container">
+                             <i class="ri-add-line text-xl"></i>
+                        </div>
                     </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <div class="p-4 bg-white text-gray-600 text-sm border-t border-gray-100">
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content opacity-0">
+                        <div class="px-6 pb-4 pt-0 text-gray-600 leading-relaxed">
                             Absolutely! We offer free and insured shipping to over 25,000 pin codes across India using trusted courier partners like Bluedart, Delhivery, and DTDC.
                         </div>
                     </div>
                 </div>
 
                  <!-- FAQ Item 5 -->
-                 <div class="border border-gray-200 rounded-lg overflow-hidden faq-item cursor-pointer">
-                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none">
-                        <span class="font-bold text-gray-900 text-left">Do the laptops come with original chargers?</span>
-                        <i class="ri-add-line text-xl text-gray-500 transform transition-transform duration-300"></i>
+                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden faq-item cursor-pointer group transition-all duration-300 hover:shadow-md">
+                    <button class="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none">
+                        <span class="font-bold text-gray-900 text-lg group-hover:text-[#0071dc] transition-colors">Do the laptops come with original chargers?</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0071dc] group-hover:bg-[#0071dc] group-hover:text-white transition-all transform duration-300 icon-container">
+                             <i class="ri-add-line text-xl"></i>
+                        </div>
                     </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <div class="p-4 bg-white text-gray-600 text-sm border-t border-gray-100">
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content opacity-0">
+                        <div class="px-6 pb-4 pt-0 text-gray-600 leading-relaxed">
                             Yes, all our laptops come with compatible, high-quality, or original chargers depending on availability. All accessories are tested for safety and performance.
                         </div>
                     </div>
@@ -1194,26 +1372,52 @@
                 button.addEventListener('click', () => {
                     const faqItem = button.parentElement;
                     const content = faqItem.querySelector('.faq-content');
-                    const icon = button.querySelector('i');
+                    const iconContainer = button.querySelector('.icon-container');
+                    const icon = iconContainer.querySelector('i');
 
                     // Close all other items
                     document.querySelectorAll('.faq-item').forEach(item => {
                         if (item !== faqItem) {
-                            item.querySelector('.faq-content').style.maxHeight = null;
-                            item.querySelector('i').classList.remove('rotate-45');
-                            item.classList.remove('active');
+                            const otherContent = item.querySelector('.faq-content');
+                            const otherIconContainer = item.querySelector('.icon-container');
+                            const otherIcon = otherIconContainer.querySelector('i');
+                            
+                            otherContent.style.maxHeight = null;
+                            otherContent.classList.remove('opacity-100');
+                            otherContent.classList.add('opacity-0');
+                            
+                            otherIcon.classList.remove('ri-subtract-line');
+                            otherIcon.classList.add('ri-add-line');
+                            otherIconContainer.classList.remove('rotate-180');
+                            
+                            item.classList.remove('border-blue-500');
+                            item.classList.add('border-gray-200');
                         }
                     });
 
                     // Toggle current item
                     if (content.style.maxHeight) {
                         content.style.maxHeight = null;
-                        icon.classList.remove('rotate-45');
-                        faqItem.classList.remove('active');
+                        content.classList.remove('opacity-100');
+                        content.classList.add('opacity-0');
+                        
+                        icon.classList.remove('ri-subtract-line');
+                        icon.classList.add('ri-add-line');
+                        iconContainer.classList.remove('rotate-180');
+                        
+                        faqItem.classList.remove('border-blue-500');
+                        faqItem.classList.add('border-gray-200');
                     } else {
                         content.style.maxHeight = content.scrollHeight + "px";
-                        icon.classList.add('rotate-45');
-                        faqItem.classList.add('active');
+                        content.classList.remove('opacity-0');
+                        content.classList.add('opacity-100');
+                        
+                        icon.classList.remove('ri-add-line');
+                        icon.classList.add('ri-subtract-line');
+                        iconContainer.classList.add('rotate-180');
+                        
+                        faqItem.classList.remove('border-gray-200');
+                        faqItem.classList.add('border-blue-500');
                     }
                 });
             });

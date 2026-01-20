@@ -138,4 +138,8 @@ router.post('/delete-product', isAuth, adminController.postDeleteProduct);
 // /admin/delete-image => POST
 router.post('/delete-image', isAuth, adminController.postDeleteImage);
 
+// /admin/send-notification => GET & POST
+router.get('/send-notification', isAuth, adminController.getSendNotification);
+router.post('/send-notification', isAuth, upload.single('image'), adminController.postSendNotification);
+
 module.exports = router;
