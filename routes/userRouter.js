@@ -1,6 +1,6 @@
 const express = require('express');
 const userRouter = express.Router();
-const { getHome, getContactUs, postContactUs, getAboutUs, getLaptops, getDesktops, getMonitors, getAccessories, getProductDetails, getCart, addToCart, removeFromCart, getBlogPost, getSearch } = require('../controllers/userController');
+const { getHome, getContactUs, postContactUs, getAboutUs, getLaptops, getDesktops, getMonitors, getAccessories, getProductDetails, getCart, addToCart, removeFromCart, getBlogPost, getSearch, getBlogs } = require('../controllers/userController');
 const { check } = require('express-validator');
 
 
@@ -29,6 +29,7 @@ userRouter.post('/contact-us', [
         .isLength({ min: 10 }).withMessage('Message must be at least 10 characters long if provided')
 ], postContactUs);
 userRouter.get('/about-us', getAboutUs);
+userRouter.get('/blogs', getBlogs);
 userRouter.get('/laptops', getLaptops);
 userRouter.get('/desktops', getDesktops);
 userRouter.get('/monitors', getMonitors);

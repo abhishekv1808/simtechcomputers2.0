@@ -18,7 +18,7 @@
                 <a href="#" class="hover:text-white">Track Order</a>
                 <a href="/about-us" class="hover:text-white">About</a>
                 <a href="/contact-us" class="hover:text-white">Contact</a>
-                <a href="#" class="hover:text-white">Blog</a>
+                <a href="/blogs" class="hover:text-white">Blog</a>
             </div>
         </div>
     </div>
@@ -47,17 +47,73 @@
             </div>
 
             <!-- Search Bar (Center Desktop) -->
-            <form action="/search" method="GET" class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md overflow-hidden mr-8 mx-auto">
-                <div class="relative min-w-[140px] border-r border-gray-200 bg-gray-50 h-full">
-                    <select name="category" class="w-full h-full appearance-none px-4 py-2 bg-transparent outline-none cursor-pointer text-gray-600 text-sm">
-                        <option value="">All Categories</option>
-                        <option value="desktop">Desktops</option>
-                        <option value="laptop">Laptops</option>
-                        <option value="monitor">Monitors</option>
-                        <option value="accessory">Accessories</option>
-                    </select>
-                    <i class="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"></i>
+            <form action="/search" method="GET" class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md mr-8 mx-auto relative">
+                <div class="relative min-w-[160px] border-r border-gray-200 bg-gray-50 h-full" id="categoryDropdown">
+                    <input type="hidden" name="category" id="categoryInput" value="">
+                    <button type="button" class="w-full h-full px-4 py-2 flex items-center justify-between text-gray-600 text-sm hover:bg-gray-100 transition-colors focus:outline-none" onclick="toggleDropdown()">
+                        <span id="selectedCategory" class="flex items-center gap-2"><i class="ri-apps-line text-blue-500"></i> All Categories</span>
+                        <i class="ri-arrow-down-s-line text-gray-500 transition-transform duration-300" id="dropdownArrow"></i>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="dropdownMenu" class="absolute top-full left-0 w-[200px] bg-white border border-gray-100 shadow-lg rounded-b-lg z-50 transition-all duration-300 ease-in-out transform origin-top opacity-0 scale-95 invisible">
+                        <ul class="py-1">
+                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('', 'All Categories', 'ri-apps-line')">
+                                <i class="ri-apps-line text-blue-500 text-lg"></i> All Categories
+                            </li>
+                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('desktop', 'Desktops', 'ri-computer-line')">
+                                <i class="ri-computer-line text-blue-500 text-lg"></i> Desktops
+                            </li>
+                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('laptop', 'Laptops', 'ri-macbook-line')">
+                                <i class="ri-macbook-line text-indigo-500 text-lg"></i> Laptops
+                            </li>
+                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('monitor', 'Monitors', 'ri-tv-2-line')">
+                                <i class="ri-tv-2-line text-purple-500 text-lg"></i> Monitors
+                            </li>
+                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('accessory', 'Accessories', 'ri-headphone-line')">
+                                <i class="ri-headphone-line text-teal-500 text-lg"></i> Accessories
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <script>
+                    function toggleDropdown() {
+                        const menu = document.getElementById('dropdownMenu');
+                        const arrow = document.getElementById('dropdownArrow');
+                        
+                        if (menu.classList.contains('opacity-0')) {
+                            // Open
+                            menu.classList.remove('opacity-0', 'scale-95', 'invisible');
+                            menu.classList.add('opacity-100', 'scale-100', 'visible');
+                            arrow.classList.add('rotate-180');
+                        } else {
+                            // Close
+                            menu.classList.add('opacity-0', 'scale-95', 'invisible');
+                            menu.classList.remove('opacity-100', 'scale-100', 'visible');
+                            arrow.classList.remove('rotate-180');
+                        }
+                    }
+
+                    function selectCategory(value, text, iconClass) {
+                        document.getElementById('categoryInput').value = value;
+                        document.getElementById('selectedCategory').innerHTML = `<i class="${iconClass} text-blue-500"></i> ${text}`;
+                        toggleDropdown();
+                    }
+
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', function(event) {
+                        const dropdown = document.getElementById('categoryDropdown');
+                        const menu = document.getElementById('dropdownMenu');
+                        const arrow = document.getElementById('dropdownArrow');
+                        if (!dropdown.contains(event.target)) {
+                            if (!menu.classList.contains('opacity-0')) {
+                                menu.classList.add('opacity-0', 'scale-95', 'invisible');
+                                menu.classList.remove('opacity-100', 'scale-100', 'visible');
+                                arrow.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+                </script>
                 <input type="text" name="q" placeholder="Search For Products..." class="flex-1 px-4 py-2 outline-gray-200 text-gray-700">
                 <button type="submit" class="bg-blue-600 text-white px-6 hover:bg-blue-700 transition-colors">
                     <i class="ri-search-line text-xl"></i>
@@ -67,8 +123,8 @@
             <!-- Right Actions -->
             <div class="flex items-center space-x-6 text-white">
                 <div class="hidden md:block text-right text-sm">
-                    <div class="text-blue-200 text-xs">Helpline</div>
-                    <div class="font-semibold">+01 123 456 789</div>
+                    <div class="text-blue-200 text-xs">Contact Us</div>
+                    <div class="font-semibold">+91 98867 86706</div>
                 </div>
                 <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
                     <i class="ri-heart-line"></i>
@@ -100,11 +156,11 @@
     <div class="bg-white border-b border-gray-100 shadow-sm hidden md:block">
         <div class="container mx-auto px-4 max-w-7xl mx-auto">
             <ul class="flex items-center justify-center space-x-10 py-4 overflow-x-auto text-gray-700 font-medium text-sm scrollbar-hide">
-                <li class="whitespace-nowrap"><a href="/desktops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-computer-line text-lg text-blue-500"></i> Desktop</a></li>
-                <li class="whitespace-nowrap"><a href="/laptops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-macbook-line text-lg text-indigo-500"></i> Laptop</a></li>
-                <li class="whitespace-nowrap"><a href="/monitors" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-tv-2-line text-lg text-purple-500"></i> Monitor</a></li>
+                <li class="whitespace-nowrap"><a href="/desktops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-computer-line text-lg text-blue-500"></i> Desktops</a></li>
+                <li class="whitespace-nowrap"><a href="/laptops" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-macbook-line text-lg text-indigo-500"></i> Laptops</a></li>
+                <li class="whitespace-nowrap"><a href="/monitors" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-tv-2-line text-lg text-purple-500"></i> Monitors</a></li>
                 <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-apps-line text-lg text-green-500"></i> Software</a></li>
-                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-line text-lg text-orange-500"></i> Gadget</a></li>
+                <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-line text-lg text-orange-500"></i> Gadgets</a></li>
                 <li class="whitespace-nowrap"><a href="#" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-gamepad-fill text-lg text-red-500"></i> Gaming</a></li>
                 <li class="whitespace-nowrap"><a href="/accessories" class="hover:text-[#0071dc] transition-colors flex items-center gap-2"><i class="ri-headphone-line text-lg text-teal-500"></i> Accessories</a></li>
             </ul>

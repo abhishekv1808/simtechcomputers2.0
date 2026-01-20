@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-50 font-sans">
+    <%- include('../partials/header') %>
+
+    <main class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Our Blog</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">Stay updated with the latest tech trends, buying guides, and news from Simtech Computers.</p>
+        </div>
+
+        <!-- Blog Grid -->
+        <% if (blogs.length > 0) { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% blogs.forEach(blog => { %>
+                    <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col h-full">
+                        <a href="/blog/<%= blog._id %>" class="block relative overflow-hidden group h-48">
+                            <img src="<%= blog.image %>" alt="<%= blog.title %>" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                                <span class="flex items-center gap-1"><i class="ri-calendar-line"></i> <%= new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+                                <span class="flex items-center gap-1"><i class="ri-user-3-line"></i> <%= blog.author %></span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-[#0071dc] transition-colors">
+                                <a href="/blog/<%= blog._id %>"><%= blog.title %></a>
+                            </h2>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-1"><%= blog.excerpt %></p>
+                            <a href="/blog/<%= blog._id %>" class="inline-flex items-center text-[#0071dc] font-semibold hover:underline mt-auto">
+                                Read More <i class="ri-arrow-right-line ml-1"></i>
+                            </a>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="text-center py-16">
+                <div class="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-article-line text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">No posts found</h3>
+                <p class="text-gray-500">Check back later for new updates.</p>
+            </div>
+        <% } %>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

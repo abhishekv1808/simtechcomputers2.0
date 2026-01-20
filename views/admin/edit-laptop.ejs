@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 </head>
-<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-purple-500 selection:text-white transition-colors duration-300">
+<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300">
 
     <%- include('./includes/navigation') %>
 
@@ -172,11 +172,11 @@
                         <div class="col-span-full">
                             <label class="block text-sm font-bold text-[var(--admin-text-muted)] mb-4">Upload New Images (Optional)</label>
                             
-                            <div id="drop-zone" class="w-full h-64 border-2 border-dashed border-[var(--admin-border)] hover:border-purple-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group" onclick="document.getElementById('file-input').click()">
+                            <div id="drop-zone" class="w-full h-64 border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group" onclick="document.getElementById('file-input').click()">
                                 <input type="file" name="images" id="file-input" class="hidden" accept="image/*" multiple>
                                 
                                 <div class="text-center transition-transform group-hover:scale-105 z-10 pointer-events-none">
-                                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <i class="ri-upload-cloud-2-line text-3xl"></i>
                                     </div>
                                     <p class="text-[var(--admin-text-main)] font-bold text-lg">Click to update or drag and drop</p>
@@ -199,7 +199,7 @@
 
                     <div class="pt-6 border-t border-[var(--admin-border)] flex justify-end gap-4">
                         <a href="/admin/products" class="px-6 py-3 rounded-lg border border-[var(--admin-border)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] hover:bg-[var(--admin-hover)] font-bold transition-all">Cancel</a>
-                        <button type="submit" class="px-8 py-3 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-900/50 transition-all">
+                        <button type="submit" class="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-900/50 transition-all">
                             Update Laptop
                         </button>
                     </div>
@@ -256,7 +256,7 @@
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                dropZone.classList.add('border-purple-500', 'bg-purple-50', 'dark:bg-purple-900/10');
+                dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
             }, false);
         });
 
@@ -264,7 +264,7 @@
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                dropZone.classList.remove('border-purple-500', 'bg-purple-50', 'dark:bg-purple-900/10');
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
             }, false);
         });
 

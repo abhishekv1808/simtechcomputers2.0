@@ -110,6 +110,19 @@ exports.getBlogPost = async (req, res) => {
     }
 }
 
+exports.getBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find().sort({ date: -1 });
+        res.render('../views/user/blogs.ejs', {
+            pageTitle: "Our Blog | Simtech computers",
+            blogs: blogs
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error");
+    }
+}
+
 exports.getContactUs = (req, res) => {
     res.render('../views/user/contactUs.ejs', {
         pageTitle: "Contact Us | Simtech computers",

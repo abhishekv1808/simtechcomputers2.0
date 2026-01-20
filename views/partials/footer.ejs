@@ -42,7 +42,7 @@
             <i class="ri-phone-line text-blue-500 text-xl"></i>
             <span>
               Call Us 24/7<br />
-              <span class="text-white font-bold text-lg">+01 123 456 789</span>
+              <span class="text-white font-bold text-lg">+91 98867 86706</span>
             </span>
           </li>
           <li class="flex items-start gap-3">
@@ -170,3 +170,46 @@
     </div>
   </div>
 </footer>
+
+<!-- WhatsApp Floating Button -->
+<style>
+  @keyframes wiggle-interval {
+    0%,
+    90% {
+      transform: rotate(0deg) scale(1);
+    }
+    92% {
+      transform: rotate(-15deg) scale(1.1);
+    }
+    94% {
+      transform: rotate(15deg) scale(1.1);
+    }
+    96% {
+      transform: rotate(-15deg) scale(1.1);
+    }
+    98% {
+      transform: rotate(15deg) scale(1.1);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+  }
+  .animate-wiggle-interval {
+    animation: wiggle-interval 6s infinite ease-in-out;
+  }
+</style>
+<a
+  href="https://wa.me/1234567890"
+  target="_blank"
+  class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 group hover:shadow-xl"
+>
+  <i class="ri-whatsapp-line text-3xl animate-wiggle-interval"></i>
+  <span
+    class="absolute right-full mr-4 bg-white text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+  >
+    Chat with us
+    <div
+      class="absolute top-1/2 -right-1 -mt-1 w-2 h-2 bg-white transform rotate-45"
+    ></div>
+  </span>
+</a>

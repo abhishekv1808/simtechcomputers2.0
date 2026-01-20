@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body
-    class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-purple-500 selection:text-white transition-colors duration-300"
+    class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300"
   >
     <%- include('./includes/navigation') %>
 
@@ -29,15 +29,9 @@
           </div>
 
           <div class="flex items-center gap-3">
-            <button
-              class="bg-[var(--admin-card)] border border-[var(--admin-border)] text-[var(--admin-text-muted)] px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[var(--admin-hover)] transition-colors"
-            >
-              <i class="ri-calendar-line"></i> Jun 1 - Jun 30
-            </button>
-
             <a
               href="/admin/add-laptop"
-              class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-purple-900/50 transition-all"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all"
             >
               <i class="ri-macbook-line"></i> Add Laptop
             </a>
@@ -49,7 +43,7 @@
             </a>
             <a
               href="/admin/add-desktop"
-              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-green-900/50 transition-all"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all"
             >
               <i class="ri-computer-line"></i> Add Desktop
             </a>
@@ -88,7 +82,7 @@
             </div>
             <!-- Glow Effect (Dark Mode Only usually, but subtle in light) -->
             <div
-              class="absolute -right-6 -bottom-6 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all"
+              class="absolute -right-6 -bottom-6 w-24 h-24 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-all"
             ></div>
           </div>
 
@@ -194,37 +188,36 @@
               <h3 class="text-lg font-bold text-[var(--admin-text-main)]">
                 Stock Performance
               </h3>
-              <div class="relative">
+                <div class="relative" id="stockDropdownContainer">
                 <button
-                  onclick="
-                    document
-                      .getElementById('chartDropdown')
-                      .classList.toggle('hidden')
-                  "
+                  id="stockDropdownBtn"
                   class="bg-[var(--admin-hover)] text-[var(--admin-text-muted)] border border-[var(--admin-border)] px-3 py-1 rounded text-xs flex items-center gap-2 hover:bg-gray-200 transition-colors"
                 >
-                  Weekly <i class="ri-arrow-down-s-line"></i>
+                  <span id="stockDropdownLabel">Weekly</span> <i class="ri-arrow-down-s-line"></i>
                 </button>
                 <!-- Dropdown Menu -->
                 <div
-                  id="chartDropdown"
+                  id="stockDropdownMenu"
                   class="hidden absolute right-0 top-full mt-2 w-32 bg-[var(--admin-card)] border border-[var(--admin-border)] rounded-lg shadow-lg z-20 overflow-hidden"
                 >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-[var(--admin-text-main)] hover:bg-[var(--admin-hover)] bg-[var(--admin-hover)] font-bold"
-                    >Weekly</a
+                  <button
+                    onclick="updateStockFilter('Weekly')"
+                    class="w-full text-left block px-4 py-2 text-sm text-[var(--admin-text-main)] hover:bg-[var(--admin-hover)] font-medium transition-colors"
                   >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]"
-                    >Monthly</a
+                    Weekly
+                  </button>
+                  <button
+                    onclick="updateStockFilter('Monthly')"
+                    class="w-full text-left block px-4 py-2 text-sm text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-colors"
                   >
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]"
-                    >Yearly</a
+                    Monthly
+                  </button>
+                  <button
+                    onclick="updateStockFilter('Yearly')"
+                    class="w-full text-left block px-4 py-2 text-sm text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)] transition-colors"
                   >
+                    Yearly
+                  </button>
                 </div>
               </div>
             </div>
@@ -334,7 +327,7 @@
                       <td
                         class="py-4 text-right pr-4 text-[var(--admin-text-muted)] group-hover:text-[var(--admin-text-main)] cursor-pointer"
                       >
-                        <a href="/admin/edit-<%= product.category %>/<%= product._id %>?edit=true" class="hover:text-purple-500 transition-colors">
+                        <a href="/admin/edit-<%= product.category %>/<%= product._id %>?edit=true" class="hover:text-blue-500 transition-colors">
                           <i class="ri-pencil-line"></i>
                         </a>
                       </td>
@@ -375,7 +368,7 @@
                   {
                       label: 'Views',
                       data: <%- JSON.stringify(chartData.views) %>,
-                      backgroundColor: '#7e22ce',
+                      backgroundColor: '#0071dc',
                       borderRadius: 4,
                       barThickness: 30,
                   }
@@ -406,7 +399,7 @@
               labels: ['Laptops', 'Desktops', 'Monitors'],
               datasets: [{
                   data: [<%= categoryCounts.laptop %>, <%= categoryCounts.desktop %>, <%= categoryCounts.monitor %>],
-                  backgroundColor: ['#7e22ce', '#3b82f6', '#10b981'],
+                  backgroundColor: ['#0071dc', '#3b82f6', '#10b981'],
                   borderWidth: 0,
                   cutout: '80%'
               }]
@@ -417,6 +410,34 @@
               plugins: { legend: { display: false } }
           }
       });
+      // --- Dropdown Logic ---
+      const dropdownBtn = document.getElementById('stockDropdownBtn');
+      const dropdownMenu = document.getElementById('stockDropdownMenu');
+      const dropdownLabel = document.getElementById('stockDropdownLabel');
+      const dropdownContainer = document.getElementById('stockDropdownContainer');
+
+      if (dropdownBtn && dropdownMenu) {
+        // Toggle
+        dropdownBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close on click outside
+        document.addEventListener('click', (e) => {
+          if (!dropdownContainer.contains(e.target)) {
+            dropdownMenu.classList.add('hidden');
+          }
+        });
+
+        // Update Filter Function
+        window.updateStockFilter = (period) => {
+          dropdownLabel.textContent = period;
+          dropdownMenu.classList.add('hidden');
+          // Here you would typically fetch new data for the chart
+          console.log(`Fetching data for: ${period}`);
+        };
+      }
     </script>
   </body>
 </html>
