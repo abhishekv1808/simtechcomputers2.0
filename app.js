@@ -16,6 +16,10 @@ const store = new MongoDBStore({
     collection: 'sessions'
 });
 
+store.on('error', function(error) {
+    console.log('Session Store Error:', error);
+});
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -89,6 +93,11 @@ app.post('/subscribe', async (req, res) => {
 });
 
 const port = process.env.PORT || 3002;
+
+if (!mongodbURL) {
+    console.error("FATAL ERROR: MONGODB_URI is not defined.");
+    process.exit(1);
+}
 
 mongoose.connect(mongodbURL).then(() => {
     console.log("Connected to MongoDB");
