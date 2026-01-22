@@ -1,7 +1,8 @@
 const express = require("express");
+require('dotenv').config(); // Load environment variables
 const rootDir = require("./utils/mainUtils");
 const mongoose = require('mongoose');
-const mongodbURL = "mongodb+srv://abhishekv1808:Grow%40%24%402025@aribnb.xvmlcnz.mongodb.net/simtech20?retryWrites=true&w=majority&appName=aribnb";
+const mongodbURL = process.env.MONGODB_URI;
 const userRouter = require('./routes/userRouter');
 const adminRouter = require('./routes/adminRouter');
 const path = require('path');
@@ -24,7 +25,7 @@ app.use(express.static(path.join(rootDir, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'my secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store

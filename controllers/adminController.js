@@ -422,7 +422,7 @@ exports.postLogin = async (req, res) => {
         }
         const doMatch = await bcrypt.compare(password, admin.password);
         if (doMatch) {
-            const token = jwt.sign({ email: admin.email, adminId: admin._id }, 'somesupersecretsecret', { expiresIn: '1h' });
+            const token = jwt.sign({ email: admin.email, adminId: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.cookie('token', token, { httpOnly: true });
             return res.redirect('/admin/dashboard');
         }
