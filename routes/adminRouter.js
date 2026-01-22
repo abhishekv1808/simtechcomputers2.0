@@ -140,6 +140,6 @@ router.post('/delete-image', isAuth, adminController.postDeleteImage);
 
 // /admin/send-notification => GET & POST
 router.get('/send-notification', isAuth, adminController.getSendNotification);
-router.post('/send-notification', isAuth, upload.single('image'), adminController.postSendNotification);
+router.post('/send-notification', isAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'icon', maxCount: 1 }]), adminController.postSendNotification);
 
 module.exports = router;

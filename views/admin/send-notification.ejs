@@ -87,17 +87,62 @@
                             <input type="text" name="url" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. /laptops or https://simtech.com/offers">
                         </div>
                         
-                        <!-- Custom Image -->
-                        <div>
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Custom Image (Optional)</label>
-                            <div id="drop-zone" class="w-full h-[132px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-lg flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
-                                <input type="file" name="image" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
-                                <div class="text-center pointer-events-none">
-                                    <i class="ri-upload-cloud-2-line text-2xl text-[var(--admin-text-muted)] group-hover:text-blue-500 transition-colors"></i>
-                                    <p class="text-[var(--admin-text-muted)] text-xs mt-1">Drop image here or click to upload</p>
+                        <!-- Images Section -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Large Image (Banner) -->
+                            <div>
+                                <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Large Image (Banner)</label>
+                                <div id="drop-zone-image" class="w-full h-[132px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-lg flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                    <input type="file" name="image" id="file-input-image" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
+                                    <div class="text-center pointer-events-none">
+                                        <i class="ri-image-line text-2xl text-[var(--admin-text-muted)] group-hover:text-blue-500 transition-colors"></i>
+                                        <p class="text-[var(--admin-text-muted)] text-xs mt-1">Banner Image</p>
+                                    </div>
+                                </div>
+                                <div id="preview-area-image" class="mt-2 empty:hidden"></div>
+                            </div>
+
+                            <!-- Notification Icon -->
+                            <div>
+                                <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Notification Icon (Optional)</label>
+                                <div id="drop-zone-icon" class="w-full h-[132px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-lg flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                    <input type="file" name="icon" id="file-input-icon" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
+                                    <div class="text-center pointer-events-none">
+                                        <i class="ri-notification-badge-line text-2xl text-[var(--admin-text-muted)] group-hover:text-blue-500 transition-colors"></i>
+                                        <p class="text-[var(--admin-text-muted)] text-xs mt-1">Small Icon</p>
+                                    </div>
+                                </div>
+                                <div id="preview-area-icon" class="mt-2 empty:hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-4 border-t border-[var(--admin-border)]">
+                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-3">Action Buttons (Optional)</label>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Action 1 -->
+                                <div class="space-y-3 p-4 bg-[var(--admin-hover)]/30 rounded-lg border border-[var(--admin-border)]">
+                                    <h4 class="text-sm font-semibold text-[var(--admin-text-main)]">Action Button 1</h4>
+                                    <div>
+                                        <input type="text" name="action1_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-500" placeholder="Button Title (e.g. View Offer)">
+                                    </div>
+                                    <div>
+                                        <input type="text" name="action1_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-500" placeholder="Action URL">
+                                    </div>
+                                </div>
+
+                                <!-- Action 2 -->
+                                <div class="space-y-3 p-4 bg-[var(--admin-hover)]/30 rounded-lg border border-[var(--admin-border)]">
+                                    <h4 class="text-sm font-semibold text-[var(--admin-text-main)]">Action Button 2</h4>
+                                    <div>
+                                        <input type="text" name="action2_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-500" placeholder="Button Title (e.g. Call Now)">
+                                    </div>
+                                    <div>
+                                        <input type="text" name="action2_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-500" placeholder="Action URL">
+                                    </div>
                                 </div>
                             </div>
-                            <div id="preview-area" class="mt-2 empty:hidden"></div>
                         </div>
 
                     </div>
@@ -114,63 +159,69 @@
     </main>
 
     <script>
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('file-input');
-        const previewArea = document.getElementById('preview-area');
+        const setupDragAndDrop = (dropZoneId, fileInputId, previewAreaId) => {
+            const dropZone = document.getElementById(dropZoneId);
+            const fileInput = document.getElementById(fileInputId);
+            const previewArea = document.getElementById(previewAreaId);
 
-        // Drag & Drop visual effects
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
-            }, false);
-        });
+            // Drag & Drop visual effects
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                }, false);
+            });
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
-            }, false);
-        });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                }, false);
+            });
 
-        const updatePreview = (file) => {
-            previewArea.innerHTML = '';
-            if (!file) return;
+            const updatePreview = (file) => {
+                previewArea.innerHTML = '';
+                if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const div = document.createElement('div');
-                div.className = 'relative group rounded-lg overflow-hidden border border-[var(--admin-border)] w-24 h-24';
-                div.innerHTML = `
-                    <img src="${e.target.result}" class="w-full h-full object-cover">
-                    <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600" onclick="removeFile()">
-                        <i class="ri-close-line text-xs"></i>
-                    </button>
-                `;
-                previewArea.appendChild(div);
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'relative group rounded-lg overflow-hidden border border-[var(--admin-border)] w-24 h-24';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600" onclick="removeFile('${fileInputId}', '${previewAreaId}')">
+                            <i class="ri-close-line text-xs"></i>
+                        </button>
+                    `;
+                    previewArea.appendChild(div);
+                };
+                reader.readAsDataURL(file);
             };
-            reader.readAsDataURL(file);
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    updatePreview(e.target.files[0]);
+                }
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    updatePreview(files[0]);
+                }
+            });
         };
 
-        window.removeFile = () => {
-            fileInput.value = '';
-            previewArea.innerHTML = '';
+        // Initialize for both inputs
+        setupDragAndDrop('drop-zone-image', 'file-input-image', 'preview-area-image');
+        setupDragAndDrop('drop-zone-icon', 'file-input-icon', 'preview-area-icon');
+
+        window.removeFile = (inputId, previewId) => {
+            document.getElementById(inputId).value = '';
+            document.getElementById(previewId).innerHTML = '';
         };
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                updatePreview(e.target.files[0]);
-            }
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                updatePreview(files[0]);
-            }
-        });
     </script>

@@ -532,8 +532,11 @@ exports.getSendNotification = (req, res) => {
 };
 
 exports.postSendNotification = async (req, res) => {
-    const { title, body, url } = req.body;
-    const image = req.file;
+    const { title, body, url, action1_title, action1_url, action2_title, action2_url } = req.body;
+    
+    // req.files is now an object with keys 'image' and 'icon' (arrays of files)
+    const imageFile = req.files['image'] ? req.files['image'][0] : null;
+    const iconFile = req.files['icon'] ? req.files['icon'][0] : null;
 
     try {
         const subscriptions = await Subscription.find();
@@ -546,16 +549,28 @@ exports.postSendNotification = async (req, res) => {
             });
         }
 
-        const iconPath = image ? image.path : '/images/logo.png'; // Use Cloudinary URL or default
+        const imagePath = imageFile ? imageFile.path : null;
+        const iconPath = iconFile ? iconFile.path : '/images/logo.png'; // Use uploaded icon or default
+
+        // Construct Actions Array
+        const actions = [];
+        if (action1_title && action1_url) {
+            actions.push({ action: action1_url, title: action1_title });
+        }
+        if (action2_title && action2_url) {
+            actions.push({ action: action2_url, title: action2_title });
+        }
 
         const notificationPayload = JSON.stringify({
             title: title,
             body: body,
-            icon: iconPath,
-            url: url || '/'
+            image: imagePath, // Large banner image
+            icon: iconPath,   // Small icon (logo)
+            url: url || '/',
+            actions: actions
         });
 
-        console.log(`Sending manual notifications to ${subscriptions.length} users with icon: ${iconPath}`);
+        console.log(`Sending manual notifications to ${subscriptions.length} users with icon: ${iconPath} and actions: ${actions.length}`);
 
         const promises = subscriptions.map(sub =>
             webpush.sendNotification(sub, notificationPayload).catch(err => {

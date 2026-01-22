@@ -43,10 +43,25 @@ app.use(authRouter);
 app.use(userRouter);
 
 // Push Notification Setup
+// Push Notification Setup
 const webpush = require('web-push');
 const Subscription = require('./models/Subscription');
-// Load VAPID keys (in production, use environment variables)
-const vapidKeys = require('./vapid.json');
+
+// Load VAPID keys (Prioritize Env Vars for Vercel, fallback to file for local)
+let vapidKeys;
+try {
+    if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+        vapidKeys = {
+            publicKey: process.env.VAPID_PUBLIC_KEY,
+            privateKey: process.env.VAPID_PRIVATE_KEY
+        };
+    } else {
+        vapidKeys = require('./vapid.json');
+    }
+} catch (error) {
+    console.error("VAPID Keys not found. Push notifications will not work.");
+    vapidKeys = { publicKey: 'dummy', privateKey: 'dummy' };
+}
 
 webpush.setVapidDetails(
     'mailto:test@test.com',
@@ -72,16 +87,21 @@ app.post('/subscribe', async (req, res) => {
     }
 });
 
-const port = 3002;
+const port = process.env.PORT || 3002;
 
 mongoose.connect(mongodbURL).then(() => {
     console.log("Connected to MongoDB");
-    app.listen(port, () => {
-        console.log(`Server running on port : http://localhost:${port}`);
-    })
+    // Only listen if run directly (not imported as a module by Vercel)
+    if (require.main === module) {
+        app.listen(port, () => {
+            console.log(`Server running on port : http://localhost:${port}`);
+        });
+    }
 }).catch((err) => {
     console.log(err);
 });
+
+module.exports = app;
 
 
 

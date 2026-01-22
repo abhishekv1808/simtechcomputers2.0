@@ -4,11 +4,13 @@ self.addEventListener('push', function (event) {
 
     const options = {
         body: data.body,
-        icon: data.icon || '/images/logo.png', // Add a default logo path if specific icon not provided
+        icon: data.icon || '/images/logo.png',
+        image: data.image, // Large banner image
         badge: '/images/logo.png',
         data: {
             url: data.url || '/'
-        }
+        },
+        actions: data.actions || [] // Action buttons
     };
 
     event.waitUntil(
@@ -18,7 +20,16 @@ self.addEventListener('push', function (event) {
 
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
+
+    let urlToOpen = event.notification.data.url;
+
+    // Check if an action button was clicked
+    if (event.action) {
+        // The action ID is the URL itself in our implementation
+        urlToOpen = event.action;
+    }
+
     event.waitUntil(
-        clients.openWindow(event.notification.data.url)
+        clients.openWindow(urlToOpen)
     );
 });
