@@ -23,7 +23,7 @@ store.on('error', function(error) {
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("views", "views");
+app.set("views", path.join(rootDir, "views"));
 
 app.use(express.static(path.join(rootDir, "public")));
 app.use(express.urlencoded({ extended: true }));
