@@ -34,7 +34,7 @@ userRouter.get('/laptops', getLaptops);
 userRouter.get('/desktops', getDesktops);
 userRouter.get('/monitors', getMonitors);
 userRouter.get('/accessories', getAccessories);
-userRouter.get('/product/:id', getProductDetails);
+userRouter.get('/product/:slug', getProductDetails);
 userRouter.get('/blog/:id', getBlogPost);
 userRouter.get('/cart', getCart);
 userRouter.post('/cart', addToCart);

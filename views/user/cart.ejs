@@ -33,10 +33,10 @@
                                     <!-- Product Info -->
                                     <div class="w-full md:col-span-6 flex gap-4 items-center">
                                         <div class="w-20 h-20 bg-gray-50 rounded-lg p-2 flex-shrink-0 border border-gray-100">
-                                            <img src="<%= item.image %>" alt="<%= item.name %>" class="w-full h-full object-contain mix-blend-multiply">
+                                            <img src="<%= optimizeImage(item.image) %>" alt="<%= item.name %>" class="w-full h-full object-contain mix-blend-multiply">
                                         </div>
                                         <div>
-                                            <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.product_id %>"><%= item.name %></a></h3>
+                                            <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
                                             <p class="text-xs text-gray-500 mb-2">Condition: Good | Warranty: 6 Months</p>
                                             <form action="/cart/delete" method="POST">
                                                 <input type="hidden" name="productId" value="<%= item.product_id %>">

@@ -356,11 +356,14 @@ exports.getAccessories = async (req, res) => {
 }
 
 exports.getProductDetails = async (req, res) => {
-    const productId = req.params.id;
+    const slug = req.params.slug;
+    console.log(`[DEBUG] Fetching product for slug: ${slug}`);
     try {
-        const product = await Product.findById(productId);
+        const product = await Product.findOne({ slug: slug });
+        console.log(`[DEBUG] Product found: ${product ? product._id : 'null'}`);
 
         if (!product) {
+            console.log('[DEBUG] Product not found, rendering 404');
             return res.status(404).render('404', { pageTitle: "Product Not Found" });
         }
 
@@ -373,7 +376,7 @@ exports.getProductDetails = async (req, res) => {
         );
 
         // Pass related products (same category, excluding current)
-        const relatedProducts = await Product.find({ category: product.category, _id: { $ne: productId } }).limit(4);
+        const relatedProducts = await Product.find({ category: product.category, _id: { $ne: product._id } }).limit(4);
 
         res.render('../views/user/productDetails.ejs', {
             pageTitle: `${product.name} | Simtech computers`,
@@ -428,6 +431,7 @@ exports.getCart = async (req, res) => {
             if (product) {
                 return {
                     product_id: product._id,
+                    slug: product.slug,
                     name: product.name,
                     image: product.image,
                     price: product.price,

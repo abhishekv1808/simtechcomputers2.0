@@ -1,0 +1,24 @@
+<script>
+  async function shareProduct(name, url) {
+    const fullUrl = window.location.origin + url;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: name,
+          text: `Check out this ${name} on Simtech Computers!`,
+          url: fullUrl,
+        });
+      } catch (err) {
+        console.log("Error sharing:", err);
+      }
+    } else {
+      // Fallback to clipboard
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+        alert("Link copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    }
+  }
+</script>

@@ -29,114 +29,196 @@
                         </div>
                     <% } %>
 
-                    <div class="grid grid-cols-12 gap-x-6 gap-y-4">
+                    <div class="space-y-8">
 
-                        <!-- Brand & Model -->
-                        <div class="col-span-12 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Brand</label>
-                             <select name="brand" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                                <option value="" disabled selected>Select Brand</option>
-                                <option value="Apple" <%= oldInput.brand === 'Apple' ? 'selected' : '' %>>Apple</option>
-                                <option value="Dell" <%= oldInput.brand === 'Dell' ? 'selected' : '' %>>Dell</option>
-                                <option value="HP" <%= oldInput.brand === 'HP' ? 'selected' : '' %>>HP</option>
-                                <option value="Lenovo" <%= oldInput.brand === 'Lenovo' ? 'selected' : '' %>>Lenovo</option>
-                                <option value="Samsung" <%= oldInput.brand === 'Samsung' ? 'selected' : '' %>>Samsung</option>
-                                <option value="Acer" <%= oldInput.brand === 'Acer' ? 'selected' : '' %>>Acer</option>
-                                <option value="MSI" <%= oldInput.brand === 'MSI' ? 'selected' : '' %>>MSI</option>
-                                <option value="Asus" <%= oldInput.brand === 'Asus' ? 'selected' : '' %>>Asus</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-12 md:col-span-8">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Model Name</label>
-                            <input type="text" name="name" value="<%= oldInput.name %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. MacBook Pro M1" required>
-                        </div>
-
-                        <!-- Pricing & Stock -->
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">MRP (₹)</label>
-                            <input type="number" name="mrp" value="<%= oldInput.mrp %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                        </div>
-
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Selling Price (₹)</label>
-                            <input type="number" name="price" value="<%= oldInput.price %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                        </div>
-
-                        <div class="col-span-12 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Stock</label>
-                            <input type="number" name="quantity" value="<%= oldInput.quantity %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                        </div>
-
-                        <!-- Specs Divider -->
-                        <div class="col-span-12 pt-2 pb-1">
-                            <h3 class="text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider border-b border-[var(--admin-border)] pb-2">Specifications</h3>
-                        </div>
-
-                        <!-- Specs Grid -->
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Processor</label>
-                            <input type="text" name="processor" value="<%= oldInput.processor %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. i7-12700H" required>
-                        </div>
-
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">RAM</label>
-                            <select name="ram" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="8GB" <%= oldInput.ram === '8GB' ? 'selected' : '' %>>8GB</option>
-                                <option value="16GB" <%= oldInput.ram === '16GB' ? 'selected' : '' %>>16GB</option>
-                                <option value="32GB" <%= oldInput.ram === '32GB' ? 'selected' : '' %>>32GB</option>
-                                <option value="64GB" <%= oldInput.ram === '64GB' ? 'selected' : '' %>>64GB</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Storage</label>
-                             <select name="storage" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="256GB SSD" <%= oldInput.storage === '256GB SSD' ? 'selected' : '' %>>256GB SSD</option>
-                                <option value="512GB SSD" <%= oldInput.storage === '512GB SSD' ? 'selected' : '' %>>512GB SSD</option>
-                                <option value="1TB SSD" <%= oldInput.storage === '1TB SSD' ? 'selected' : '' %>>1TB SSD</option>
-                                <option value="2TB SSD" <%= oldInput.storage === '2TB SSD' ? 'selected' : '' %>>2TB SSD</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Display</label>
-                            <input type="text" name="display" value="<%= oldInput.display %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. 15.6 inch">
-                        </div>
-
-                        <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Graphics</label>
-                            <input type="text" name="graphics" value="<%= oldInput.graphics %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. RTX 3050">
-                        </div>
-
-                         <div class="col-span-6 md:col-span-4">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">OS</label>
-                            <select name="os" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors">
-                                <option value="macOS" <%= oldInput.os === 'macOS' ? 'selected' : '' %>>macOS</option>
-                                <option value="Windows 10" <%= oldInput.os === 'Windows 10' ? 'selected' : '' %>>Windows 10</option>
-                                <option value="Windows 11" <%= oldInput.os === 'Windows 11' ? 'selected' : '' %>>Windows 11</option>
-                                <option value="Linux" <%= oldInput.os === 'Linux' ? 'selected' : '' %>>Linux</option>
-                            </select>
-                        </div>
-
-                        <!-- Description & Images -->
-                        <div class="col-span-12 md:col-span-6">
-                             <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Description</label>
-                            <textarea name="description" rows="5" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"><%= oldInput.description %></textarea>
-                        </div>
-
-                        <div class="col-span-12 md:col-span-6">
-                            <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-1.5">Images</label>
-                            <div id="drop-zone" class="w-full h-[132px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-lg flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
-                                <input type="file" name="images" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*" multiple>
-                                <div class="text-center pointer-events-none">
-                                    <i class="ri-upload-cloud-2-line text-2xl text-[var(--admin-text-muted)] group-hover:text-blue-500 transition-colors"></i>
-                                    <p class="text-[var(--admin-text-muted)] text-xs mt-1">Drop images here</p>
+                        <!-- Section 1: Basic Details -->
+                        <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-[var(--admin-text-main)] mb-4 flex items-center gap-2">
+                                <i class="ri-article-line text-blue-500"></i> Basic Details
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Brand</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-store-2-line text-gray-400"></i>
+                                        </div>
+                                        <select name="brand" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors appearance-none" required>
+                                            <option value="" disabled selected>Select Brand</option>
+                                            <option value="Apple" <%= oldInput.brand === 'Apple' ? 'selected' : '' %>>Apple</option>
+                                            <option value="Dell" <%= oldInput.brand === 'Dell' ? 'selected' : '' %>>Dell</option>
+                                            <option value="HP" <%= oldInput.brand === 'HP' ? 'selected' : '' %>>HP</option>
+                                            <option value="Lenovo" <%= oldInput.brand === 'Lenovo' ? 'selected' : '' %>>Lenovo</option>
+                                            <option value="Samsung" <%= oldInput.brand === 'Samsung' ? 'selected' : '' %>>Samsung</option>
+                                            <option value="Acer" <%= oldInput.brand === 'Acer' ? 'selected' : '' %>>Acer</option>
+                                            <option value="MSI" <%= oldInput.brand === 'MSI' ? 'selected' : '' %>>MSI</option>
+                                            <option value="Asus" <%= oldInput.brand === 'Asus' ? 'selected' : '' %>>Asus</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Model Name</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-macbook-line text-gray-400"></i>
+                                        </div>
+                                        <input type="text" name="name" value="<%= oldInput.name %>" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. MacBook Pro M1" required>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Description</label>
+                                    <div class="relative">
+                                        <textarea name="description" rows="4" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none" placeholder="Enter detailed product description..."><%= oldInput.description %></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="preview-area" class="grid grid-cols-4 gap-2 mt-2 empty:hidden"></div>
+                        </div>
+
+                        <!-- Section 2: Pricing & Inventory -->
+                        <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-[var(--admin-text-main)] mb-4 flex items-center gap-2">
+                                <i class="ri-price-tag-3-line text-green-500"></i> Pricing & Inventory
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">MRP (₹)</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-400 font-bold">₹</span>
+                                        </div>
+                                        <input type="number" name="mrp" value="<%= oldInput.mrp %>" class="w-full pl-8 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="0.00" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Selling Price (₹)</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-400 font-bold">₹</span>
+                                        </div>
+                                        <input type="number" name="price" value="<%= oldInput.price %>" class="w-full pl-8 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="0.00" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Stock Quantity</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-stack-line text-gray-400"></i>
+                                        </div>
+                                        <input type="number" name="quantity" value="<%= oldInput.quantity %>" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Technical Specifications -->
+                        <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-[var(--admin-text-main)] mb-4 flex items-center gap-2">
+                                <i class="ri-cpu-line text-purple-500"></i> Technical Specifications
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Processor</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-cpu-line text-gray-400"></i>
+                                        </div>
+                                        <input type="text" name="processor" value="<%= oldInput.processor %>" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. i7-12700H" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">RAM</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-microchip-line text-gray-400"></i>
+                                        </div>
+                                        <select name="ram" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors appearance-none" required>
+                                            <option value="" disabled selected>Select RAM</option>
+                                            <option value="8GB" <%= oldInput.ram === '8GB' ? 'selected' : '' %>>8GB</option>
+                                            <option value="16GB" <%= oldInput.ram === '16GB' ? 'selected' : '' %>>16GB</option>
+                                            <option value="32GB" <%= oldInput.ram === '32GB' ? 'selected' : '' %>>32GB</option>
+                                            <option value="64GB" <%= oldInput.ram === '64GB' ? 'selected' : '' %>>64GB</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Storage</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-hard-drive-2-line text-gray-400"></i>
+                                        </div>
+                                        <select name="storage" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors appearance-none" required>
+                                            <option value="" disabled selected>Select Storage</option>
+                                            <option value="256GB SSD" <%= oldInput.storage === '256GB SSD' ? 'selected' : '' %>>256GB SSD</option>
+                                            <option value="512GB SSD" <%= oldInput.storage === '512GB SSD' ? 'selected' : '' %>>512GB SSD</option>
+                                            <option value="1TB SSD" <%= oldInput.storage === '1TB SSD' ? 'selected' : '' %>>1TB SSD</option>
+                                            <option value="2TB SSD" <%= oldInput.storage === '2TB SSD' ? 'selected' : '' %>>2TB SSD</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Display</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-tv-line text-gray-400"></i>
+                                        </div>
+                                        <input type="text" name="display" value="<%= oldInput.display %>" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. 15.6 inch">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Graphics</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-gamepad-line text-gray-400"></i>
+                                        </div>
+                                        <input type="text" name="graphics" value="<%= oldInput.graphics %>" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. RTX 3050">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Operating System</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="ri-windows-fill text-gray-400"></i>
+                                        </div>
+                                        <select name="os" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors appearance-none">
+                                            <option value="macOS" <%= oldInput.os === 'macOS' ? 'selected' : '' %>>macOS</option>
+                                            <option value="Windows 10" <%= oldInput.os === 'Windows 10' ? 'selected' : '' %>>Windows 10</option>
+                                            <option value="Windows 11" <%= oldInput.os === 'Windows 11' ? 'selected' : '' %>>Windows 11</option>
+                                            <option value="Windows 11 Pro" <%= oldInput.os === 'Windows 11 Pro' ? 'selected' : '' %>>Windows 11 Pro</option>
+                                            <option value="Linux" <%= oldInput.os === 'Linux' ? 'selected' : '' %>>Linux</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Media -->
+                        <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] p-6 shadow-sm">
+                            <h3 class="text-lg font-bold text-[var(--admin-text-main)] mb-4 flex items-center gap-2">
+                                <i class="ri-image-line text-orange-500"></i> Product Images
+                            </h3>
+                            <div id="drop-zone" class="w-full h-[200px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                <input type="file" name="images" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*" multiple>
+                                <div class="text-center pointer-events-none">
+                                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                        <i class="ri-upload-cloud-2-line text-3xl text-blue-500"></i>
+                                    </div>
+                                    <p class="text-[var(--admin-text-main)] font-medium">Click to upload or drag and drop</p>
+                                    <p class="text-[var(--admin-text-muted)] text-xs mt-1">SVG, PNG, JPG or GIF (max. 10 images)</p>
+                                </div>
+                            </div>
+                            <div id="preview-area" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4 empty:hidden"></div>
                         </div>
 
                     </div>
@@ -211,6 +293,10 @@
         };
 
         const handleFiles = (files) => {
+            if (dataTransfer.items.length + files.length > 10) {
+                alert('You can only upload a maximum of 10 images.');
+                return;
+            }
             Array.from(files).forEach(file => {
                 if (file.type.startsWith('image/')) {
                     dataTransfer.items.add(file);

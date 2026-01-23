@@ -237,7 +237,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <% products.forEach(product => { %>
                         <div class="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group">
-                            <a href="/product/<%= product.id %>" class="block">
+                            <a href="/product/<%= product.slug %>" class="block">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                          <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -246,13 +246,13 @@
                                         <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
                                             -<%= product.discount %>%
                                         </div>
-                                        <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.id %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
+                                    <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.slug %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
                                             <i class="ri-share-forward-line text-lg"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="h-48 flex items-center justify-center mb-4 relative">
-                                    <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                                    <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
                                 </div>
                                 <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                                 <div class="flex items-center gap-2 mb-4">
@@ -318,7 +318,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                     <% products.slice(0, 4).reverse().forEach(product => { %>
                     <div class="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                         <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -327,13 +327,13 @@
                                     <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
                                         -<%= product.discount %>%
                                     </div>
-                                    <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.id %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
+                                    <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.slug %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
                                         <i class="ri-share-forward-line text-lg"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="h-48 flex items-center justify-center mb-4 relative">
-                                <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                                <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                             <div class="flex items-center gap-2 mb-4">
