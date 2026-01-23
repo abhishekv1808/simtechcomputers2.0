@@ -6,6 +6,9 @@ const { check } = require('express-validator');
 
 userRouter.get('/', getHome);
 userRouter.get('/search', getSearch);
+userRouter.get('/sitemap.xml', require('../controllers/userController').getSitemap);
+userRouter.get('/privacy-policy', require('../controllers/userController').getPrivacyPolicy);
+userRouter.get('/terms-and-conditions', require('../controllers/userController').getTermsConditions);
 userRouter.get('/contact-us', getContactUs);
 
 userRouter.post('/contact-us', [

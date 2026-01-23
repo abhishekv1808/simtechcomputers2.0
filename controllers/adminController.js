@@ -386,6 +386,43 @@ exports.postEditProduct = async (req, res) => {
     const prodId = req.body.productId;
     const { name, price, mrp, brand, quantity, description, category, processor, ram, storage, display, os, graphics, screenSize, panelType, refreshRate } = req.body;
     const images = req.files;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        let viewPath = 'admin/edit-product';
+        if (category === 'laptop') viewPath = 'admin/edit-laptop';
+        if (category === 'monitor') viewPath = 'admin/edit-monitor';
+        if (category === 'desktop') viewPath = 'admin/edit-desktop';
+
+        // Reconstruct product object for view (partial)
+        const product = {
+            _id: prodId,
+            category: category,
+            images: [], // We can't easily persist old images here without DB query, but view handles oldInput.image if passed? 
+            // Actually view uses `product.images` loop. We need to fetch product to get images?
+            // Or just rely on oldInput? The view uses `product.images` for existing images.
+        };
+        
+        // We must fetch the original product to preserve existing images in the view
+        try {
+            const originalProduct = await Product.findById(prodId);
+            if (originalProduct) {
+                product.images = originalProduct.images;
+                product.image = originalProduct.image;
+            }
+        } catch (e) {
+            console.log("Error fetching product for error view", e);
+        }
+
+        return res.status(422).render(viewPath, {
+            pageTitle: 'Edit ' + (category.charAt(0).toUpperCase() + category.slice(1)),
+            path: '/admin/edit-product',
+            editing: true,
+            product: product,
+            oldInput: { name, price, mrp, brand, quantity, description, processor, ram, storage, display, os, graphics, screenSize, panelType, refreshRate },
+            errorMessage: errors.array()[0].msg
+        });
+    }
 
     try {
         const product = await Product.findById(prodId);
@@ -419,8 +456,6 @@ exports.postEditProduct = async (req, res) => {
             product.specifications = { processor, ram, storage, graphics, os };
         }
 
-        await product.save();
-        console.log('UPDATED PRODUCT');
         await product.save();
         console.log('UPDATED PRODUCT');
         res.redirect(`/admin/edit-product/${prodId}?edit=true&success=true`);

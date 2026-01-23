@@ -124,7 +124,20 @@ router.post('/add-accessories', isAuth, upload.array('images', 10), [
 router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
 
 // /admin/edit-product => POST
-router.post('/edit-product', isAuth, upload.array('images', 10), adminController.postEditProduct);
+router.post('/edit-product', isAuth, upload.array('images', 10), [
+    body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
+    body('price', 'Invalid price').isFloat(),
+    body('mrp', 'Invalid MRP').isFloat(),
+    body('price').custom((value, { req }) => {
+        if (parseFloat(value) >= parseFloat(req.body.mrp)) {
+            throw new Error('Selling Price must be less than MRP');
+        }
+        return true;
+    }),
+    body('brand', 'Brand is required').notEmpty(),
+    body('quantity', 'Quantity is required').isInt({ min: 0 }),
+    body('description', 'Description is required').isLength({ min: 10 }).trim()
+], adminController.postEditProduct);
 
 // /admin/update-stock => POST
 router.post('/update-stock', isAuth, adminController.postUpdateStock);

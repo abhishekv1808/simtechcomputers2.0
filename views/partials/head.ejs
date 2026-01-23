@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simtech Computers</title>
+    <title><%= pageTitle %></title>
+    <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Simtech Computers - Your one-stop shop for laptops, desktops, and accessories.' %>">
+    <% if (typeof canonicalUrl !== 'undefined') { %>
+        <link rel="canonical" href="<%= canonicalUrl %>">
+    <% } %>
     <link rel="stylesheet" href="/output.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,0 +1,36 @@
+<%- include('../partials/head.ejs') %>
+<body class="bg-gray-50 font-sans text-gray-900">
+    <%- include('../partials/header.ejs') %>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-3xl font-bold mb-6 text-blue-900">Terms and Conditions</h1>
+        
+        <div class="bg-white p-8 rounded-lg shadow-sm prose prose-blue max-w-none">
+            <p class="mb-4">Last updated: <%= new Date().toLocaleDateString() %></p>
+
+            <h2 class="text-xl font-semibold mt-6 mb-3">1. Agreement to Terms</h2>
+            <p>These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Simtech Computers ("we," "us" or "our"), concerning your access to and use of the simtechcomputers.in website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Site").</p>
+
+            <h2 class="text-xl font-semibold mt-6 mb-3">2. Intellectual Property Rights</h2>
+            <p>Unless otherwise indicated, the Site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the Site (collectively, the "Content") and the trademarks, service marks, and logos contained therein (the "Marks") are owned or controlled by us or licensed to us, and are protected by copyright and trademark laws.</p>
+
+            <h2 class="text-xl font-semibold mt-6 mb-3">3. User Representations</h2>
+            <p>By using the Site, you represent and warrant that: (1) all registration information you submit will be true, accurate, current, and complete; (2) you will maintain the accuracy of such information and promptly update such registration information as necessary; (3) you have the legal capacity and you agree to comply with these Terms of Use; (4) you are not a minor in the jurisdiction in which you reside.</p>
+
+            <h2 class="text-xl font-semibold mt-6 mb-3">4. Products</h2>
+            <p>We make every effort to display as accurately as possible the colors, features, specifications, and details of the products available on the Site. However, we do not guarantee that the colors, features, specifications, and details of the products will be accurate, complete, reliable, current, or free of other errors, and your electronic display may not accurately reflect the actual colors and details of the products.</p>
+
+            <h2 class="text-xl font-semibold mt-6 mb-3">5. Contact Us</h2>
+            <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:</p>
+            <p class="mt-2">
+                <strong>Simtech Computers</strong><br>
+                Bangalore, India<br>
+                Email: support@simtechcomputers.in
+            </p>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+    <%- include('../partials/footer_scripts.ejs') %>
+</body>
+</html>

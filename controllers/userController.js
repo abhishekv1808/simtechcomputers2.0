@@ -4,6 +4,68 @@ const Enquiry = require('../models/enquiry');
 const Blog = require('../models/blog');
 const { validationResult } = require('express-validator');
 
+exports.getSitemap = async (req, res) => {
+    try {
+        const baseUrl = 'https://simtechcomputers.in';
+        const products = await Product.find({}, 'slug updatedAt');
+        const blogs = await Blog.find({}, '_id updatedAt');
+
+        let xml = '<?xml version="1.0" encoding="UTF-8"?>';
+        xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+        // Static Pages
+        const staticPages = [
+            '',
+            '/about-us',
+            '/contact-us',
+            '/laptops',
+            '/desktops',
+            '/monitors',
+            '/accessories',
+            '/blogs',
+            '/privacy-policy',
+            '/terms-and-conditions'
+        ];
+
+        staticPages.forEach(page => {
+            xml += '<url>';
+            xml += `<loc>${baseUrl}${page}</loc>`;
+            xml += '<changefreq>weekly</changefreq>';
+            xml += '<priority>0.8</priority>';
+            xml += '</url>';
+        });
+
+        // Products
+        products.forEach(product => {
+            xml += '<url>';
+            xml += `<loc>${baseUrl}/product/${product.slug}</loc>`;
+            xml += `<lastmod>${product.updatedAt ? product.updatedAt.toISOString() : new Date().toISOString()}</lastmod>`;
+            xml += '<changefreq>daily</changefreq>';
+            xml += '<priority>1.0</priority>';
+            xml += '</url>';
+        });
+
+        // Blogs
+        blogs.forEach(blog => {
+            xml += '<url>';
+            xml += `<loc>${baseUrl}/blog/${blog._id}</loc>`;
+            xml += `<lastmod>${blog.updatedAt ? blog.updatedAt.toISOString() : new Date().toISOString()}</lastmod>`;
+            xml += '<changefreq>weekly</changefreq>';
+            xml += '<priority>0.7</priority>';
+            xml += '</url>';
+        });
+
+        xml += '</urlset>';
+
+        res.header('Content-Type', 'application/xml');
+        res.send(xml);
+    } catch (err) {
+        console.error("Sitemap Error:", err);
+        res.status(500).send("Error generating sitemap");
+    }
+};
+
+
 exports.getSearch = async (req, res) => {
     try {
         const searchQuery = req.query.q;
@@ -13,8 +75,10 @@ exports.getSearch = async (req, res) => {
         let filter = {};
 
         if (searchQuery) {
+            // Escape special characters for regex
+            const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             // Case-insensitive regex search on name, brand, description, and category
-            const regex = new RegExp(searchQuery, 'i');
+            const regex = new RegExp(escapedQuery, 'i');
             filter.$or = [
                 { name: regex },
                 { brand: regex },
@@ -33,6 +97,8 @@ exports.getSearch = async (req, res) => {
 
         res.render('../views/user/searchResults.ejs', {
             pageTitle: `Search Results for "${searchQuery}" | Simtech computers`,
+            metaDescription: `Search results for ${searchQuery} at Simtech Computers. Find the best deals on laptops, desktops, and accessories.`,
+            canonicalUrl: `https://simtechcomputers.in/search?q=${searchQuery}`,
             products: products,
             searchQuery: searchQuery,
             currentFilters: {} // Optional: if you want to reuse filters component
@@ -71,6 +137,8 @@ exports.getHome = async (req, res) => {
 
         res.render('../views/user/home.ejs', {
             pageTitle: "Home | Simtech computers",
+            metaDescription: "Simtech Computers offers the best deals on used and refurbished laptops, desktops, monitors, and accessories in Bangalore. Quality guaranteed.",
+            canonicalUrl: "https://simtechcomputers.in/",
             appleLaptops,
             dellLaptops,
             hpLaptops,
@@ -101,6 +169,8 @@ exports.getBlogPost = async (req, res) => {
 
         res.render('../views/user/blog-post.ejs', {
             pageTitle: `${blog.title} | Simtech computers`,
+            metaDescription: blog.content.substring(0, 160).replace(/<[^>]*>?/gm, ''), // Strip HTML and truncate
+            canonicalUrl: `https://simtechcomputers.in/blog/${blog._id}`,
             blog: blog,
             relatedBlogs: relatedBlogs
         });
@@ -115,6 +185,8 @@ exports.getBlogs = async (req, res) => {
         const blogs = await Blog.find().sort({ date: -1 });
         res.render('../views/user/blogs.ejs', {
             pageTitle: "Our Blog | Simtech computers",
+            metaDescription: "Read the latest news, tips, and reviews from Simtech Computers. Stay updated on the best deals and tech trends.",
+            canonicalUrl: "https://simtechcomputers.in/blogs",
             blogs: blogs
         });
     } catch (err) {
@@ -126,6 +198,8 @@ exports.getBlogs = async (req, res) => {
 exports.getContactUs = (req, res) => {
     res.render('../views/user/contactUs.ejs', {
         pageTitle: "Contact Us | Simtech computers",
+        metaDescription: "Contact Simtech Computers for inquiries about laptops, desktops, and accessories. We are here to help you find the best tech solutions.",
+        canonicalUrl: "https://simtechcomputers.in/contact-us",
         errorMessage: null,
         successMessage: null,
         oldInput: {
@@ -195,8 +269,28 @@ exports.postContactUs = async (req, res) => {
 };
 
 exports.getAboutUs = (req, res) => {
-    res.render('../views/user/aboutUs.ejs', { pageTitle: "About Us | Simtech computers" })
+    res.render('../views/user/aboutUs.ejs', { 
+        pageTitle: "About Us | Simtech computers",
+        metaDescription: "Learn more about Simtech Computers, your trusted partner for high-quality used and refurbished computers in Bangalore.",
+        canonicalUrl: "https://simtechcomputers.in/about-us"
+    })
 }
+
+exports.getPrivacyPolicy = (req, res) => {
+    res.render('../views/user/privacyPolicy.ejs', {
+        pageTitle: "Privacy Policy | Simtech computers",
+        metaDescription: "Privacy Policy of Simtech Computers. Learn how we collect, use, and protect your personal information.",
+        canonicalUrl: "https://simtechcomputers.in/privacy-policy"
+    });
+};
+
+exports.getTermsConditions = (req, res) => {
+    res.render('../views/user/termsConditions.ejs', {
+        pageTitle: "Terms & Conditions | Simtech computers",
+        metaDescription: "Terms and Conditions for using Simtech Computers website and services.",
+        canonicalUrl: "https://simtechcomputers.in/terms-and-conditions"
+    });
+};
 
 // Helper to build filter query
 const buildFilterQuery = (req, category) => {
@@ -277,6 +371,8 @@ exports.getLaptops = async (req, res) => {
 
         res.render('../views/user/laptops.ejs', {
             pageTitle: (currentBrand !== 'All' ? `Used ${currentBrand} Laptops` : "All Laptops") + " | Simtech computers",
+            metaDescription: `Buy high-quality used ${currentBrand !== 'All' ? currentBrand : ''} laptops at Simtech Computers. Affordable prices and great performance.`,
+            canonicalUrl: "https://simtechcomputers.in/laptops",
             products: products,
             currentBrand: currentBrand,
             currentFilters: req.query // Pass all filters to view
@@ -300,6 +396,8 @@ exports.getDesktops = async (req, res) => {
 
         res.render('../views/user/desktops.ejs', {
             pageTitle: (currentBrand !== 'All' ? `Used ${currentBrand} Desktops` : "All Desktops") + " | Simtech computers",
+            metaDescription: `Shop for used ${currentBrand !== 'All' ? currentBrand : ''} desktops at Simtech Computers. Reliable performance for work and play.`,
+            canonicalUrl: "https://simtechcomputers.in/desktops",
             products: products,
             currentBrand: currentBrand,
             currentFilters: req.query
@@ -323,6 +421,8 @@ exports.getMonitors = async (req, res) => {
 
         res.render('../views/user/monitors.ejs', {
             pageTitle: (currentBrand !== 'All' ? `${currentBrand} Monitors` : "All Monitors") + " | Simtech computers",
+            metaDescription: `Find the best deals on ${currentBrand !== 'All' ? currentBrand : ''} monitors at Simtech Computers. High resolution and clear displays.`,
+            canonicalUrl: "https://simtechcomputers.in/monitors",
             products: products,
             currentBrand: currentBrand,
             currentFilters: req.query
@@ -346,6 +446,8 @@ exports.getAccessories = async (req, res) => {
 
         res.render('../views/user/accessories.ejs', {
             pageTitle: (currentBrand !== 'All' ? `${currentBrand} Accessories` : "All Accessories") + " | Simtech computers",
+            metaDescription: `Explore a wide range of computer accessories at Simtech Computers. Keyboards, mice, and more.`,
+            canonicalUrl: "https://simtechcomputers.in/accessories",
             products: products,
             currentBrand: currentBrand,
             currentFilters: req.query
@@ -380,6 +482,8 @@ exports.getProductDetails = async (req, res) => {
 
         res.render('../views/user/productDetails.ejs', {
             pageTitle: `${product.name} | Simtech computers`,
+            metaDescription: product.description ? product.description.substring(0, 160) : `Buy ${product.name} at Simtech Computers.`,
+            canonicalUrl: `https://simtechcomputers.in/product/${product.slug}`,
             product: product,
             relatedProducts: relatedProducts
         });
@@ -391,6 +495,9 @@ exports.getProductDetails = async (req, res) => {
 
 exports.addToCart = async (req, res) => {
     const productId = req.body.productId;
+    if (!productId) {
+        return res.redirect('/cart');
+    }
     let cart = [];
     if (req.cookies.cart) {
         try {

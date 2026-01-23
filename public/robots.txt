@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin
+Disallow: /login
+Disallow: /cart
+Disallow: /search
+
+Sitemap: https://simtechcomputers.in/sitemap.xml
