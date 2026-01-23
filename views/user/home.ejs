@@ -1125,30 +1125,33 @@
                 ]; %>
                 
                 <% [...reviews, ...reviews].forEach(review => { %>
-                <div class="w-[380px] bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex-shrink-0 whitespace-normal relative transition-all duration-300 hover:-translate-y-1 group cursor-default">
-                    <!-- Decorative Quote -->
-                    <div class="absolute top-4 right-6 text-6xl text-gray-100 font-serif leading-none opacity-50 group-hover:text-blue-50 transition-colors pointer-events-none">"</div>
+                <div class="w-[380px] bg-white p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(0,113,220,0.15)] border border-gray-100 hover:border-blue-100 flex-shrink-0 whitespace-normal relative transition-all duration-300 hover:-translate-y-2 group cursor-default overflow-hidden">
+                    <!-- Decorative Background -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110"></div>
                     
-                    <div class="flex items-center gap-1 mb-4">
-                        <div class="flex text-yellow-400 text-sm">
+                    <!-- Quote Icon -->
+                    <div class="absolute top-6 right-8 text-5xl text-blue-100 font-serif leading-none group-hover:text-blue-200 transition-colors duration-300">"</div>
+                    
+                    <div class="flex items-center gap-1 mb-6 relative z-10">
+                        <div class="flex text-yellow-400 text-base gap-0.5">
                             <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
                         </div>
                     </div>
                     
-                    <p class="text-gray-600 text-[15px] leading-relaxed mb-6 relative z-10"><%= review.text %></p>
+                    <p class="text-gray-600 text-[15px] leading-relaxed mb-8 relative z-10 font-medium">"<%= review.text %>"</p>
                     
-                    <div class="flex items-center gap-4 mt-auto">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0071dc] to-blue-500 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <div class="flex items-center gap-4 mt-auto relative z-10 pt-6 border-t border-gray-50">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0071dc] to-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-200 ring-2 ring-white">
                             <%= review.name.charAt(0) %>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-900 text-sm"><%= review.name %></h4>
-                            <div class="flex items-center gap-1 text-xs text-gray-400">
+                            <h4 class="font-bold text-gray-900 text-sm mb-0.5 group-hover:text-[#0071dc] transition-colors"><%= review.name %></h4>
+                            <div class="flex items-center gap-1 text-xs text-gray-400 font-medium">
                                 <i class="ri-map-pin-line"></i> <%= review.city %>
                             </div>
                         </div>
-                        <div class="ml-auto">
-                            <i class="ri-verified-badge-fill text-blue-500 text-xl" title="Verified Buyer"></i>
+                        <div class="ml-auto bg-blue-50 px-2 py-1 rounded-md">
+                            <i class="ri-verified-badge-fill text-[#0071dc] text-lg" title="Verified Buyer"></i>
                         </div>
                     </div>
                 </div>

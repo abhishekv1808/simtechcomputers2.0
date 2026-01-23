@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
             console.log("Error parsing cart cookie", e);
         }
     }
-
     if (cart.length > 0) {
         try {
             const productIds = cart.map(item => item.productId);
@@ -33,7 +32,6 @@ module.exports = async (req, res, next) => {
     }
 
     const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-    
     res.locals.cart = cart;
     res.locals.cartCount = cartCount;
     next();

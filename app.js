@@ -55,7 +55,7 @@ app.use(userRouter);
 const webpush = require('web-push');
 const Subscription = require('./models/Subscription');
 
-// Load VAPID keys (Prioritize Env Vars for Vercel, fallback to file for local)
+// Load VAPID keys
 let vapidKeys;
 try {
     if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
@@ -104,12 +104,9 @@ if (!mongodbURL) {
 
 mongoose.connect(mongodbURL).then(() => {
     console.log("Connected to MongoDB");
-    // Only listen if run directly (not imported as a module by Vercel)
-    if (require.main === module) {
-        app.listen(port, () => {
-            console.log(`Server running on port : http://localhost:${port}`);
-        });
-    }
+    app.listen(port, () => {
+        console.log(`Server running on port : http://localhost:${port}`);
+    });
 }).catch((err) => {
     console.log(err);
 });
