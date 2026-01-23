@@ -38,8 +38,11 @@ app.use(session({
 const cartMiddleware = require('./middleware/cartMiddleware');
 app.use(cartMiddleware);
 
+const { optimizeCloudinaryUrl } = require('./utils/urlHelper');
+
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.optimizeImage = optimizeCloudinaryUrl;
     next();
 });
 

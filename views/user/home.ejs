@@ -311,13 +311,13 @@
                             <!-- Image Side -->
                             <div class="sm:w-1/2 flex items-center justify-center bg-gray-50 rounded-xl p-4 relative overflow-hidden">
                                  <span class="absolute top-0 left-0 bg-[#0071dc] text-white text-xs font-bold px-3 py-1 rounded-br-xl z-10">Save ₹<%= (product.mrp - product.price).toLocaleString('en-IN') %></span>
-                                 <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-48 w-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                                 <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-48 w-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
                             </div>
     
                             <!-- Content Side -->
                             <div class="sm:w-1/2 flex flex-col justify-center">
                                 <span class="text-gray-500 text-sm font-semibold mb-1"><%= product.category.charAt(0).toUpperCase() + product.category.slice(1) %></span>
-                                <a href="/product/<%= product._id %>">
+                        <a href="/product/<%= product.slug %>" class="block">
                                     <h3 class="font-bold text-gray-900 text-xl leading-snug mb-2 hover:text-[#0071dc] cursor-pointer transition-colors line-clamp-2"><%= product.name %></h3>
                                 </a>
                                 
@@ -526,7 +526,7 @@
                 <% if (appleLaptops.length > 0) { %>
                     <% appleLaptops.forEach(product => { %>
                     <div class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                      <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -536,7 +536,7 @@
                                 </div>
                             </div>
                             <div class="h-48 flex items-center justify-center mb-4 relative">
-                                <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500 <%= !product.inStock ? 'opacity-50 grayscale' : '' %>">
+                                <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500 <%= !product.inStock ? 'opacity-50 grayscale' : '' %>">
                                 <% if (!product.inStock) { %>
                                     <div class="absolute inset-0 flex items-center justify-center z-10">
                                         <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Out of Stock</span>
@@ -618,7 +618,7 @@
                 <% if (dellLaptops.length > 0) { %>
                      <% dellLaptops.forEach(product => { %>
                     <div class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                      <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -628,7 +628,7 @@
                                 </div>
                             </div>
                             <div class="h-48 flex items-center justify-center mb-4 relative">
-                                <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                                <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                             <div class="flex items-center gap-2 mb-4">
@@ -705,7 +705,7 @@
                  <% if (hpLaptops.length > 0) { %>
                      <% hpLaptops.forEach(product => { %>
                     <div class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                              <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                      <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -715,7 +715,7 @@
                                 </div>
                             </div>
                             <div class="h-48 flex items-center justify-center mb-4 relative">
-                                <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                                <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                             <div class="flex items-center gap-2 mb-4">
@@ -792,7 +792,7 @@
                  <% if (lenovoLaptops.length > 0) { %>
                      <% lenovoLaptops.forEach(product => { %>
                     <div class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                              <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                      <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -880,7 +880,7 @@
             <div class="scroll-container flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x scroll-smooth">
                   <% if (desktops.length > 0) { %>
                       <% desktops.forEach(product => { %>
-                    <a href="/product/<%= product.id %>" class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
+                    <a href="/product/<%= product.slug %>" class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
                          <div class="flex justify-between items-start mb-4">
                             <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                  <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -967,7 +967,7 @@
             <div class="scroll-container flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x scroll-smooth">
                  <% if (monitors.length > 0) { %>
                      <% monitors.forEach(product => { %>
-                    <a href="/product/<%= product.id %>" class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
+                    <a href="/product/<%= product.slug %>" class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
                          <div class="flex justify-between items-start mb-4">
                             <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                  <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -1037,7 +1037,7 @@
                  <% if (accessories && accessories.length > 0) { %>
                      <% accessories.forEach(product => { %>
                     <div class="w-[280px] flex-shrink-0 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer snap-start">
-                        <a href="/product/<%= product.id %>" class="block">
+                        <a href="/product/<%= product.slug %>" class="block">
                              <div class="flex justify-between items-start mb-4">
                                 <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                      <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED

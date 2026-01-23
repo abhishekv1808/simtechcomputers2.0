@@ -4,12 +4,46 @@ const DailyStats = require('../models/dailyStats');
 const Enquiry = require('../models/enquiry');
 const Subscription = require('../models/Subscription');
 const webpush = require('web-push');
+const crypto = require('crypto');
+
+const generateSlug = (name) => {
+    return name
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        + '-' + crypto.randomBytes(3).toString('hex');
+};
 
 exports.getDashboard = async (req, res) => {
     try {
         const totalProducts = await Product.countDocuments();
-        const outputOfStock = await Product.countDocuments({ stock: 0 });
+        const outputOfStock = await Product.countDocuments({
+            $or: [
+                { quantity: { $lte: 0 } },
+                { inStock: false }
+            ]
+        });
         const enquiryCount = await Enquiry.countDocuments();
+
+        // Calculate total inventory value
+        const inventoryValueResult = await Product.aggregate([
+            {
+                $project: {
+                    totalValue: { $multiply: ["$price", "$quantity"] }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    grandTotal: { $sum: "$totalValue" }
+                }
+            }
+        ]);
+
+        const inventoryValue = inventoryValueResult.length > 0 ? inventoryValueResult[0].grandTotal : 0;
 
         // Calculate category counts
         const categoryCounts = {
@@ -42,6 +76,7 @@ exports.getDashboard = async (req, res) => {
             totalProducts: totalProducts,
             outputOfStock: outputOfStock,
             enquiryCount: enquiryCount,
+            inventoryValue: inventoryValue, // Pass to view
             categoryCounts: categoryCounts,
             recentProducts: recentProducts,
             chartData: chartData
@@ -131,6 +166,7 @@ exports.postAddLaptop = async (req, res) => {
         const product = new Product({
             name, price, mrp, discount, images: imageUrls, image: imageUrls[0], category: 'laptop', brand, quantity, description,
             inStock: quantity > 0,
+            slug: generateSlug(name),
             specifications: { processor, ram, storage, display, os, graphics }
         });
         await product.save();
@@ -186,6 +222,7 @@ exports.postAddMonitor = async (req, res) => {
         const product = new Product({
             name, price, mrp, discount, images: imageUrls, image: imageUrls[0], category: 'monitor', brand, quantity, description,
             inStock: quantity > 0,
+            slug: generateSlug(name),
             specifications: { screenSize, panelType, refreshRate, display } // display as resolution
         });
         await product.save();
@@ -237,6 +274,7 @@ exports.postAddDesktop = async (req, res) => {
         const product = new Product({
             name, price, mrp, discount, images: imageUrls, image: imageUrls[0], category: 'desktop', brand, quantity, description,
             inStock: quantity > 0,
+            slug: generateSlug(name),
             specifications: { processor, ram, storage, graphics, os }
         });
         await product.save();
@@ -286,6 +324,7 @@ exports.postAddAccessories = async (req, res) => {
         const product = new Product({
             name, price, mrp, discount, images: imageUrls, image: imageUrls[0], category: 'accessory', brand, quantity, description,
             inStock: quantity > 0,
+            slug: generateSlug(name),
             specifications: {} // No specific specs for now, or add if needed
         });
         await product.save();

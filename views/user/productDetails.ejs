@@ -35,7 +35,7 @@
                             </button>
                             
                             <!-- Main Image -->
-                            <img src="<%= product.image %>" alt="<%= product.name %>" class="object-contain w-full h-full p-6 transition-transform duration-500 group-hover:scale-105" id="mainImage">
+                            <img src="<%= optimizeImage(product.image) %>" alt="<%= product.name %>" class="object-contain w-full h-full p-6 transition-transform duration-500 group-hover:scale-105" id="mainImage">
                         </div>
 
                         <!-- Thumbnails -->
@@ -43,13 +43,13 @@
                             <% if (product.images && product.images.length > 0) { %>
                                 <% product.images.forEach((img, index) => { %>
                                     <button onclick="changeImage('<%= img %>')" class="w-20 h-20 rounded-lg border-2 <%= index === 0 ? 'border-[#0071dc]' : 'border-gray-200 hover:border-gray-300' %> bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden transition-all thumbnail-btn">
-                                        <img src="<%= img %>" class="object-contain w-full h-full">
+                                        <img src="<%= optimizeImage(img) %>" class="object-contain w-full h-full">
                                     </button>
                                 <% }); %>
                             <% } else { %>
                                 <!-- Fallback if no images array (backward compatibility) -->
                                 <button class="w-20 h-20 rounded-lg border-2 border-[#0071dc] bg-white p-2 flex-shrink-0 cursor-pointer overflow-hidden">
-                                    <img src="<%= product.image %>" class="object-contain w-full h-full">
+                                    <img src="<%= optimizeImage(product.image) %>" class="object-contain w-full h-full">
                                 </button>
                             <% } %>
                         </div>
@@ -89,7 +89,7 @@
 
                     <!-- Right Column: Product Details -->
                     <div class="lg:w-1/2">
-                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight"><%= product.name %></h1>
+                        <h1 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2 leading-tight"><%= product.name %></h1>
 
 
                         <!-- Ratings -->
@@ -227,7 +227,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                     <% relatedProducts.forEach(relProduct => { %>
                      <!-- Reusing Card Component -->
-                     <a href="/product/<%= relProduct.id %>" class="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer">
+                     <a href="/product/<%= relProduct.slug %>" class="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-300 relative group cursor-pointer">
                         <div class="flex justify-between items-start mb-4">
                             <div class="bg-black text-white text-[10px] font-bold px-2 py-1.5 rounded-full flex items-center gap-1">
                                     <i class="ri-checkbox-circle-fill text-green-400 text-sm"></i> SIMTECH ASSURED
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                         <div class="h-48 flex items-center justify-center mb-4 relative">
-                            <img src="<%= relProduct.image %>" alt="<%= relProduct.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
+                            <img src="<%= optimizeImage(relProduct.image) %>" alt="<%= relProduct.name %>" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= relProduct.name %></h3>
                         

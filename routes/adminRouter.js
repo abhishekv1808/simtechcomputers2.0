@@ -47,7 +47,7 @@ router.post('/resolve-enquiry', isAuth, adminController.postResolveEnquiry);
 
 // --- Laptop ---
 router.get('/add-laptop', isAuth, adminController.getAddLaptop);
-router.post('/add-laptop', isAuth, upload.array('images', 5), [
+router.post('/add-laptop', isAuth, upload.array('images', 10), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
@@ -65,7 +65,7 @@ router.post('/add-laptop', isAuth, upload.array('images', 5), [
 
 // --- Monitor ---
 router.get('/add-monitor', isAuth, adminController.getAddMonitor);
-router.post('/add-monitor', isAuth, upload.array('images', 5), [
+router.post('/add-monitor', isAuth, upload.array('images', 10), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
@@ -83,7 +83,7 @@ router.post('/add-monitor', isAuth, upload.array('images', 5), [
 
 // --- Desktop ---
 router.get('/add-desktop', isAuth, adminController.getAddDesktop);
-router.post('/add-desktop', isAuth, upload.array('images', 5), [
+router.post('/add-desktop', isAuth, upload.array('images', 10), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
@@ -102,7 +102,7 @@ router.post('/add-desktop', isAuth, upload.array('images', 5), [
 
 // --- Accessories ---
 router.get('/add-accessories', isAuth, adminController.getAddAccessories);
-router.post('/add-accessories', isAuth, upload.array('images', 5), [
+router.post('/add-accessories', isAuth, upload.array('images', 10), [
     body('name', 'Invalid name').isString().isLength({ min: 3 }).trim(),
     body('price', 'Invalid price').isFloat(),
     body('mrp', 'Invalid MRP').isFloat(),
@@ -124,7 +124,7 @@ router.post('/add-accessories', isAuth, upload.array('images', 5), [
 router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
 
 // /admin/edit-product => POST
-router.post('/edit-product', isAuth, upload.array('images', 5), adminController.postEditProduct);
+router.post('/edit-product', isAuth, upload.array('images', 10), adminController.postEditProduct);
 
 // /admin/update-stock => POST
 router.post('/update-stock', isAuth, adminController.postUpdateStock);
