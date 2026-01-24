@@ -2,6 +2,9 @@ const User = require('../models/User');
 const axios = require('axios');
 
 exports.getLogin = (req, res) => {
+    if (req.session.isLoggedIn) {
+        return res.redirect('/');
+    }
     res.render('user/login', {
         pageTitle: 'Login',
         path: '/login',
@@ -10,6 +13,9 @@ exports.getLogin = (req, res) => {
 };
 
 exports.getSignup = (req, res) => {
+    if (req.session.isLoggedIn) {
+        return res.redirect('/');
+    }
     res.render('user/signup', {
         pageTitle: 'Signup',
         path: '/signup',

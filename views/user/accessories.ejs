@@ -18,9 +18,85 @@
             </nav>
 
             <!-- Hero Section -->
-            <div class="mb-8 rounded-2xl overflow-hidden relative h-[300px] group">
-                <img src="/images/hero-accessories.png" alt="Accessories Hero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            </div>
+            <% 
+            const brandConfig = {
+                'Logitech': {
+                    gradient: 'linear-gradient(135deg, #2F3640 0%, #353B48 50%, #718093 100%)',
+                    title: 'Logitech Master Series & G-Pro',
+                    subtitle: 'Brand New Precision.',
+                    desc: 'Experience the latest in productivity and gaming with brand new Logitech peripherals.',
+                    image: '/images/hero-accessories.png',
+                    badge: 'New Arrival',
+                    textGradient: 'from-gray-300 to-gray-100'
+                },
+                'Dell': {
+                    gradient: 'linear-gradient(135deg, #021B35 0%, #004E8F 50%, #007DB8 100%)',
+                    title: 'Dell Essential Peripherals',
+                    subtitle: 'Original & Reliable.',
+                    desc: 'Upgrade your setup with genuine, brand new Dell keyboards, mice, and docks.',
+                    image: '/images/hero-accessories.png',
+                    badge: 'Genuine Dell',
+                    textGradient: 'from-cyan-300 to-blue-200'
+                },
+                'HP': {
+                    gradient: 'linear-gradient(135deg, #002D3A 0%, #006D85 50%, #00A6C7 100%)',
+                    title: 'HP HyperX & Office',
+                    subtitle: 'Latest Models.',
+                    desc: 'From gaming headsets to office essentials, explore our brand new HP collection.',
+                    image: '/images/hero-accessories.png',
+                    badge: 'Brand New',
+                    textGradient: 'from-teal-300 to-emerald-200'
+                },
+                'Razer': {
+                    gradient: 'linear-gradient(135deg, #1A2408 0%, #44D62C 50%, #66FF4D 100%)',
+                    title: 'Razer Gaming Gear',
+                    subtitle: 'For Gamers. By Gamers.',
+                    desc: 'Unbox the ultimate gaming advantage with brand new Razer peripherals.',
+                    image: '/images/hero-accessories.png',
+                    badge: 'Gaming Elite',
+                    textGradient: 'from-green-400 to-lime-300'
+                },
+                'Default': {
+                    gradient: 'linear-gradient(135deg, #2C3E50 0%, #4CA1AF 100%)',
+                    title: 'Premium Computer Accessories',
+                    subtitle: '100% Brand New.',
+                    desc: 'Enhance your digital life with our collection of latest, sealed-in-box accessories.',
+                    image: '/images/hero-accessories.png',
+                    badge: 'New Collection',
+                    textGradient: 'from-blue-200 to-teal-200'
+                }
+            };
+
+            const config = (typeof currentBrand !== 'undefined' && brandConfig[currentBrand]) ? brandConfig[currentBrand] : brandConfig['Default'];
+            %>
+
+            <% if (config) { %>
+                <div class="mb-8 relative rounded-2xl overflow-hidden shadow-2xl min-h-[250px] md:min-h-[280px] grid grid-cols-1 md:grid-cols-2 items-center" style="background: <%= config.gradient %>;">
+                    <!-- Subtle Noise Overlay for Texture -->
+                    <div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg')"></div>
+
+                     <!-- Text Content (Left Column) -->
+                    <div class="p-8 md:pl-12 text-left relative z-20">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] font-bold tracking-widest uppercase mb-3 shadow-lg">
+                            <%= config.badge %>
+                        </span>
+                        <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-3 tracking-tight">
+                            <%= config.title %>
+                        </h1>
+                        <p class="text-xl md:text-2xl font-light text-gray-300 mb-4">
+                            <span class="bg-gradient-to-r <%= config.textGradient %> bg-clip-text text-transparent font-medium"><%= config.subtitle %></span>
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
+                            <%= config.desc %>
+                        </p>
+                    </div>
+
+                     <!-- Image (Right Column) -->
+                    <div class="h-full w-full flex items-end justify-center md:justify-end relative z-10 pr-0 md:pr-12 pb-0">
+                        <img src="<%= config.image %>" alt="<%= config.title %>" class="object-contain h-64 w-auto drop-shadow-2xl translate-y-2">
+                    </div>
+                </div>
+            <% } %>
 
             <div class="flex flex-col lg:flex-row gap-8">
                 
@@ -245,24 +321,25 @@
 
         async function shareProduct(name, url) {
             const fullUrl = window.location.origin + url;
-            if (navigator.share) {
+            
+            try {
+                await navigator.clipboard.writeText(fullUrl);
+                alert('Link copied to clipboard!');
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = fullUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
                 try {
-                    await navigator.share({
-                        title: name,
-                        text: `Check out this ${name} on Simtech Computers!`,
-                        url: fullUrl
-                    });
-                } catch (err) {
-                    console.log('Error sharing:', err);
-                }
-            } else {
-                // Fallback to clipboard
-                try {
-                    await navigator.clipboard.writeText(fullUrl);
+                    document.execCommand('copy');
                     alert('Link copied to clipboard!');
                 } catch (err) {
-                    console.error('Failed to copy:', err);
+                    console.error('Fallback copy failed:', err);
+                    alert('Failed to copy link. Please copy it manually: ' + fullUrl);
                 }
+                document.body.removeChild(textArea);
             }
         }
     </script>

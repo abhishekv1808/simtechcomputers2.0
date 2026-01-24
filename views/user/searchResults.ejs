@@ -107,24 +107,25 @@
     <script>
         async function shareProduct(name, url) {
             const fullUrl = window.location.origin + url;
-            if (navigator.share) {
+            
+            try {
+                await navigator.clipboard.writeText(fullUrl);
+                alert('Link copied to clipboard!');
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = fullUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
                 try {
-                    await navigator.share({
-                        title: name,
-                        text: `Check out this ${name} on Simtech Computers!`,
-                        url: fullUrl
-                    });
-                } catch (err) {
-                    console.log('Error sharing:', err);
-                }
-            } else {
-                // Fallback to clipboard
-                try {
-                    await navigator.clipboard.writeText(fullUrl);
+                    document.execCommand('copy');
                     alert('Link copied to clipboard!');
                 } catch (err) {
-                    console.error('Failed to copy:', err);
+                    console.error('Fallback copy failed:', err);
+                    alert('Failed to copy link. Please copy it manually: ' + fullUrl);
                 }
+                document.body.removeChild(textArea);
             }
         }
     </script>

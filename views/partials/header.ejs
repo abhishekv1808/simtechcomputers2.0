@@ -22,12 +22,12 @@
     </div>
 
     <!-- Main Header -->
-    <div class="bg-[#0071dc] py-1">
+    <div class="bg-gradient-to-r from-[#0071dc] to-[#005bb5] py-4 shadow-lg relative z-20">
         <div class="container mx-auto px-4 flex justify-between items-center max-w-7xl mx-auto">
             
             <!-- Mobile Menu Triggers (Hidden on Desktop) -->
             <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" class="text-white text-2xl mr-4"><i class="ri-menu-line"></i></button>
+                <button id="mobile-menu-btn" class="text-white text-2xl mr-4 hover:bg-white/10 p-2 rounded-full transition-colors"><i class="ri-menu-line"></i></button>
                 <a href="/" class="text-white text-xl font-bold flex items-center gap-2">
                 <i class="ri-shopping-bag-3-fill"></i>
                 <span>Simtech</span>
@@ -35,129 +35,97 @@
             </div>
 
             <!-- Logo (Left Desktop) -->
-            <div class="hidden md:block mr-8">
+            <div class="hidden md:block mr-12">
                 <a href="/" class="text-white text-2xl font-bold flex flex-col items-center leading-none group">
-                    <div class="bg-white text-[#0071dc] p-2 rounded-lg mb-1 shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="bg-white text-[#0071dc] p-2.5 rounded-xl mb-1 shadow-lg group-hover:scale-110 transition-transform duration-300">
                         <i class="ri-shopping-bag-3-fill text-3xl"></i>
                     </div>
-                    <span class="text-sm tracking-wide">SIMTECH</span>
+                    <span class="text-sm tracking-widest font-bold text-blue-50">SIMTECH</span>
                 </a>
             </div>
 
             <!-- Search Bar (Center Desktop) -->
-            <form action="/search" method="GET" class="hidden md:flex flex-1 max-w-2xl bg-white rounded-md mr-8 mx-auto relative">
-                <div class="relative min-w-[160px] border-r border-gray-200 bg-gray-50 h-full" id="categoryDropdown">
+            <form action="/search" method="GET" class="hidden md:flex flex-1 max-w-3xl bg-white rounded-full mr-12 mx-auto relative shadow-md border-2 border-transparent focus-within:border-blue-300 transition-all duration-300">
+                <div class="relative min-w-[170px] border-r border-gray-100 bg-gray-50/50 h-full rounded-l-full" id="categoryDropdown">
                     <input type="hidden" name="category" id="categoryInput" value="">
-                    <button type="button" class="w-full h-full px-4 py-2 flex items-center justify-between text-gray-600 text-sm hover:bg-gray-100 transition-colors focus:outline-none" onclick="toggleDropdown()">
-                        <span id="selectedCategory" class="flex items-center gap-2"><i class="ri-apps-line text-blue-500"></i> All Categories</span>
-                        <i class="ri-arrow-down-s-line text-gray-500 transition-transform duration-300" id="dropdownArrow"></i>
+                    <button type="button" class="w-full h-full px-5 py-2.5 flex items-center justify-between text-gray-700 text-sm font-medium hover:bg-gray-100/80 transition-colors focus:outline-none rounded-l-full" onclick="toggleDropdown()">
+                        <span id="selectedCategory" class="flex items-center gap-2 truncate"><i class="ri-apps-line text-[#0071dc]"></i> All Categories</span>
+                        <i class="ri-arrow-down-s-line text-gray-400 transition-transform duration-300" id="dropdownArrow"></i>
                     </button>
                     
                     <!-- Dropdown Menu -->
-                    <div id="dropdownMenu" class="absolute top-full left-0 w-[200px] bg-white border border-gray-100 shadow-lg rounded-b-lg z-50 transition-all duration-300 ease-in-out transform origin-top opacity-0 scale-95 invisible">
-                        <ul class="py-1">
-                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('', 'All Categories', 'ri-apps-line')">
+                    <div id="dropdownMenu" class="absolute top-full left-0 w-[220px] bg-white border border-gray-100 shadow-xl rounded-2xl mt-2 z-50 transition-all duration-300 ease-in-out transform origin-top opacity-0 scale-95 invisible overflow-hidden">
+                        <ul class="py-2">
+                            <li class="px-5 py-2.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('', 'All Categories', 'ri-apps-line')">
                                 <i class="ri-apps-line text-blue-500 text-lg"></i> All Categories
                             </li>
-                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('desktop', 'Desktops', 'ri-computer-line')">
+                            <li class="px-5 py-2.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('desktop', 'Desktops', 'ri-computer-line')">
                                 <i class="ri-computer-line text-blue-500 text-lg"></i> Desktops
                             </li>
-                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('laptop', 'Laptops', 'ri-macbook-line')">
+                            <li class="px-5 py-2.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('laptop', 'Laptops', 'ri-macbook-line')">
                                 <i class="ri-macbook-line text-indigo-500 text-lg"></i> Laptops
                             </li>
-                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('monitor', 'Monitors', 'ri-tv-2-line')">
+                            <li class="px-5 py-2.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('monitor', 'Monitors', 'ri-tv-2-line')">
                                 <i class="ri-tv-2-line text-purple-500 text-lg"></i> Monitors
                             </li>
-                            <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('accessory', 'Accessories', 'ri-headphone-line')">
+                            <li class="px-5 py-2.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-sm text-gray-700 transition-colors" onclick="selectCategory('accessory', 'Accessories', 'ri-headphone-line')">
                                 <i class="ri-headphone-line text-teal-500 text-lg"></i> Accessories
                             </li>
                         </ul>
                     </div>
                 </div>
-                <script>
-                    function toggleDropdown() {
-                        const menu = document.getElementById('dropdownMenu');
-                        const arrow = document.getElementById('dropdownArrow');
-                        
-                        if (menu.classList.contains('opacity-0')) {
-                            // Open
-                            menu.classList.remove('opacity-0', 'scale-95', 'invisible');
-                            menu.classList.add('opacity-100', 'scale-100', 'visible');
-                            arrow.classList.add('rotate-180');
-                        } else {
-                            // Close
-                            menu.classList.add('opacity-0', 'scale-95', 'invisible');
-                            menu.classList.remove('opacity-100', 'scale-100', 'visible');
-                            arrow.classList.remove('rotate-180');
-                        }
-                    }
-
-                    function selectCategory(value, text, iconClass) {
-                        document.getElementById('categoryInput').value = value;
-                        document.getElementById('selectedCategory').innerHTML = `<i class="${iconClass} text-blue-500"></i> ${text}`;
-                        toggleDropdown();
-                    }
-
-                    // Close dropdown when clicking outside
-                    document.addEventListener('click', function(event) {
-                        const dropdown = document.getElementById('categoryDropdown');
-                        const menu = document.getElementById('dropdownMenu');
-                        const arrow = document.getElementById('dropdownArrow');
-                        if (!dropdown.contains(event.target)) {
-                            if (!menu.classList.contains('opacity-0')) {
-                                menu.classList.add('opacity-0', 'scale-95', 'invisible');
-                                menu.classList.remove('opacity-100', 'scale-100', 'visible');
-                                arrow.classList.remove('rotate-180');
-                            }
-                        }
-                    });
-                </script>
-                <input type="text" name="q" placeholder="Search For Products..." class="flex-1 px-4 py-2 outline-gray-200 text-gray-700">
-                <button type="submit" class="bg-blue-600 text-white px-6 hover:bg-blue-700 transition-colors">
-                    <i class="ri-search-line text-xl"></i>
+                
+                <input type="text" name="q" placeholder="Search for products, brands and more..." class="flex-1 px-5 py-2.5 outline-none text-gray-700 placeholder-gray-400 bg-transparent">
+                <button type="submit" class="bg-[#0071dc] text-white px-8 rounded-r-full hover:bg-blue-700 transition-all duration-300 flex items-center justify-center group">
+                    <i class="ri-search-line text-xl group-hover:scale-110 transition-transform"></i>
                 </button>
             </form>
 
             <!-- Right Actions -->
-            <div class="flex items-center space-x-6 text-white">
-                <div class="hidden md:block text-right text-sm">
-                    <div class="text-blue-200 text-xs">Contact Us</div>
-                    <div class="font-semibold">+91 98867 86706</div>
+            <div class="flex items-center space-x-4 text-white">
+                <div class="hidden xl:block text-right text-sm mr-4">
+                    <div class="text-blue-100 text-xs font-medium mb-0.5">Need Help?</div>
+                    <div class="font-bold text-white tracking-wide">+91 98867 86706</div>
                 </div>
-                <div class="text-2xl cursor-pointer hover:text-blue-100 relative">
-                    <i class="ri-heart-line"></i>
-                </div>
-                    <a href="/cart" class="text-2xl cursor-pointer hover:text-blue-100 relative">
-                        <i class="ri-shopping-cart-2-line"></i>
+                
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all cursor-pointer group relative" title="Wishlist">
+                        <i class="ri-heart-line text-2xl group-hover:text-pink-300 transition-colors"></i>
+                    </div>
+
+                    <a href="/cart" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all cursor-pointer group relative" title="Cart">
+                        <i class="ri-shopping-cart-2-line text-2xl group-hover:text-yellow-300 transition-colors"></i>
                         <% if (cartCount > 0) { %>
-                            <span class="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"><%= cartCount %></span>
+                            <span class="absolute -top-1 -right-1 bg-yellow-400 text-blue-900 text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-md border-2 border-[#0071dc]"><%= cartCount %></span>
                         <% } %>
                     </a>
-                <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
-                     <a href="/profile" class="text-2xl cursor-pointer hover:text-blue-100 relative mr-2" title="My Profile">
-                        <i class="ri-user-settings-line"></i>
-                    </a>
-                    <a href="/logout" class="text-2xl cursor-pointer hover:text-blue-100 relative inline-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Logout">
-                        <i class="ri-logout-box-r-line"></i>
-                    </a>
-                    <form id="logout-form" action="/logout" method="POST" style="display: none;"></form>
-                <% } else { %>
-                    <a href="/login" class="text-2xl cursor-pointer hover:text-blue-100" title="Login">
-                        <i class="ri-user-line"></i>
-                    </a>
-                <% } %>
+
+                    <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+                         <a href="/profile" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all cursor-pointer group relative" title="My Profile">
+                            <i class="ri-user-settings-line text-2xl group-hover:text-green-300 transition-colors"></i>
+                        </a>
+                        <a href="/logout" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all cursor-pointer group relative" onclick="event.preventDefault(); showLogoutModal();" title="Logout">
+                            <i class="ri-logout-box-r-line text-2xl group-hover:text-red-300 transition-colors"></i>
+                        </a>
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;"></form>
+                    <% } else { %>
+                        <a href="/login" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all ml-2 backdrop-blur-sm border border-white/10" title="Login">
+                            <i class="ri-user-line text-xl"></i>
+                            <span class="text-sm font-semibold">Login</span>
+                        </a>
+                    <% } %>
+                </div>
             </div>
         </div>
         
         <!-- Mobile Search (Visible on Mobile) -->
-        <div class="md:hidden container mx-auto px-4 mt-4">
-            <form action="/search" method="GET" class="flex bg-white rounded-md overflow-hidden">
-                <input type="text" name="q" placeholder="Search..." class="flex-1 px-4 py-2 outline-none text-gray-700">
-                <button type="submit" class="bg-blue-700 text-white px-4">
+        <div class="md:hidden container mx-auto px-4 mt-4 pb-2">
+            <form action="/search" method="GET" class="flex bg-white rounded-full overflow-hidden shadow-md">
+                <input type="text" name="q" placeholder="Search..." class="flex-1 px-5 py-2.5 outline-none text-gray-700">
+                <button type="submit" class="bg-[#0071dc] text-white px-5">
                     <i class="ri-search-line"></i>
                 </button>
             </form>
-        </div>
         </div>
     </div>
 
@@ -206,6 +174,36 @@
     </div>
 
 </header>
+
+<!-- Logout Confirmation Modal -->
+<div id="logout-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="hideLogoutModal()"></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="ri-alert-line text-red-600 text-xl"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Logout Confirmation</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Are you sure you want to logout? You will need to login again to access your account.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onclick="confirmLogout()">Logout</button>
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onclick="hideLogoutModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Top Bar -->
 
 <script>
@@ -281,5 +279,21 @@
 
     if (mobileMenuBackdrop) {
         mobileMenuBackdrop.addEventListener('click', closeMenu);
+    }
+
+    // Logout Modal Logic
+    const logoutModal = document.getElementById('logout-modal');
+
+    function showLogoutModal() {
+        if (logoutModal) logoutModal.classList.remove('hidden');
+    }
+
+    function hideLogoutModal() {
+        if (logoutModal) logoutModal.classList.add('hidden');
+    }
+
+    function confirmLogout() {
+        const form = document.getElementById('logout-form');
+        if (form) form.submit();
     }
 </script>

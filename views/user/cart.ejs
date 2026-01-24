@@ -12,139 +12,152 @@
             
             <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
 
-            <div class="flex flex-col lg:flex-row gap-8">
-                
-                <!-- Cart Items List -->
-                <div class="lg:w-2/3">
-                    <% if (cartItems.length > 0) { %>
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <!-- Desktop Header -->
-                            <div class="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 border-b border-gray-200 text-sm font-semibold text-gray-600">
-                                <div class="col-span-6">Product</div>
-                                <div class="col-span-2 text-center">Price</div>
-                                <div class="col-span-2 text-center">Quantity</div>
-                                <div class="col-span-2 text-center">Total</div>
-                            </div>
-
-                            <!-- Items -->
-                            <div class="divide-y divide-gray-100">
-                                <% cartItems.forEach(item => { %>
-                                <div class="p-4 md:p-6 flex flex-col md:grid md:grid-cols-12 gap-4 items-center group">
-                                    <!-- Product Info -->
-                                    <div class="w-full md:col-span-6 flex gap-4 items-center">
-                                        <div class="w-20 h-20 bg-gray-50 rounded-lg p-2 flex-shrink-0 border border-gray-100">
-                                            <img src="<%= optimizeImage(item.image) %>" alt="<%= item.name %>" class="w-full h-full object-contain mix-blend-multiply">
-                                        </div>
-                                        <div>
-                                            <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
-                                            <p class="text-xs text-gray-500 mb-2">Condition: Good | Warranty: 6 Months</p>
-                                            <form action="/cart/delete" method="POST">
-                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
-                                                <button type="submit" class="text-red-500 text-xs font-semibold hover:underline flex items-center gap-1">
-                                                    <i class="ri-delete-bin-line"></i> Remove
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                    <!-- Price -->
-                                    <div class="w-full md:col-span-2 md:text-center flex justify-between md:block">
-                                        <span class="md:hidden text-gray-500 text-sm">Price:</span>
-                                        <span class="font-bold text-gray-900">₹<%= item.price.toLocaleString('en-IN') %></span>
-                                    </div>
-
-                                    <!-- Quantity -->
-                                    <div class="w-full md:col-span-2 md:text-center flex justify-between md:justify-center">
-                                        <span class="md:hidden text-gray-500 text-sm">Quantity:</span>
-                                        <div class="flex items-center border border-gray-200 rounded-lg bg-white">
-                                            <form action="/cart/update" method="POST" class="m-0 flex">
-                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
-                                                <input type="hidden" name="action" value="decrease">
-                                                <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-l-lg">-</button>
-                                            </form>
-                                            <input type="text" value="<%= item.quantity %>" class="w-10 text-center text-sm font-semibold border-x border-gray-200 focus:outline-none py-1" readonly>
-                                            <form action="/cart/update" method="POST" class="m-0 flex">
-                                                <input type="hidden" name="productId" value="<%= item.product_id %>">
-                                                <input type="hidden" name="action" value="increase">
-                                                <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-r-lg">+</button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                    <!-- Total -->
-                                    <div class="w-full md:col-span-2 md:text-center flex justify-between md:block">
-                                        <span class="md:hidden text-gray-500 text-sm">Total:</span>
-                                        <span class="font-bold text-[#0071dc]">₹<%= (item.price * item.quantity).toLocaleString('en-IN') %></span>
-                                    </div>
+            <% if (isAuthenticated) { %>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    
+                    <!-- Cart Items List -->
+                    <div class="<%= cartItems.length > 0 ? 'lg:w-2/3' : 'w-full' %>">
+                        <% if (cartItems.length > 0) { %>
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                                <!-- Desktop Header -->
+                                <div class="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 border-b border-gray-200 text-sm font-semibold text-gray-600">
+                                    <div class="col-span-6">Product</div>
+                                    <div class="col-span-2 text-center">Price</div>
+                                    <div class="col-span-2 text-center">Quantity</div>
+                                    <div class="col-span-2 text-center">Total</div>
                                 </div>
-                                <% }); %>
+    
+                                <!-- Items -->
+                                <div class="divide-y divide-gray-100">
+                                    <% cartItems.forEach(item => { %>
+                                    <div class="p-4 md:p-6 flex flex-col md:grid md:grid-cols-12 gap-4 items-center group">
+                                        <!-- Product Info -->
+                                        <div class="w-full md:col-span-6 flex gap-4 items-center">
+                                            <div class="w-20 h-20 bg-gray-50 rounded-lg p-2 flex-shrink-0 border border-gray-100">
+                                                <img src="<%= optimizeImage(item.image) %>" alt="<%= item.name %>" class="w-full h-full object-contain mix-blend-multiply">
+                                            </div>
+                                            <div>
+                                                <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
+                                                <p class="text-xs text-gray-500 mb-2">Condition: Good | Warranty: 6 Months</p>
+                                                <form action="/cart/delete" method="POST">
+                                                    <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                    <button type="submit" class="text-red-500 text-xs font-semibold hover:underline flex items-center gap-1">
+                                                        <i class="ri-delete-bin-line"></i> Remove
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+    
+                                        <!-- Price -->
+                                        <div class="w-full md:col-span-2 md:text-center flex justify-between md:block">
+                                            <span class="md:hidden text-gray-500 text-sm">Price:</span>
+                                            <span class="font-bold text-gray-900">₹<%= item.price.toLocaleString('en-IN') %></span>
+                                        </div>
+    
+                                        <!-- Quantity -->
+                                        <div class="w-full md:col-span-2 md:text-center flex justify-between md:justify-center">
+                                            <span class="md:hidden text-gray-500 text-sm">Quantity:</span>
+                                            <div class="flex items-center border border-gray-200 rounded-lg bg-white">
+                                                <form action="/cart/update" method="POST" class="m-0 flex">
+                                                    <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                    <input type="hidden" name="action" value="decrease">
+                                                    <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-l-lg">-</button>
+                                                </form>
+                                                <input type="text" value="<%= item.quantity %>" class="w-10 text-center text-sm font-semibold border-x border-gray-200 focus:outline-none py-1" readonly>
+                                                <form action="/cart/update" method="POST" class="m-0 flex">
+                                                    <input type="hidden" name="productId" value="<%= item.product_id %>">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <button type="submit" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-black transition-colors rounded-r-lg">+</button>
+                                                </form>
+                                            </div>
+                                        </div>
+    
+                                        <!-- Total -->
+                                        <div class="w-full md:col-span-2 md:text-center flex justify-between md:block">
+                                            <span class="md:hidden text-gray-500 text-sm">Total:</span>
+                                            <span class="font-bold text-[#0071dc]">₹<%= (item.price * item.quantity).toLocaleString('en-IN') %></span>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="mt-6 flex justify-between items-center">
-                            <a href="/" class="text-gray-600 hover:text-[#0071dc] font-semibold flex items-center gap-2 transition-colors">
-                                <i class="ri-arrow-left-line"></i> Continue Shopping
-                            </a>
-                        </div>
-                    <% } else { %>
-                         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-                            <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <i class="ri-shopping-cart-2-line text-4xl text-gray-300"></i>
+    
+                            <div class="mt-6 flex justify-between items-center">
+                                <a href="/" class="text-gray-600 hover:text-[#0071dc] font-semibold flex items-center gap-2 transition-colors">
+                                    <i class="ri-arrow-left-line"></i> Continue Shopping
+                                </a>
                             </div>
-                            <h2 class="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-                            <p class="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
-                            <a href="/" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#0071dc] hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl">
-                                Start Shopping
-                            </a>
-                        </div>
-                    <% } %>
-                </div>
-
-                <!-- Order Summary -->
-                <% if (cartItems.length > 0) { %>
-                <div class="lg:w-1/3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
-                        <h2 class="text-lg font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">Order Summary</h2>
-                        
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between text-gray-600">
-                                <span>Subtotal</span>
-                                <span class="font-semibold">₹<%= subtotal.toLocaleString('en-IN') %></span>
+                        <% } else { %>
+                             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center max-w-2xl mx-auto">
+                                <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <i class="ri-shopping-cart-2-line text-4xl text-gray-300"></i>
+                                </div>
+                                <h2 class="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+                                <p class="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
+                                <a href="/" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#0071dc] hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl">
+                                    Start Shopping
+                                </a>
                             </div>
-                            <div class="flex justify-between text-gray-600">
-                                <span>Shipping</span>
-                                <span class="text-green-600 font-semibold">Free</span>
+                        <% } %>
+                    </div>
+    
+                    <!-- Order Summary -->
+                    <% if (cartItems.length > 0) { %>
+                    <div class="lg:w-1/3">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                            <h2 class="text-lg font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">Order Summary</h2>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Subtotal</span>
+                                    <span class="font-semibold">₹<%= subtotal.toLocaleString('en-IN') %></span>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Shipping</span>
+                                    <span class="text-green-600 font-semibold">Free</span>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Tax (18% GST)</span>
+                                    <span class="font-semibold">₹<%= tax.toLocaleString('en-IN') %></span>
+                                </div>
                             </div>
-                            <div class="flex justify-between text-gray-600">
-                                <span>Tax (18% GST)</span>
-                                <span class="font-semibold">₹<%= tax.toLocaleString('en-IN') %></span>
+    
+                            <div class="border-t border-gray-100 pt-4 mb-6">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-lg font-bold text-gray-900">Total</span>
+                                    <span class="text-2xl font-bold text-[#0071dc]">₹<%= total.toLocaleString('en-IN') %></span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
                             </div>
-                        </div>
-
-                        <div class="border-t border-gray-100 pt-4 mb-6">
-                            <div class="flex justify-between items-end">
-                                <span class="text-lg font-bold text-gray-900">Total</span>
-                                <span class="text-2xl font-bold text-[#0071dc]">₹<%= total.toLocaleString('en-IN') %></span>
+    
+                            <button class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                                Proceed to Checkout <i class="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                            
+                            <div class="mt-6 flex items-center justify-center gap-4 opacity-50 grayscale">
+                                 <!-- Payment Icons Placeholders -->
+                                 <i class="ri-visa-line text-2xl"></i>
+                                 <i class="ri-mastercard-line text-2xl"></i>
+                                 <i class="ri-paypal-line text-2xl"></i>
+                                 <i class="ri-bank-card-line text-2xl"></i>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
-                        </div>
-
-                        <button class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 group">
-                            Proceed to Checkout <i class="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
-                        </button>
-                        
-                        <div class="mt-6 flex items-center justify-center gap-4 opacity-50 grayscale">
-                             <!-- Payment Icons Placeholders -->
-                             <i class="ri-visa-line text-2xl"></i>
-                             <i class="ri-mastercard-line text-2xl"></i>
-                             <i class="ri-paypal-line text-2xl"></i>
-                             <i class="ri-bank-card-line text-2xl"></i>
                         </div>
                     </div>
+                    <% } %>
+    
                 </div>
-                <% } %>
-
-            </div>
+            <% } else { %>
+                <div class="flex flex-col items-center justify-center py-20 bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-lock-2-line text-4xl text-[#0071dc]"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Login Required</h2>
+                    <p class="text-gray-500 mb-8 text-center max-w-md">Please login to view your shopping cart and proceed with your purchase.</p>
+                    <a href="/login" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#0071dc] hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl gap-2">
+                        <i class="ri-login-box-line"></i> Login Now
+                    </a>
+                </div>
+            <% } %>
         </div>
     </main>
 
