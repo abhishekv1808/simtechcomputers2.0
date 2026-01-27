@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body
-    class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300"
+    class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-red-500 selection:text-white transition-colors duration-300"
   >
     <%- include('./includes/navigation') %>
 
@@ -31,19 +31,19 @@
           <div class="flex items-center gap-3">
             <a
               href="/admin/add-laptop"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all"
+              class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-900/50 transition-all"
             >
               <i class="ri-macbook-line"></i> Add Laptop
             </a>
             <a
               href="/admin/add-monitor"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all"
+              class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-900/50 transition-all"
             >
               <i class="ri-tv-line"></i> Add Monitor
             </a>
             <a
               href="/admin/add-desktop"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-blue-900/50 transition-all"
+              class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-900/50 transition-all"
             >
               <i class="ri-computer-line"></i> Add Desktop
             </a>
@@ -82,7 +82,7 @@
             </div>
             <!-- Glow Effect (Dark Mode Only usually, but subtle in light) -->
             <div
-              class="absolute -right-6 -bottom-6 w-24 h-24 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-all"
+              class="absolute -right-6 -bottom-6 w-24 h-24 bg-red-500/10 rounded-full blur-xl group-hover:bg-red-500/20 transition-all"
             ></div>
           </div>
 
@@ -139,14 +139,14 @@
               >
             </div>
             <div
-              class="flex items-center gap-2 text-xs text-blue-500 relative z-10"
+              class="flex items-center gap-2 text-xs text-red-500 relative z-10"
             >
               <i class="ri-message-3-line"></i>
               <span>Needs Response</span>
             </div>
             <!-- Glow Effect -->
             <div
-              class="absolute -right-6 -bottom-6 w-24 h-24 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-all"
+              class="absolute -right-6 -bottom-6 w-24 h-24 bg-red-500/10 rounded-full blur-xl group-hover:bg-red-500/20 transition-all"
             ></div>
           </div>
 
@@ -338,7 +338,7 @@
                       <td
                         class="py-4 pr-6 text-right text-[var(--admin-text-muted)] group-hover:text-[var(--admin-text-main)] cursor-pointer"
                       >
-                        <a href="/admin/edit-<%= product.category %>/<%= product._id %>?edit=true" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/20 transition-all" title="Edit Product">
+                        <a href="/admin/edit-<%= product.category %>/<%= product._id %>?edit=true" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 transition-all" title="Edit Product">
                           <i class="ri-pencil-line text-lg"></i>
                         </a>
                       </td>
@@ -379,7 +379,7 @@
                   {
                       label: 'Views',
                       data: <%- JSON.stringify(chartData.views) %>,
-                      backgroundColor: '#0071dc',
+                      backgroundColor: '#a51c30',
                       borderRadius: 4,
                       barThickness: 30,
                   }
@@ -410,7 +410,7 @@
               labels: ['Laptops', 'Desktops', 'Monitors'],
               datasets: [{
                   data: [<%= categoryCounts.laptop %>, <%= categoryCounts.desktop %>, <%= categoryCounts.monitor %>],
-                  backgroundColor: ['#0071dc', '#3b82f6', '#10b981'],
+                  backgroundColor: ['#a51c30', '#3b82f6', '#10b981'],
                   borderWidth: 0,
                   cutout: '80%'
               }]

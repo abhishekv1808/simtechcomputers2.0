@@ -12,7 +12,7 @@
             
             <!-- Breadcrumb -->
             <nav class="flex mb-8 text-sm text-gray-500">
-                <a href="/" class="hover:text-[#0071dc]">Home</a>
+                <a href="/" class="hover:text-[#a51c30]">Home</a>
                 <span class="mx-2">/</span>
                 <span class="text-gray-900 font-medium">Accessories</span>
             </nav>
@@ -36,7 +36,7 @@
                     desc: 'Upgrade your setup with genuine, brand new Dell keyboards, mice, and docks.',
                     image: '/images/hero-accessories.png',
                     badge: 'Genuine Dell',
-                    textGradient: 'from-cyan-300 to-blue-200'
+                    textGradient: 'from-cyan-300 to-red-200'
                 },
                 'HP': {
                     gradient: 'linear-gradient(135deg, #002D3A 0%, #006D85 50%, #00A6C7 100%)',
@@ -63,7 +63,7 @@
                     desc: 'Enhance your digital life with our collection of latest, sealed-in-box accessories.',
                     image: '/images/hero-accessories.png',
                     badge: 'New Collection',
-                    textGradient: 'from-blue-200 to-teal-200'
+                    textGradient: 'from-red-200 to-teal-200'
                 }
             };
 
@@ -106,7 +106,7 @@
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-lg font-bold text-gray-900">Filters</h2>
                             <h2 class="text-lg font-bold text-gray-900">Filters</h2>
-                            <a href="/accessories" class="text-sm text-[#0071dc] hover:underline">Clear All</a>
+                            <a href="/accessories" class="text-sm text-[#a51c30] hover:underline">Clear All</a>
                         </div>
 
                         <!-- Price Range -->
@@ -115,19 +115,19 @@
                             <div class="space-y-2">
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="Under ₹1,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Under ₹1,000') : currentFilters.price === 'Under ₹1,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="price" value="Under ₹1,000" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Under ₹1,000') : currentFilters.price === 'Under ₹1,000') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">Under ₹1,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="₹1,000 - ₹5,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹1,000 - ₹5,000') : currentFilters.price === '₹1,000 - ₹5,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="price" value="₹1,000 - ₹5,000" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹1,000 - ₹5,000') : currentFilters.price === '₹1,000 - ₹5,000') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">₹1,000 - ₹5,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="₹5,000 - ₹10,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹5,000 - ₹10,000') : currentFilters.price === '₹5,000 - ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="price" value="₹5,000 - ₹10,000" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('₹5,000 - ₹10,000') : currentFilters.price === '₹5,000 - ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">₹5,000 - ₹10,000</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="price" value="Above ₹10,000" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Above ₹10,000') : currentFilters.price === 'Above ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="price" value="Above ₹10,000" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.price && (Array.isArray(currentFilters.price) ? currentFilters.price.includes('Above ₹10,000') : currentFilters.price === 'Above ₹10,000') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">Above ₹10,000</span>
                                 </label>
                             </div>
@@ -139,19 +139,19 @@
                             <div class="space-y-2">
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="Logitech" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Logitech') : currentFilters.brand === 'Logitech') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="brand" value="Logitech" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Logitech') : currentFilters.brand === 'Logitech') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">Logitech</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="Dell" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Dell') : currentFilters.brand === 'Dell') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="brand" value="Dell" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Dell') : currentFilters.brand === 'Dell') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">Dell</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="HP" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('HP') : currentFilters.brand === 'HP') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="brand" value="HP" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('HP') : currentFilters.brand === 'HP') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">HP</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="brand" value="Razer" class="rounded border-gray-300 text-[#0071dc] focus:ring-blue-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Razer') : currentFilters.brand === 'Razer') ? 'checked' : '' %> onchange="applyFilters()">
+                                    <input type="checkbox" name="brand" value="Razer" class="rounded border-gray-300 text-[#a51c30] focus:ring-red-100" <%= currentFilters.brand && (Array.isArray(currentFilters.brand) ? currentFilters.brand.includes('Razer') : currentFilters.brand === 'Razer') ? 'checked' : '' %> onchange="applyFilters()">
                                     <span class="text-sm text-gray-600">Razer</span>
                                 </label>
                             </div>
@@ -168,7 +168,7 @@
                         <h1 class="text-2xl font-bold text-gray-900"><%= currentBrand !== 'All' ? currentBrand + ' Accessories' : 'All Accessories' %> <span class="text-gray-500 text-lg font-normal ml-2">(<%= products.length %> items)</span></h1>
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-gray-600">Sort by:</span>
-                            <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#0071dc]">
+                            <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#a51c30]">
                                 <option>Featured</option>
                                 <option>Price: Low to High</option>
                                 <option>Price: High to Low</option>
@@ -191,7 +191,7 @@
                                         <div class="border border-green-300 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded bg-green-50">
                                             -<%= product.discount %>%
                                         </div>
-                                        <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.slug %>')" class="text-gray-400 hover:text-[#0071dc] transition-colors z-20">
+                                        <button onclick="event.preventDefault(); shareProduct('<%= product.name %>', '/product/<%= product.slug %>')" class="text-gray-400 hover:text-[#a51c30] transition-colors z-20">
                                             <i class="ri-share-forward-line text-lg"></i>
                                         </button>
                                     </div>
@@ -201,7 +201,7 @@
                                 </div>
                                 <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                                 <div class="flex items-center gap-2 mb-4">
-                                    <span class="bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
+                                    <span class="bg-red-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
                                     <div class="flex items-center gap-1 border border-gray-200 px-1.5 py-0.5 rounded textxs font-bold text-gray-700 bg-gray-50">
                                         <%= product.rating %> <i class="ri-star-fill text-yellow-400 text-[10px]"></i>
                                     </div>
@@ -212,12 +212,18 @@
                                 </div>
                             </a>
                             <% if (product.inStock) { %>
-                                <form action="/cart" method="POST">
-                                    <input type="hidden" name="productId" value="<%= product._id %>">
-                                    <button type="submit" class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md z-20">
+                                <% if (isAuthenticated) { %>
+                                    <form action="/cart" method="POST">
+                                        <input type="hidden" name="productId" value="<%= product._id %>">
+                                        <button type="submit" class="absolute bottom-4 right-4 bg-[#a51c30] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-md z-20">
+                                            <i class="ri-shopping-cart-2-line"></i>
+                                        </button>
+                                    </form>
+                                <% } else { %>
+                                    <button type="button" onclick="showLoginModal()" class="absolute bottom-4 right-4 bg-[#a51c30] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-md z-20">
                                         <i class="ri-shopping-cart-2-line"></i>
                                     </button>
-                                </form>
+                                <% } %>
                             <% } else { %>
                                 <button disabled class="absolute bottom-4 right-4 bg-gray-200 text-gray-400 w-8 h-8 rounded-full flex items-center justify-center cursor-not-allowed z-20">
                                     <i class="ri-shopping-cart-2-line"></i>
@@ -238,7 +244,7 @@
                              <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">
                                 <i class="ri-arrow-left-s-line"></i>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center bg-[#0071dc] text-white font-bold">1</a>
+                            <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center bg-[#a51c30] text-white font-bold">1</a>
                             <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">2</a>
                             <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center border border-gray-300 text-gray-600 hover:bg-gray-50">3</a>
                             <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
@@ -254,7 +260,7 @@
             <div class="mt-20">
                 <div class="flex justify-between items-end mb-8">
                     <h2 class="text-2xl font-bold text-gray-900">You May Also Like</h2>
-                    <a href="#" class="text-[#0071dc] font-semibold hover:underline flex items-center gap-1 text-sm">
+                    <a href="#" class="text-[#a51c30] font-semibold hover:underline flex items-center gap-1 text-sm">
                         View All <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
@@ -275,7 +281,7 @@
                         </div>
                         <h3 class="font-bold text-gray-900 text-base leading-snug mb-3 line-clamp-2"><%= product.name %></h3>
                         <div class="flex items-center gap-2 mb-4">
-                            <span class="bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
+                            <span class="bg-red-700 text-white text-[10px] font-bold px-2 py-1 rounded">Best Price Guaranteed</span>
                             <div class="flex items-center gap-1 border border-gray-200 px-1.5 py-0.5 rounded textxs font-bold text-gray-700 bg-gray-50">
                                 <%= product.rating %> <i class="ri-star-fill text-yellow-400 text-[10px]"></i>
                             </div>
@@ -285,12 +291,18 @@
                             <span class="text-gray-400 text-xs line-through">₹<%= product.mrp.toLocaleString('en-IN') %></span>
                         </div>
                         <% if (product.inStock) { %>
-                            <form action="/cart" method="POST">
-                                <input type="hidden" name="productId" value="<%= product._id %>">
-                                <button type="submit" class="absolute bottom-4 right-4 bg-[#0071dc] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors shadow-md">
+                            <% if (isAuthenticated) { %>
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button type="submit" class="absolute bottom-4 right-4 bg-[#a51c30] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-md">
+                                        <i class="ri-shopping-cart-2-line"></i>
+                                    </button>
+                                </form>
+                            <% } else { %>
+                                <button type="button" onclick="showLoginModal()" class="absolute bottom-4 right-4 bg-[#a51c30] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-md">
                                     <i class="ri-shopping-cart-2-line"></i>
                                 </button>
-                            </form>
+                            <% } %>
                         <% } else { %>
                             <button disabled class="absolute bottom-4 right-4 bg-gray-200 text-gray-400 w-8 h-8 rounded-full flex items-center justify-center cursor-not-allowed">
                                 <i class="ri-shopping-cart-2-line"></i>

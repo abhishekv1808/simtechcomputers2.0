@@ -4,23 +4,23 @@
     <%- include('../partials/head') %>
   </head>
   <body
-    class="bg-[var(--admin-bg)] font-sans antialiased text-[var(--admin-text-main)] h-screen flex items-center justify-center overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300"
+    class="bg-[var(--admin-bg)] font-sans antialiased text-[var(--admin-text-main)] h-screen flex items-center justify-center overflow-hidden selection:bg-red-500 selection:text-white transition-colors duration-300"
   >
     <div
       class="bg-[var(--admin-card)] w-full max-w-6xl h-[85vh] rounded-3xl shadow-2xl overflow-hidden flex border border-[var(--admin-border)] relative"
     >
       <!-- Left Side: Illustration -->
       <div
-        class="hidden lg:flex w-1/2 bg-blue-50/50 dark:bg-blue-900/10 relative items-center justify-center p-12"
+        class="hidden lg:flex w-1/2 bg-red-50/50 dark:bg-red-900/10 relative items-center justify-center p-12"
       >
         <!-- Decorative Circles -->
         <div
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-200/20 dark:bg-red-500/10 rounded-full blur-3xl"
         ></div>
 
-        <div class="relative z-10 w-full max-w-md">
+        <div class="relative z-10 w-full max-w-xl">
           <img
-            src="https://cdni.iconscout.com/illustration/premium/thumb/man-working-on-laptop-illustration-download-in-svg-png-gif-file-formats--business-work-office-pack-people-illustrations-4550346.png"
+            src="/images/simtech-computers-admin-image.png"
             alt="Admin Login Illustration"
             class="w-full h-auto drop-shadow-2xl animate-float"
           />
@@ -53,7 +53,7 @@
           >
             <div class="flex items-center gap-3 mb-2">
               <div
-                class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center"
+                class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center"
               >
                 <i class="ri-shopping-bag-3-fill"></i>
               </div>
@@ -64,7 +64,7 @@
             <div class="text-xl font-bold text-[var(--admin-text-main)]">
               1,240
             </div>
-            <div class="text-xs text-blue-500 font-medium">+5% new orders</div>
+            <div class="text-xs text-red-500 font-medium">+5% new orders</div>
           </div>
         </div>
       </div>
@@ -75,24 +75,20 @@
       >
         <!-- Logo -->
         <div class="flex items-center gap-2 mb-8">
-          <div
-            class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg rotate-12 shadow-lg shadow-blue-900/50"
-          >
-            <i class="ri-command-fill"></i>
-          </div>
-          <span
-            class="text-[var(--admin-text-main)] text-xl font-bold tracking-tight font-heading"
-            >Simtech</span
-          >
+          <img
+            src="/images/simtech-computers-logo.svg"
+            alt="Simtech"
+            class="h-16 w-auto object-contain"
+          />
         </div>
 
         <!-- Header -->
         <div class="mb-8">
           <h2 class="text-2xl font-bold text-[var(--admin-text-main)] mb-2">
-            Welcome to Simtech! 👋
+            Simtech admin panel! 👋
           </h2>
           <p class="text-[var(--admin-text-muted)] text-sm">
-            Please sign-in to your account and start the adventure
+            Please sign-in to your account and start the operations
           </p>
         </div>
 
@@ -109,7 +105,7 @@
               id="email"
               name="email"
               placeholder="admin@simtech.com"
-              class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+              class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
               required
             />
           </div>
@@ -123,7 +119,7 @@
               >
               <a
                 href="#"
-                class="text-xs text-blue-600 hover:text-blue-700 font-bold"
+                class="text-xs text-red-600 hover:text-red-700 font-bold"
                 >Forgot Password?</a
               >
             </div>
@@ -133,12 +129,13 @@
                 id="password"
                 name="password"
                 placeholder="••••••••"
-                class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
                 required
               />
               <button
                 type="button"
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)]"
+                id="togglePassword"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] focus:outline-none"
               >
                 <i class="ri-eye-off-line"></i>
               </button>
@@ -150,7 +147,7 @@
               type="checkbox"
               id="remember"
               name="remember"
-              class="w-4 h-4 text-blue-600 bg-[var(--admin-bg)] border-[var(--admin-border)] rounded focus:ring-blue-500"
+              class="w-4 h-4 text-red-600 bg-[var(--admin-bg)] border-[var(--admin-border)] rounded focus:ring-red-500"
             />
             <label
               for="remember"
@@ -161,46 +158,11 @@
 
           <button
             type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-900/30 transition-all transform hover:-translate-y-0.5"
+            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-red-900/30 transition-all transform hover:-translate-y-0.5"
           >
             Sign in
           </button>
         </form>
-
-        <div class="mt-6 text-center">
-          <p class="text-sm text-[var(--admin-text-muted)]">
-            New on our platform?
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-bold"
-              >Create an account</a
-            >
-          </p>
-        </div>
-
-        <div class="my-6 flex items-center gap-4">
-          <div class="h-px bg-[var(--admin-border)] flex-grow"></div>
-          <span class="text-xs text-[var(--admin-text-muted)] uppercase"
-            >or</span
-          >
-          <div class="h-px bg-[var(--admin-border)] flex-grow"></div>
-        </div>
-
-        <div class="flex justify-center gap-4">
-          <button
-            class="w-10 h-10 rounded-lg bg-[var(--admin-bg)] border border-[var(--admin-border)] flex items-center justify-center text-[var(--admin-text-muted)] hover:text-[#1877F2] hover:border-[#1877F2]/30 hover:bg-[#1877F2]/5 transition-all"
-          >
-            <i class="ri-facebook-fill text-lg"></i>
-          </button>
-          <button
-            class="w-10 h-10 rounded-lg bg-[var(--admin-bg)] border border-[var(--admin-border)] flex items-center justify-center text-[var(--admin-text-muted)] hover:text-[#1DA1F2] hover:border-[#1DA1F2]/30 hover:bg-[#1DA1F2]/5 transition-all"
-          >
-            <i class="ri-twitter-x-fill text-lg"></i>
-          </button>
-          <button
-            class="w-10 h-10 rounded-lg bg-[var(--admin-bg)] border border-[var(--admin-border)] flex items-center justify-center text-[var(--admin-text-muted)] hover:text-[#DB4437] hover:border-[#DB4437]/30 hover:bg-[#DB4437]/5 transition-all"
-          >
-            <i class="ri-google-fill text-lg"></i>
-          </button>
-        </div>
       </div>
     </div>
 
@@ -231,5 +193,27 @@
         animation-delay: 1s;
       }
     </style>
+
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+
+      togglePassword.addEventListener("click", function (e) {
+        // toggle the type attribute
+        const type =
+          password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the eye slash icon
+        const icon = this.querySelector("i");
+        if (type === "password") {
+          icon.classList.remove("ri-eye-line");
+          icon.classList.add("ri-eye-off-line");
+        } else {
+          icon.classList.remove("ri-eye-off-line");
+          icon.classList.add("ri-eye-line");
+        }
+      });
+    </script>
   </body>
 </html>

@@ -2,6 +2,7 @@ const express = require('express');
 const userRouter = express.Router();
 const { getHome, getContactUs, postContactUs, getAboutUs, getLaptops, getDesktops, getMonitors, getAccessories, getProductDetails, getCart, addToCart, removeFromCart, getBlogPost, getSearch, getBlogs } = require('../controllers/userController');
 const { check } = require('express-validator');
+const isUserAuth = require('../middleware/is-user-auth');
 
 
 userRouter.get('/', getHome);
@@ -39,9 +40,15 @@ userRouter.get('/monitors', getMonitors);
 userRouter.get('/accessories', getAccessories);
 userRouter.get('/product/:slug', getProductDetails);
 userRouter.get('/blog/:id', getBlogPost);
-userRouter.get('/cart', getCart);
-userRouter.post('/cart', addToCart);
-userRouter.post('/cart/delete', removeFromCart);
-userRouter.post('/cart/update', require('../controllers/userController').updateCartQuantity);
+userRouter.get('/cart', isUserAuth, getCart);
+userRouter.post('/cart', isUserAuth, addToCart);
+userRouter.post('/cart/delete', isUserAuth, removeFromCart);
+userRouter.post('/cart/update', isUserAuth, require('../controllers/userController').updateCartQuantity);
+
+// Payment Routes
+const paymentController = require('../controllers/paymentController');
+userRouter.get('/checkout', isUserAuth, require('../controllers/userController').getCheckout);
+userRouter.post('/create-order', isUserAuth, paymentController.createOrder);
+userRouter.post('/verify-payment', isUserAuth, paymentController.verifyPayment);
 
 module.exports = userRouter;

@@ -1,68 +1,67 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-    --font-heading: 'Outfit', sans-serif;
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --color-admin-bg: #0b0c15;
-    --color-admin-card: #15161e;
-    --color-admin-text: #9ca3af;
-    --color-accent-purple: #7e3af2;
+  --font-heading: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --color-admin-bg: #0b0c15;
+  --color-admin-card: #15161e;
+  --color-admin-text: #9ca3af;
+  --color-accent-purple: #a51c30;
 }
 
 @layer base {
-    :root {
-        /* Light Theme Defaults (Forced) */
-        --admin-bg: #f3f4f6;
-        --admin-card: #ffffff;
-        --admin-text-main: #111827;
-        --admin-text-muted: #6b7280;
-        --admin-border: #e5e7eb;
-        --admin-hover: #f9fafb;
+  :root {
+    /* Light Theme Defaults (Forced) */
+    --admin-bg: #f3f4f6;
+    --admin-card: #ffffff;
+    --admin-text-main: #111827;
+    --admin-text-muted: #6b7280;
+    --admin-border: #e5e7eb;
+    --admin-hover: #f9fafb;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--admin-bg);
+    color: var(--admin-text-main);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
     }
 
-    body {
-        font-family: var(--font-sans);
-        background-color: var(--admin-bg);
-        color: var(--admin-text-main);
+    100% {
+      transform: translateX(-50%);
     }
+  }
 
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .font-heading {
-        font-family: var(--font-heading);
-    }
-
-    @keyframes marquee {
-        0% {
-            transform: translateX(0);
-        }
-
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-
-    .animate-marquee {
-        animation: marquee 30s linear infinite;
-    }
-
-    .animate-marquee:hover {
-        animation-play-state: paused;
-    }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
 }
 
 @layer utilities {
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

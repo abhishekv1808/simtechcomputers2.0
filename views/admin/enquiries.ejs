@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 </head>
-<body class="bg-[var(--admin-bg)] text-[var(--admin-text-main)] font-sans antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-[var(--admin-bg)] text-[var(--admin-text-main)] font-sans antialiased selection:bg-red-500 selection:text-white">
 
     <div class="flex h-screen overflow-hidden">
         <%- include('includes/navigation') %>
@@ -43,7 +43,7 @@
                                                 <!-- Date & Customer -->
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="flex items-center">
-                                                        <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                                                        <div class="h-10 w-10 rounded-full bg-gradient-to-br from-red-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
                                                             <%= enquiry.name.charAt(0).toUpperCase() %>
                                                         </div>
                                                         <div class="ml-4">
@@ -62,14 +62,14 @@
                                                 <!-- Contact Info -->
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="flex flex-col gap-1">
-                                                        <a href="tel:<%= enquiry.phone %>" class="text-sm text-[var(--admin-text-main)] hover:text-blue-600 flex items-center gap-2 transition-colors">
-                                                            <div class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
+                                                        <a href="tel:<%= enquiry.phone %>" class="text-sm text-[var(--admin-text-main)] hover:text-red-600 flex items-center gap-2 transition-colors">
+                                                            <div class="w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-xs">
                                                                 <i class="ri-phone-fill"></i>
                                                             </div>
                                                             <%= enquiry.phone %>
                                                         </a>
                                                         <% if (enquiry.email) { %>
-                                                            <a href="mailto:<%= enquiry.email %>" class="text-sm text-[var(--admin-text-muted)] hover:text-blue-600 flex items-center gap-2 transition-colors">
+                                                            <a href="mailto:<%= enquiry.email %>" class="text-sm text-[var(--admin-text-muted)] hover:text-red-600 flex items-center gap-2 transition-colors">
                                                                 <div class="w-6 h-6 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs">
                                                                     <i class="ri-mail-line"></i>
                                                                 </div>
@@ -86,7 +86,7 @@
                                                         <% if (enquiry.brand || enquiry.model) { %>
                                                             <div class="flex items-center gap-2 flex-wrap">
                                                                 <% if (enquiry.brand) { %>
-                                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-100 text-red-800 border border-red-200">
                                                                         <%= enquiry.brand %>
                                                                     </span>
                                                                 <% } %>
@@ -120,7 +120,7 @@
                                                         <!-- Purpose -->
                                                         <% if (enquiry.purpose) { %>
                                                             <div class="mt-1">
-                                                                <span class="inline-flex items-center gap-1 text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                                                <span class="inline-flex items-center gap-1 text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">
                                                                     <i class="ri-focus-3-line"></i> <%= enquiry.purpose %>
                                                                 </span>
                                                             </div>

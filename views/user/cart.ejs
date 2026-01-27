@@ -8,7 +8,7 @@
     <%- include('../partials/header') %>
 
     <main class="flex-grow py-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-2">
             
             <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
 
@@ -33,11 +33,11 @@
                                     <div class="p-4 md:p-6 flex flex-col md:grid md:grid-cols-12 gap-4 items-center group">
                                         <!-- Product Info -->
                                         <div class="w-full md:col-span-6 flex gap-4 items-center">
-                                            <div class="w-20 h-20 bg-gray-50 rounded-lg p-2 flex-shrink-0 border border-gray-100">
+                                            <div class="w-30 h-30 bg-gray-50 rounded-lg p-2 flex-shrink-0 border border-gray-100">
                                                 <img src="<%= optimizeImage(item.image) %>" alt="<%= item.name %>" class="w-full h-full object-contain mix-blend-multiply">
                                             </div>
                                             <div>
-                                                <h3 class="font-bold text-gray-900 text-base md:text-lg mb-1 hover:text-[#0071dc] transition-colors"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
+                                                <h3 class="font-semibold text-gray-900  md:text-sm mb-1 hover:text-[#a51c30] transition-colors"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
                                                 <p class="text-xs text-gray-500 mb-2">Condition: Good | Warranty: 6 Months</p>
                                                 <form action="/cart/delete" method="POST">
                                                     <input type="hidden" name="productId" value="<%= item.product_id %>">
@@ -75,7 +75,7 @@
                                         <!-- Total -->
                                         <div class="w-full md:col-span-2 md:text-center flex justify-between md:block">
                                             <span class="md:hidden text-gray-500 text-sm">Total:</span>
-                                            <span class="font-bold text-[#0071dc]">₹<%= (item.price * item.quantity).toLocaleString('en-IN') %></span>
+                                            <span class="font-bold text-[#a51c30]">₹<%= (item.price * item.quantity).toLocaleString('en-IN') %></span>
                                         </div>
                                     </div>
                                     <% }); %>
@@ -83,7 +83,7 @@
                             </div>
     
                             <div class="mt-6 flex justify-between items-center">
-                                <a href="/" class="text-gray-600 hover:text-[#0071dc] font-semibold flex items-center gap-2 transition-colors">
+                                <a href="/" class="text-gray-600 hover:text-[#a51c30] font-semibold flex items-center gap-2 transition-colors">
                                     <i class="ri-arrow-left-line"></i> Continue Shopping
                                 </a>
                             </div>
@@ -94,7 +94,7 @@
                                 </div>
                                 <h2 class="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
                                 <p class="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
-                                <a href="/" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#0071dc] hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl">
+                                <a href="/" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#a51c30] hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl">
                                     Start Shopping
                                 </a>
                             </div>
@@ -125,14 +125,14 @@
                             <div class="border-t border-gray-100 pt-4 mb-6">
                                 <div class="flex justify-between items-end">
                                     <span class="text-lg font-bold text-gray-900">Total</span>
-                                    <span class="text-2xl font-bold text-[#0071dc]">₹<%= total.toLocaleString('en-IN') %></span>
+                                    <span class="text-2xl font-bold text-[#a51c30]">₹<%= total.toLocaleString('en-IN') %></span>
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
                             </div>
     
-                            <button class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                            <a href="/checkout" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 group">
                                 Proceed to Checkout <i class="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
-                            </button>
+                            </a>
                             
                             <div class="mt-6 flex items-center justify-center gap-4 opacity-50 grayscale">
                                  <!-- Payment Icons Placeholders -->
@@ -148,12 +148,12 @@
                 </div>
             <% } else { %>
                 <div class="flex flex-col items-center justify-center py-20 bg-white rounded-xl shadow-sm border border-gray-200">
-                    <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-lock-2-line text-4xl text-[#0071dc]"></i>
+                    <div class="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-lock-2-line text-4xl text-[#a51c30]"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-3">Login Required</h2>
                     <p class="text-gray-500 mb-8 text-center max-w-md">Please login to view your shopping cart and proceed with your purchase.</p>
-                    <a href="/login" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#0071dc] hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl gap-2">
+                    <a href="/login" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-[#a51c30] hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl gap-2">
                         <i class="ri-login-box-line"></i> Login Now
                     </a>
                 </div>

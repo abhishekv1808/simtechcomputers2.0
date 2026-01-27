@@ -100,6 +100,28 @@ exports.getProducts = async (req, res) => {
     }
 };
 
+exports.getSearchProducts = async (req, res) => {
+    const query = req.query.query;
+    try {
+        let products;
+        if (query) {
+            // Case-insensitive search by name
+            products = await Product.find({ name: { $regex: query, $options: 'i' } });
+        } else {
+            products = await Product.find();
+        }
+        
+        res.render('admin/products', {
+            pageTitle: 'Search Results',
+            path: '/admin/products',
+            products: products
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/admin/dashboard');
+    }
+};
+
 exports.getEnquiries = async (req, res) => {
     try {
         const enquiries = await Enquiry.find().sort({ date: -1 });

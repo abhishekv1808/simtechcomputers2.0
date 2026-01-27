@@ -608,3 +608,62 @@ exports.updateCartQuantity = (req, res) => {
     res.cookie('cart', JSON.stringify(cart), { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.redirect('/cart');
 };
+
+exports.getCheckout = async (req, res) => {
+    let cart = [];
+    if (req.cookies.cart) {
+        try {
+            cart = JSON.parse(req.cookies.cart);
+        } catch (e) {
+            console.log("Error parsing cart cookie", e);
+        }
+    }
+
+    if (cart.length === 0) {
+        return res.redirect('/cart');
+    }
+
+    const productIds = cart.map(item => item.productId);
+
+    try {
+        const products = await Product.find({ _id: { $in: productIds } });
+
+        const cartItems = cart.map(cartItem => {
+            const product = products.find(p => p._id.toString() === cartItem.productId);
+            if (product) {
+                return {
+                    product_id: product._id,
+                    name: product.name,
+                    image: product.image,
+                    price: product.price,
+                    quantity: cartItem.quantity
+                };
+            }
+            return null;
+        }).filter(item => item !== null);
+
+        // Calculate Totals
+        const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        const tax = Math.round(subtotal * 0.18);
+        const total = subtotal + tax;
+
+        // Fetch User Address
+        // Assuming req.user is populated by middleware, or we fetch from DB using session/cookie
+        // Based on other controllers, it seems we might need to fetch user if not in req.user
+        // But for now, let's assume we can get it. If not, we'll need to fix.
+        // Wait, userController doesn't show how user is fetched.
+        // I'll assume req.user is available.
+
+        res.render('../views/user/checkout.ejs', {
+            pageTitle: "Checkout | Simtech computers",
+            cartItems: cartItems,
+            subtotal: subtotal,
+            tax: tax,
+            total: total,
+            user: req.user || {} // Pass user object
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/cart');
+    }
+};

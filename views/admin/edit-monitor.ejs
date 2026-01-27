@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 </head>
-<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300">
+<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-red-500 selection:text-white transition-colors duration-300">
 
     <%- include('./includes/navigation') %>
 
@@ -34,7 +34,7 @@
                         <!-- Brand -->
                         <div>
                             <label for="brand" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Brand</label>
-                             <select name="brand" id="brand" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                             <select name="brand" id="brand" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors" required>
                                 <option value="" disabled selected>Select Brand</option>
                                 <option value="Dell" <%= oldInput.brand === 'Dell' ? 'selected' : '' %>>Dell</option>
                                 <option value="LG" <%= oldInput.brand === 'LG' ? 'selected' : '' %>>LG</option>
@@ -48,7 +48,7 @@
                         <!-- Name -->
                         <div>
                             <label for="name" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Monitor Name</label>
-                            <input type="text" name="name" id="name" value="<%= oldInput.name %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors placeholder-gray-400" placeholder="e.g. Dell UltraSharp 24 inch" required>
+                            <input type="text" name="name" id="name" value="<%= oldInput.name %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors placeholder-gray-400" placeholder="e.g. Dell UltraSharp 24 inch" required>
                         </div>
 
 
@@ -56,13 +56,13 @@
                          <!-- MRP -->
                         <div>
                             <label for="mrp" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">MRP (₹)</label>
-                            <input type="number" name="mrp" id="mrp" value="<%= oldInput.mrp %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                            <input type="number" name="mrp" id="mrp" value="<%= oldInput.mrp %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors" required>
                         </div>
 
                          <!-- Price -->
                          <div>
                             <label for="price" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Selling Price (₹)</label>
-                            <input type="number" name="price" id="price" value="<%= oldInput.price %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                            <input type="number" name="price" id="price" value="<%= oldInput.price %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors" required>
                         </div>
 
 
@@ -72,7 +72,7 @@
                          <!-- Quantity -->
                          <div>
                             <label for="quantity" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Stock Quantity</label>
-                            <input type="number" name="quantity" id="quantity" value="<%= oldInput.quantity %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors" required>
+                            <input type="number" name="quantity" id="quantity" value="<%= oldInput.quantity %>" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors" required>
                         </div>
 
                         <!-- Hidden Fields -->
@@ -85,7 +85,7 @@
                         <!-- Screen Size -->
                         <div>
                             <label for="screenSize" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Screen Size</label>
-                             <select name="screenSize" id="screenSize" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                             <select name="screenSize" id="screenSize" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors">
                                 <option value="21.5 inch" <%= oldInput.screenSize === '21.5 inch' ? 'selected' : '' %>>21.5 inch</option>
                                 <option value="24 inch" <%= oldInput.screenSize === '24 inch' ? 'selected' : '' %>>24 inch</option>
                                 <option value="27 inch" <%= oldInput.screenSize === '27 inch' ? 'selected' : '' %>>27 inch</option>
@@ -96,7 +96,7 @@
                          <!-- Panel Type -->
                          <div>
                             <label for="panelType" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Panel Type</label>
-                            <select name="panelType" id="panelType" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                            <select name="panelType" id="panelType" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors">
                                 <option value="IPS" <%= oldInput.panelType === 'IPS' ? 'selected' : '' %>>IPS</option>
                                 <option value="TN" <%= oldInput.panelType === 'TN' ? 'selected' : '' %>>TN</option>
                                 <option value="VA" <%= oldInput.panelType === 'VA' ? 'selected' : '' %>>VA</option>
@@ -107,7 +107,7 @@
                         <!-- Refresh Rate -->
                         <div>
                              <label for="refreshRate" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Refresh Rate</label>
-                            <select name="refreshRate" id="refreshRate" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                            <select name="refreshRate" id="refreshRate" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors">
                                 <option value="60Hz" <%= oldInput.refreshRate === '60Hz' ? 'selected' : '' %>>60Hz</option>
                                 <option value="75Hz" <%= oldInput.refreshRate === '75Hz' ? 'selected' : '' %>>75Hz</option>
                                 <option value="144Hz" <%= oldInput.refreshRate === '144Hz' ? 'selected' : '' %>>144Hz</option>
@@ -119,7 +119,7 @@
                          <!-- Resolution (Display) -->
                          <div>
                              <label for="display" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Resolution</label>
-                            <select name="display" id="display" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors">
+                            <select name="display" id="display" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors">
                                 <option value="Full HD (1920x1080)" <%= oldInput.display === 'Full HD (1920x1080)' ? 'selected' : '' %>>Full HD (1920x1080)</option>
                                 <option value="2K QHD (2560x1440)" <%= oldInput.display === '2K QHD (2560x1440)' ? 'selected' : '' %>>2K QHD (2560x1440)</option>
                                 <option value="4K UHD (3840x2160)" <%= oldInput.display === '4K UHD (3840x2160)' ? 'selected' : '' %>>4K UHD (3840x2160)</option>
@@ -159,11 +159,11 @@
                         <div class="col-span-full">
                             <label class="block text-sm font-bold text-[var(--admin-text-muted)] mb-4">Upload New Images (Optional)</label>
                             
-                            <div id="drop-zone" class="w-full h-64 border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group" onclick="document.getElementById('file-input').click()">
+                            <div id="drop-zone" class="w-full h-64 border-2 border-dashed border-[var(--admin-border)] hover:border-red-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group" onclick="document.getElementById('file-input').click()">
                                 <input type="file" name="images" id="file-input" class="hidden" accept="image/*" multiple>
                                 
                                 <div class="text-center transition-transform group-hover:scale-105 z-10 pointer-events-none">
-                                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <i class="ri-upload-cloud-2-line text-3xl"></i>
                                     </div>
                                     <p class="text-[var(--admin-text-main)] font-bold text-lg">Click to update or drag and drop</p>
@@ -180,14 +180,14 @@
                          <!-- Description -->
                          <div class="col-span-full">
                             <label for="description" class="block text-sm font-bold text-[var(--admin-text-muted)] mb-2">Description</label>
-                            <textarea name="description" id="description" rows="5" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#0071dc] transition-colors"><%= oldInput.description %></textarea>
+                            <textarea name="description" id="description" rows="5" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-4 py-3 focus:outline-none focus:border-[#a51c30] transition-colors"><%= oldInput.description %></textarea>
                         </div>
 
                     </div>
 
                     <div class="pt-6 border-t border-[var(--admin-border)] flex justify-end gap-4">
                         <a href="/admin/products" class="px-6 py-3 rounded-lg border border-[var(--admin-border)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text-main)] hover:bg-[var(--admin-hover)] font-bold transition-all">Cancel</a>
-                        <button type="submit" class="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-900/50 transition-all">
+                        <button type="submit" class="px-8 py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-900/50 transition-all">
                             Update Monitor
                         </button>
                     </div>
@@ -244,7 +244,7 @@
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                dropZone.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/10');
             }, false);
         });
 
@@ -252,7 +252,7 @@
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                dropZone.classList.remove('border-red-500', 'bg-red-50', 'dark:bg-red-900/10');
             }, false);
         });
 

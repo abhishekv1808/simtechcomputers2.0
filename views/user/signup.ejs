@@ -4,15 +4,15 @@
 <main class="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
     <!-- Background Decoration -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-red-200/30 blur-3xl"></div>
         <div class="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-purple-200/30 blur-3xl"></div>
     </div>
 
     <div class="max-w-md w-full space-y-8 relative z-10">
         <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 border border-white/50">
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-                    <i class="ri-user-add-line text-3xl text-blue-600"></i>
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                    <i class="ri-user-add-line text-3xl text-red-600"></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Create Account</h2>
                 <p class="mt-2 text-sm text-gray-600">Join us to get started</p>
@@ -34,7 +34,7 @@
                                 <i class="ri-user-line text-gray-400"></i>
                             </div>
                             <input type="text" name="name" id="name" required 
-                                class="pl-10 block w-full rounded-lg border-gray-300 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2.5 transition-colors duration-200 ease-in-out" 
+                                class="pl-10 block w-full rounded-lg border-gray-300 bg-gray-50 border focus:bg-white focus:border-red-500 focus:ring-red-500 sm:text-sm py-2.5 transition-colors duration-200 ease-in-out" 
                                 placeholder="John Doe">
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <i class="ri-map-pin-line text-gray-400"></i>
                             </div>
                             <input type="text" name="location" id="location" required 
-                                class="pl-10 block w-full rounded-lg border-gray-300 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2.5 transition-colors duration-200 ease-in-out" 
+                                class="pl-10 block w-full rounded-lg border-gray-300 bg-gray-50 border focus:bg-white focus:border-red-500 focus:ring-red-500 sm:text-sm py-2.5 transition-colors duration-200 ease-in-out" 
                                 placeholder="City, Country">
                         </div>
                     </div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="text-center mt-6">
-                <a href="/login" class="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                <a href="/login" class="font-medium text-red-600 hover:text-red-500 transition-colors duration-200">
                     Sign in instead
                 </a>
             </div>
@@ -108,11 +108,11 @@
             const hint = document.getElementById('verifyHint');
             
             btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
-            btn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer', 'shadow-md', 'transform', 'hover:-translate-y-0.5');
+            btn.classList.add('bg-red-600', 'hover:bg-red-700', 'cursor-pointer', 'shadow-md', 'transform', 'hover:-translate-y-0.5');
             btn.disabled = false;
             btn.innerHTML = `
                 <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                    <i class="ri-check-line text-blue-200 group-hover:text-blue-100"></i>
+                    <i class="ri-check-line text-red-200 group-hover:text-red-100"></i>
                 </span>
                 Complete Registration
             `;

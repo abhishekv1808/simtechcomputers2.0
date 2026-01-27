@@ -4,16 +4,12 @@
 >
   <!-- Logo Area -->
   <div class="h-24 flex items-center px-6 transition-all duration-300">
-    <div class="flex items-center gap-3">
-      <div
-        class="w-8 h-8 rounded-lg bg-[#0071dc] flex items-center justify-center text-white font-bold text-lg rotate-12 shadow-lg shadow-blue-900/50 flex-shrink-0"
-      >
-        <i class="ri-command-fill"></i>
-      </div>
-      <span
-        class="sidebar-text text-[var(--admin-text-main)] text-xl font-bold tracking-tight font-heading whitespace-nowrap transition-all duration-300 overflow-hidden"
-        >Simtech</span
-      >
+    <div class="flex items-center gap-3 mx-auto">
+      <img
+        src="/images/simtech-computers-logo.svg"
+        alt="Simtech"
+        class="sidebar-text h-12 w-auto object-contain transition-all duration-300 overflow-hidden"
+      />
     </div>
     <button
       id="sidebarToggle"
@@ -38,7 +34,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/dashboard' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-dashboard-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/dashboard' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-dashboard-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/dashboard' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -50,7 +46,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/products' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-store-2-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/products' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-store-2-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/products' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -62,7 +58,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-laptop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-macbook-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-laptop' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-macbook-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-laptop' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -74,7 +70,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-monitor' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-tv-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-monitor' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-tv-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-monitor' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -86,7 +82,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-desktop' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-computer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-desktop' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-computer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-desktop' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -98,7 +94,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/add-accessories' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-keyboard-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-accessories' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-keyboard-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/add-accessories' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -121,7 +117,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/enquiries' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-question-answer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/enquiries' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-question-answer-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/enquiries' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -133,7 +129,7 @@
           class="flex items-center px-4 py-3 rounded-xl transition-all group whitespace-nowrap <%= path === '/admin/send-notification' ? 'bg-[var(--admin-hover)] text-[var(--admin-text-main)]' : 'hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-main)]' %>"
         >
           <i
-            class="ri-notification-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/send-notification' ? 'text-blue-500' : 'text-[var(--admin-text-muted)] group-hover:text-blue-400' %>"
+            class="ri-notification-3-line mr-3 text-lg flex-shrink-0 <%= path === '/admin/send-notification' ? 'text-red-500' : 'text-[var(--admin-text-muted)] group-hover:text-red-400' %>"
           ></i>
           <span
             class="sidebar-text font-medium text-sm transition-all duration-300 overflow-hidden"
@@ -145,13 +141,15 @@
   </div>
 
   <!-- User Profile Bottom -->
-  <div class="p-6 border-t border-[var(--admin-border)]">
+  <div
+    class="p-6 border-t border-[var(--admin-border)] flex items-center justify-between gap-2"
+  >
     <a
       href="/"
-      class="flex items-center gap-3 hover:bg-[var(--admin-hover)] p-2 rounded-xl transition-colors whitespace-nowrap"
+      class="flex items-center gap-3 hover:bg-[var(--admin-hover)] p-2 rounded-xl transition-colors whitespace-nowrap flex-grow overflow-hidden group"
     >
       <div
-        class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-500 p-[2px] flex-shrink-0"
+        class="w-10 h-10 rounded-full bg-gradient-to-tr from-red-500 to-cyan-500 p-[2px] flex-shrink-0"
       >
         <div
           class="w-full h-full rounded-full bg-[var(--admin-bg)] border-2 border-transparent overflow-hidden"
@@ -166,17 +164,91 @@
       <div
         class="sidebar-text flex-grow transition-all duration-300 overflow-hidden"
       >
-        <h4 class="text-[var(--admin-text-main)] text-sm font-bold">
+        <h4
+          class="text-[var(--admin-text-main)] text-sm font-bold group-hover:text-red-500 transition-colors"
+        >
           Admin User
         </h4>
         <p class="text-xs text-[var(--admin-text-muted)]">View Store</p>
       </div>
-      <i
-        class="ri-logout-box-r-line text-[var(--admin-text-muted)] flex-shrink-0"
-      ></i>
     </a>
+    <button
+      onclick="showLogoutModal()"
+      class="p-2 hover:bg-red-50 text-[var(--admin-text-muted)] hover:text-red-600 rounded-xl transition-colors flex-shrink-0"
+      title="Logout"
+    >
+      <i class="ri-logout-box-r-line text-xl"></i>
+    </button>
   </div>
 </nav>
+
+<!-- Logout Confirmation Modal -->
+<div
+  id="logoutModal"
+  class="fixed inset-0 z-[100] hidden"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Backdrop -->
+  <div
+    class="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity opacity-0 duration-300 ease-out"
+    id="logoutBackdrop"
+  ></div>
+
+  <!-- Modal Content -->
+  <div class="flex min-h-full items-center justify-center p-4 text-center">
+    <div
+      class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all scale-95 opacity-0 duration-300 ease-out sm:w-full sm:max-w-sm"
+      id="logoutContent"
+    >
+      <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div
+            class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+          >
+            <i class="ri-logout-circle-line text-red-600 text-xl"></i>
+          </div>
+          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+            <h3
+              class="text-base font-semibold leading-6 text-gray-900"
+              id="modal-title"
+            >
+              Sign Out Confirmation
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                Are you sure you want to sign out? You will need to login again
+                to access the admin dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+        <form
+          action="/admin/logout"
+          method="POST"
+          class="inline-block w-full sm:w-auto sm:ml-3"
+        >
+          <button
+            type="submit"
+            class="inline-flex w-full justify-center rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto transition-colors"
+          >
+            Sign Out
+          </button>
+        </form>
+        <button
+          type="button"
+          onclick="hideLogoutModal()"
+          class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -226,4 +298,33 @@
       }
     }
   });
+
+  // Logout Modal Functions
+  function showLogoutModal() {
+    const modal = document.getElementById("logoutModal");
+    const backdrop = document.getElementById("logoutBackdrop");
+    const content = document.getElementById("logoutContent");
+
+    modal.classList.remove("hidden");
+    // Small delay to allow display:block to apply before opacity transition
+    setTimeout(() => {
+      backdrop.classList.remove("opacity-0");
+      content.classList.remove("opacity-0", "scale-95");
+      content.classList.add("opacity-100", "scale-100");
+    }, 10);
+  }
+
+  function hideLogoutModal() {
+    const modal = document.getElementById("logoutModal");
+    const backdrop = document.getElementById("logoutBackdrop");
+    const content = document.getElementById("logoutContent");
+
+    backdrop.classList.add("opacity-0");
+    content.classList.remove("opacity-100", "scale-100");
+    content.classList.add("opacity-0", "scale-95");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+    }, 300); // Match transition duration
+  }
 </script>

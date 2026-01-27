@@ -39,6 +39,9 @@ router.get('/dashboard', isAuth, adminController.getDashboard);
 // /admin/products => GET
 router.get('/products', isAuth, adminController.getProducts);
 
+// /admin/search => GET
+router.get('/search', isAuth, adminController.getSearchProducts);
+
 // /admin/enquiries => GET
 router.get('/enquiries', isAuth, adminController.getEnquiries);
 

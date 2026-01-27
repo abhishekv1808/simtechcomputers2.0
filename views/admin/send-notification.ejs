@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 </head>
-<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-blue-500 selection:text-white transition-colors duration-300">
+<body class="bg-[var(--admin-bg)] flex font-sans antialiased text-[var(--admin-text-main)] h-screen overflow-hidden selection:bg-red-500 selection:text-white transition-colors duration-300">
 
     <%- include('./includes/navigation') %>
 
@@ -64,7 +64,7 @@
                         <!-- Section 1: Notification Details -->
                         <div class="bg-[var(--admin-card)] rounded-xl border border-[var(--admin-border)] p-6 shadow-sm">
                             <h3 class="text-lg font-bold text-[var(--admin-text-main)] mb-4 flex items-center gap-2">
-                                <i class="ri-notification-3-line text-blue-500"></i> Notification Details
+                                <i class="ri-notification-3-line text-red-500"></i> Notification Details
                             </h3>
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
@@ -73,7 +73,7 @@
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <i class="ri-group-line text-gray-400"></i>
                                         </div>
-                                        <select name="audience" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors appearance-none">
+                                        <select name="audience" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors appearance-none">
                                             <option value="all">All Subscribers</option>
                                         </select>
                                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -87,13 +87,13 @@
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <i class="ri-notification-badge-line text-gray-400"></i>
                                         </div>
-                                        <input type="text" name="title" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. Big Sale Starting Now!" required>
+                                        <input type="text" name="title" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors" placeholder="e.g. Big Sale Starting Now!" required>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Message Body</label>
                                     <div class="relative">
-                                        <textarea name="body" rows="4" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none" placeholder="e.g. Get 50% off on all Laptops. Limited time offer." required></textarea>
+                                        <textarea name="body" rows="4" class="w-full bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none" placeholder="e.g. Get 50% off on all Laptops. Limited time offer." required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -108,11 +108,11 @@
                                 <!-- Large Image (Banner) -->
                                 <div>
                                     <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Large Image (Banner)</label>
-                                    <div id="drop-zone-image" class="w-full h-[200px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                    <div id="drop-zone-image" class="w-full h-[200px] border-2 border-dashed border-[var(--admin-border)] hover:border-red-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
                                         <input type="file" name="image" id="file-input-image" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
                                         <div class="text-center pointer-events-none">
-                                            <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                                                <i class="ri-image-line text-2xl text-blue-500"></i>
+                                            <div class="w-12 h-12 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                                                <i class="ri-image-line text-2xl text-red-500"></i>
                                             </div>
                                             <p class="text-[var(--admin-text-main)] font-medium text-sm">Banner Image</p>
                                             <p class="text-[var(--admin-text-muted)] text-xs mt-1">Click to upload or drag and drop</p>
@@ -124,7 +124,7 @@
                                 <!-- Notification Icon -->
                                 <div>
                                     <label class="block text-xs font-bold text-[var(--admin-text-muted)] uppercase tracking-wider mb-2">Notification Icon (Optional)</label>
-                                    <div id="drop-zone-icon" class="w-full h-[200px] border-2 border-dashed border-[var(--admin-border)] hover:border-blue-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
+                                    <div id="drop-zone-icon" class="w-full h-[200px] border-2 border-dashed border-[var(--admin-border)] hover:border-red-500 rounded-xl flex flex-col items-center justify-center bg-[var(--admin-hover)]/30 transition-all cursor-pointer relative overflow-hidden group">
                                         <input type="file" name="icon" id="file-input-icon" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
                                         <div class="text-center pointer-events-none">
                                             <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
@@ -151,7 +151,7 @@
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <i class="ri-link text-gray-400"></i>
                                         </div>
-                                        <input type="text" name="url" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="e.g. /laptops or https://simtech.com/offers">
+                                        <input type="text" name="url" class="w-full pl-10 bg-[var(--admin-hover)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors" placeholder="e.g. /laptops or https://simtech.com/offers">
                                     </div>
                                 </div>
 
@@ -159,17 +159,17 @@
                                     <!-- Action 1 -->
                                     <div class="p-4 bg-[var(--admin-hover)]/30 rounded-xl border border-[var(--admin-border)]">
                                         <h4 class="text-sm font-bold text-[var(--admin-text-main)] mb-3 flex items-center gap-2">
-                                            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs">1</span>
+                                            <span class="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-xs">1</span>
                                             Action Button 1
                                         </h4>
                                         <div class="space-y-3">
                                             <div>
                                                 <label class="block text-xs text-[var(--admin-text-muted)] mb-1">Button Title</label>
-                                                <input type="text" name="action1_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="e.g. View Offer">
+                                                <input type="text" name="action1_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" placeholder="e.g. View Offer">
                                             </div>
                                             <div>
                                                 <label class="block text-xs text-[var(--admin-text-muted)] mb-1">Action URL</label>
-                                                <input type="text" name="action1_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="e.g. /offers">
+                                                <input type="text" name="action1_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" placeholder="e.g. /offers">
                                             </div>
                                         </div>
                                     </div>
@@ -177,17 +177,17 @@
                                     <!-- Action 2 -->
                                     <div class="p-4 bg-[var(--admin-hover)]/30 rounded-xl border border-[var(--admin-border)]">
                                         <h4 class="text-sm font-bold text-[var(--admin-text-main)] mb-3 flex items-center gap-2">
-                                            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs">2</span>
+                                            <span class="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-xs">2</span>
                                             Action Button 2
                                         </h4>
                                         <div class="space-y-3">
                                             <div>
                                                 <label class="block text-xs text-[var(--admin-text-muted)] mb-1">Button Title</label>
-                                                <input type="text" name="action2_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="e.g. Call Now">
+                                                <input type="text" name="action2_title" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" placeholder="e.g. Call Now">
                                             </div>
                                             <div>
                                                 <label class="block text-xs text-[var(--admin-text-muted)] mb-1">Action URL</label>
-                                                <input type="text" name="action2_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="e.g. tel:+1234567890">
+                                                <input type="text" name="action2_url" class="w-full bg-[var(--admin-bg)] border border-[var(--admin-border)] text-[var(--admin-text-main)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" placeholder="e.g. tel:+1234567890">
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                     </div>
 
                     <div class="pt-6 mt-6 border-t border-[var(--admin-border)] flex justify-end gap-3">
-                        <button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2">
+                        <button type="submit" class="px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-bold shadow-lg shadow-red-900/20 transition-all flex items-center gap-2">
                             <i class="ri-send-plane-fill"></i> Send Notification
                         </button>
                     </div>
@@ -219,7 +219,7 @@
                 dropZone.addEventListener(eventName, (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    dropZone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                    dropZone.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/10');
                 }, false);
             });
 
@@ -227,7 +227,7 @@
                 dropZone.addEventListener(eventName, (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    dropZone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+                    dropZone.classList.remove('border-red-500', 'bg-red-50', 'dark:bg-red-900/10');
                 }, false);
             });
 
